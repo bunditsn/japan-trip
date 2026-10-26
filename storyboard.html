@@ -85,25 +85,26 @@
     .day-filmstrip{display:flex;gap:3px;overflow-x:auto;scrollbar-width:thin;padding:4px 0 12px;margin-bottom:14px;border-bottom:1px solid var(--gray-200);}
     .day-filmstrip::-webkit-scrollbar{height:3px;}
     .day-filmstrip::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:2px;}
-    .filmstrip-cell{flex-shrink:0;width:72px;height:128px;border-radius:3px;position:relative;overflow:hidden;cursor:pointer;border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);transition:transform 0.15s,box-shadow 0.15s;}
+    .filmstrip-cell{flex-shrink:0;width:128px;height:72px;border-radius:3px;position:relative;overflow:hidden;cursor:pointer;border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);transition:transform 0.15s,box-shadow 0.15s;}
     .filmstrip-cell:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,0.25);z-index:2;}
     .filmstrip-cell svg{position:absolute;top:0;left:0;width:100%;height:100%;}
     .fc-label{position:absolute;bottom:0;left:0;right:0;font-size:8px;text-align:center;color:white;background:rgba(0,0,0,0.5);padding:1px 2px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;overflow:hidden;font-family:-apple-system,sans-serif;}
     .mindset-note{background:#f0fdf4;border-left:3px solid var(--gift-green);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#1a4731;margin-bottom:14px;font-style:italic;}
     .mindset-note strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--gift-green);margin-bottom:3px;font-style:normal;font-weight:700;}
     .shot-list{display:flex;flex-direction:column;gap:8px;}
-    .shot-row{display:grid;grid-template-columns:180px 1fr;align-items:stretch;border-radius:10px;overflow:hidden;font-size:13px;}
+    .shot-row{display:grid;grid-template-columns:240px 1fr;align-items:stretch;border-radius:10px;overflow:hidden;font-size:13px;}
     .shot-row.hero-row{outline:1px solid #fcd34d;}
     .shot-row.no-cam{outline:1px solid #fecaca;}
     .shot-row.present-row{outline:1px solid #86efac;}
     .shot-frame {
-      width: 180px;
+      width: 240px;
       position: relative;
       overflow: hidden;
       display: flex;
       align-items: stretch;
       background: #090d16;
-      aspect-ratio: 9 / 16;
+      aspect-ratio: 16 / 9;
+      align-self: start;
       border-right: 1.5px solid var(--gray-200);
       user-select: none;
     }
@@ -228,7 +229,7 @@
     .shot-gear{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
     @media(max-width:500px){
       .shot-row{grid-template-columns:1fr;}
-      .shot-frame{width:min(100%,220px);justify-self:center;height:auto;aspect-ratio:9/16;border-right:none;border-bottom:1.5px solid var(--gray-200);}
+      .shot-frame{width:100%;justify-self:center;height:auto;aspect-ratio:16/9;border-right:none;border-bottom:1.5px solid var(--gray-200);}
     }
     .gear-badge{border-radius:6px;padding:2px 7px;font-size:10px;font-weight:600;}
     .gear-badge.lumix{background:#dbeafe;color:#1e40af;}.gear-badge.osmo{background:#cffafe;color:#0e7490;}
@@ -275,7 +276,7 @@
     .shot-frame:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
     .preview-dialog{border:0;border-radius:14px;padding:16px;width:min(440px,94vw);max-height:94vh;overflow:auto;margin:auto;background:#0b1525;color:white;}
     .preview-dialog::backdrop{background:rgba(0,0,0,.78);}
-    .preview-image{position:relative;width:min(100%,37vh);aspect-ratio:9/16;overflow:hidden;border-radius:8px;margin:12px auto;}
+    .preview-image{position:relative;width:min(100%,640px);aspect-ratio:16/9;overflow:hidden;border-radius:8px;margin:12px auto;}
     .preview-close{float:right;background:#26384f;color:white;border:0;border-radius:6px;padding:6px 12px;cursor:pointer;}
     .preview-caption{font-size:14px;}
     @media(max-width:640px){.shot-row{grid-template-columns:1fr;}.shot-frame{width:min(100%,220px);justify-self:center;}}
@@ -447,7 +448,7 @@ const L35=['lumix','S9 + 35mm Summilux'], N50=['lumix','S9 + 50mm Noctilux f/1.2
 /* ───────── Simple strings ───────── */
 const STR={
 en:{
-'hdr.badge':'Vertical 9:16 · Shot Plan · GiftLee Method',
+'hdr.badge':'16:9 Film · Shot Plan · GiftLee Method',
 'hdr.title':'Izu — Four Generations, One Bus',
 'hdr.sub':'Our family trip, every couple of years · thirty-plus people · the week we all fit in one frame',
 'hdr.m1':'📅 4–10 Dec 2026','hdr.m2':'🎬 3-Act Narrative','hdr.m3':'🎞 Observational · One Voice: Grandma','hdr.m4':'👵→👶 Four Generations · 30+',
@@ -458,7 +459,7 @@ en:{
 'footer':'Izu · Four Generations, One Bus · 2026 · Lycka’s Family · GiftLee Method'
 },
 th:{
-'hdr.badge':'แนวตั้ง 9:16 · แผนถ่ายทำ · วิถี GiftLee',
+'hdr.badge':'หนัง 16:9 · แผนถ่ายทำ · วิถี GiftLee',
 'hdr.title':'อิซุ — สี่รุ่น หนึ่งรถบัส',
 'hdr.sub':'ทริปครอบครัวที่มีทุกสองสามปี · กว่าสามสิบชีวิต · สัปดาห์ที่ทุกคนอยู่ในเฟรมเดียวกัน',
 'hdr.m1':'📅 4–10 ธ.ค. 2026','hdr.m2':'🎬 เรื่องเล่า 3 องก์','hdr.m3':'🎞 เฝ้าสังเกต · เสียงเดียว: คุณยาย','hdr.m4':'👵→👶 สี่รุ่น · 30+ คน',
@@ -488,10 +489,10 @@ const HEROES=[
 {n:3,gear:[N50,L35,TRI],
  en:{t:'Four Generations — One Frame',s:'Two parts: Noctilux detail of hands + the one posed group shot on the beach · Izu Shirahama · D2',
   d:'Part 1 (unposed): grandma’s hand holding the 1-year-old’s hand — Noctilux, f/1.2, eye-level with the child. Part 2: the only posed shot of the whole trip — all 30+ people on the sand with the sea and the torii rock behind. Tripod + 10s interval burst so you are in it too. In the afternoon the sun is behind the camera, so watch for squinting: shoot on the count of three with eyes closed, then open. <strong>Match the past trips:</strong> bring the group photo from the last family trip on your phone and arrange everyone the same way (same rows, grandma in the same place) so the photos can sit side by side across the years.',
-  w:'For the vertical video, use compact staggered rows and leave sea and sky above the group. Keep the matching arrangement from the previous trip for a separate landscape still. If Fuji is clear at the Mishima Skywalk on D3, take a bonus group still there too. The spine of the film — and the one frame that links this trip to every trip before and after it.'},
+  w:'In 16:9 the group can spread wider: three or four rows, the sea and the torii rock behind. Arrange it like the previous trip’s group photo so the frames match. If Fuji is clear at the Mishima Skywalk on D3, take a bonus group still there too. The spine of the film — and the one frame that links this trip to every trip before and after it.'},
  th:{t:'สี่รุ่น — ในเฟรมเดียว',s:'สองส่วน: Noctilux ถ่ายมือ + ภาพหมู่ที่จัดท่าภาพเดียวบนชายหาด · อิซุชิราฮามะ · D2',
   d:'ส่วนที่ 1 (ไม่จัดท่า): มือคุณยายจับมือหลานวัย 1 ขวบ — Noctilux f/1.2 ระดับสายตาเด็ก ส่วนที่ 2: ภาพจัดท่าภาพเดียวของทั้งทริป — ทั้ง 30+ คนบนหาดทราย มีทะเลและโขดหินโทริอิอยู่ข้างหลัง ใช้ขาตั้ง + ตั้งเวลาถ่ายรัวทุก 10 วินาที เพื่อให้คุณได้อยู่ในภาพด้วย ช่วงบ่ายแดดอยู่หลังกล้อง ระวังคนหยีตา: ให้หลับตาแล้วลืมพร้อมกันตอนนับสาม <strong>ให้ตรงกับทริปก่อนๆ:</strong> เปิดภาพหมู่จากทริปครอบครัวครั้งก่อนในโทรศัพท์ แล้วจัดทุกคนแบบเดิม (แถวเดิม คุณยายอยู่ตำแหน่งเดิม) เพื่อให้วางภาพเทียบกันได้ข้ามปี',
-  w:'วิดีโอแนวตั้งจัดหลายแถวกระชับและเว้นทะเลกับฟ้าด้านบน เก็บการจัดแถวแบบทริปก่อนสำหรับภาพนิ่งแนวนอนแยกอีกใบ ถ้าฟูจิชัดที่สะพานมิชิมะสกายวอล์กใน D3 ถ่ายภาพหมู่โบนัสที่นั่นด้วย แกนหลักของหนัง — และเฟรมเดียวที่เชื่อมทริปนี้กับทุกทริปก่อนหน้าและทริปต่อไป'}},
+  w:'เฟรม 16:9 กลุ่มกางออกได้กว้างขึ้น: สามหรือสี่แถว ทะเลและโขดหินโทริอิอยู่ข้างหลัง จัดแถวเหมือนภาพหมู่ทริปก่อนให้เฟรมตรงกัน ถ้าฟูจิชัดที่สะพานมิชิมะสกายวอล์กใน D3 ถ่ายภาพหมู่โบนัสที่นั่นด้วย แกนหลักของหนัง — และเฟรมเดียวที่เชื่อมทริปนี้กับทุกทริปก่อนหน้าและทริปต่อไป'}},
 {n:4,gear:[X5,MIC],
  en:{t:'"Fuji-san!" — The Reveal From the Coach Window',s:'Insta360 X5 · suction mount on a front side window · heading north from Shuzenji toward Mishima · D3 late morning',
   d:'Mount on the inside of a side window near the front (never the windscreen — ask the driver first) and let it run. As the coach leaves the Izu valleys and heads north to Mishima, Fuji rises straight ahead and grows with every kilometre. The real hero is the audio: ten kids shouting "Fuji-san!" at once. Reframe in post — Fuji first, then whip to the kids’ faces. On a clear D1 morning Fuji may also show on the right past Atsugi — keep the camera running then too.',
@@ -569,7 +570,7 @@ const DAYS=[
  ['present','wv','First five minutes on Shirahama','Don’t touch the camera. Take off your shoes, walk the sand next to grandma and look at the sea. This one is for memory.','ห้านาทีแรกที่ชิราฮามะ','อย่าแตะกล้อง ถอดรองเท้า เดินบนทรายข้างคุณยายแล้วมองทะเล ช่วงนี้เก็บไว้ในความทรงจำ',[]],
  ['hero','wv','Shirahama — white sand, the torii on the rock, surf','90mm from along the beach to stack the torii rock against the surf. Tripod. Then a 35mm wide with the family along the waterline.','ชิราฮามะ — ทรายขาว โทริอิบนโขดหิน และคลื่น','90mm จากริมหาดให้โขดหินโทริอิซ้อนกับคลื่น ใช้ขาตั้ง แล้ว 35mm มุมกว้างมีครอบครัวเรียงริมน้ำ',[A90,L35,TRI],1],
  ['movement','wv','Slow-motion surf on the rocks at the end of the beach','4K 60fps, 90mm, ND filter. Hold 15 seconds — you will slow it down in the edit.','สโลว์โมชันคลื่นแตกบนโขดหินปลายหาด','4K 60fps, 90mm, ฟิลเตอร์ ND ค้าง 15 วินาที — ไว้ทำสโลว์ตอนตัดต่อ',[A90]],
- ['hero','gp','Four generations — one frame','Hands detail first (Noctilux), then the one posed group shot of all 30+ on the sand, sea and torii rock behind. Tripod + interval timer. For the vertical video, use compact staggered rows with sea and sky above. Take a separate landscape still arranged like the last trip’s group photo.','สี่รุ่น — ในเฟรมเดียว','ถ่ายมือก่อน (Noctilux) แล้วภาพหมู่จัดท่าภาพเดียว 30+ คนบนหาดทราย ทะเลและโขดหินโทริอิอยู่ข้างหลัง ขาตั้ง + ตั้งเวลาถ่ายรัว วิดีโอแนวตั้งจัดหลายแถวกระชับให้เห็นทะเลกับฟ้าด้านบน แล้วถ่ายภาพนิ่งแนวนอนแยกโดยจัดแถวเหมือนภาพหมู่ทริปก่อน',[N50,L35,TRI],3],
+ ['hero','gp','Four generations — one frame','Hands detail first (Noctilux), then the one posed group shot of all 30+ on the sand, sea and torii rock behind. Tripod + interval timer. In 16:9, spread into three or four rows arranged like the last trip’s group photo.','สี่รุ่น — ในเฟรมเดียว','ถ่ายมือก่อน (Noctilux) แล้วภาพหมู่จัดท่าภาพเดียว 30+ คนบนหาดทราย ทะเลและโขดหินโทริอิอยู่ข้างหลัง ขาตั้ง + ตั้งเวลาถ่ายรัว เฟรม 16:9 กางเป็นสามหรือสี่แถว จัดเหมือนภาพหมู่ทริปก่อน',[N50,L35,TRI],3],
  ['reaction','gp','Household portraits — one per family, same spot','Right after the group shot, while everyone is still there: each household steps in for 5 seconds of video, same framing, sea behind. Lock the tripod and don’t move it. Nobody is left out of the keepsake; these become the end credits.','ภาพครอบครัวย่อย — บ้านละหนึ่งช็อต จุดเดียวกัน','ต่อจากภาพหมู่ทันที ตอนทุกคนยังอยู่: แต่ละบ้านเข้ามายืนถ่ายวิดีโอ 5 วินาที เฟรมเดิม ทะเลอยู่ข้างหลัง ล็อกขาตั้งไว้ไม่ขยับ ไม่มีใครตกหล่นจากของที่ระลึก ช็อตพวกนี้คือเอนด์เครดิต',[L35,TRI]],
  ['reaction','fa','Kids, two years on — one portrait each','Each child, 3 seconds, standing straight, looking at the lens, same distance. Repeat exactly on the next family trip — the series is the point. Noctilux at f/2 so the eyes stay sharp.','เด็กๆ ผ่านไปสองปี — คนละหนึ่งพอร์เทรต','เด็กแต่ละคน 3 วินาที ยืนตรง มองเลนส์ ระยะเท่ากัน ถ่ายซ้ำแบบเดิมในทริปครอบครัวครั้งหน้า — ความต่อเนื่องคือหัวใจ Noctilux ที่ f/2 ให้ตาคมชัด',[N50]],
  ['movement','gp','Drone pull-back — family on the sand → the bay','ONLY if registered, the local rules allow it, you stay away from the shrine, and you keep 30 m from strangers. A public beach on a Sunday may rule it out — if in doubt, skip; the S9 shots already carry it.','โดรนบินถอยหลัง — ครอบครัวบนหาด → อ่าว','ทำเฉพาะเมื่อลงทะเบียนแล้ว กฎท้องถิ่นอนุญาต อยู่ห่างศาลเจ้า และห่างคนแปลกหน้า 30 ม. หาดสาธารณะวันอาทิตย์อาจบินไม่ได้ — ถ้าไม่แน่ใจให้ข้าม ช็อต S9 เพียงพอแล้ว',[DR]],
@@ -633,30 +634,30 @@ const DAYS=[
 ];
 
 const VERTICAL_GUIDES=[
- {en:'9:16 · Keep this departure intimate. Let the short suitcase line recede toward the family. Fill the portrait frame with one face at the gate or in the cabin.',th:'9:16 · เปิดเรื่องด้วยบ้านเราเล็กๆ วางแถวกระเป๋าลึกเข้าไปหาคนในบ้าน ใช้ใบหน้าเดียวเป็นจุดเด่นที่เกตและบนเครื่อง'},
- {en:'9:16 · Build depth: luggage toward the coach, maple trunks above grandma at Atami Baien, the chairlift line climbing Mt Komuro, shoes toward the ryokan door. Leave space above faces for the canopy and the sky.',th:'9:16 · จัดภาพให้มีความลึก: กระเป๋านำสายตาเข้ารถ ลำต้นเมเปิ้ลอยู่เหนือคุณยายที่อาตามิไบเอ็น แนวกระเช้าไต่ขึ้นเขาโคมุโระ รองเท้าเรียงเข้าประตูเรียวกัง เว้นพื้นที่เหนือใบหน้าสำหรับพุ่มใบไม้และท้องฟ้า'},
- {en:'9:16 · Stack the coast in layers: sand below, turquoise sea in the middle, the torii rock and sky above. For the 30+ group, step back and use several compact rows; keep everyone inside the frame.',th:'9:16 · วางชายฝั่งเป็นชั้น: ทรายด้านล่าง ทะเลสีฟ้าตรงกลาง โขดหินโทริอิและท้องฟ้าด้านบน ภาพหมู่ 30+ คนให้ถอยออกและจัดหลายแถวกระชับ เก็บทุกคนไว้ในเฟรม'},
- {en:'9:16 · Follow strong lines: the bamboo path, the boardwalk over the springs, the Skywalk deck with Fuji above it. Keep a small family figure low in frame to show scale.',th:'9:16 · ใช้เส้นนำสายตา: ทางเดินป่าไผ่ ทางเดินไม้เหนือน้ำพุ พื้นสะพานสกายวอล์กที่มีฟูจิอยู่ด้านบน วางคนในครอบครัวเล็กๆ ด้านล่างเพื่อเทียบขนาด'},
- {en:'9:16 · Let the castle and Christmas tree rise above the family. Arrange mouse-ear portraits in depth. Camera-off moments remain camera-off.',th:'9:16 · ให้ปราสาทและต้นคริสต์มาสสูงเหนือครอบครัว จัดพอร์เทรตหูมิกกี้ซ้อนกันตามความลึก ช่วงที่กำหนดให้เก็บกล้องก็ยังคงเก็บกล้อง'},
- {en:'9:16 · Use tall city layers: people below the clock tower, children under illuminated branches, dome above the station entrance. Keep the dinner unfilmed.',th:'9:16 · ใช้เมืองเป็นชั้นแนวตั้ง: คนอยู่ใต้หอนาฬิกา เด็กๆ ใต้กิ่งไม้ประดับไฟ โดมเหนือทางเข้าสถานี มื้อเย็นยังเป็นช่วงไม่ถ่าย'},
- {en:'9:16 · Echo D0 with luggage receding into the lobby. Film the farewell from the pavement, looking along the coach so waving windows stack into depth.',th:'9:16 · ย้อนภาพ D0 ด้วยแถวกระเป๋าที่ลึกเข้าไปในล็อบบี้ ถ่ายอำลาจากริมทาง มองตามแนวยาวรถเพื่อให้หน้าต่างที่มีคนโบกมือเรียงลึกเข้าไป'}
+ {en:'16:9 · Keep this departure intimate. Let the short suitcase line run across the frame toward the family; one face at the gate or in the cabin, kept in the middle third.',th:'16:9 · เปิดเรื่องด้วยบ้านเราเล็กๆ ให้แถวกระเป๋าสั้นๆ พาดผ่านเฟรมเข้าหาคนในบ้าน ใบหน้าเดียวที่เกตหรือบนเครื่องอยู่ในส่วนกลางของภาพ'},
+ {en:'16:9 · Use the width: the coach and luggage along the frame, maple canopy over grandma, the chairlift line crossing the hill. Keep faces in the middle third so the vertical cut still works.',th:'16:9 · ใช้ความกว้างของเฟรม: รถบัสและกระเป๋าพาดยาว พุ่มเมเปิ้ลคลุมคุณยาย แนวกระเช้าพาดข้ามเนินเขา เก็บใบหน้าไว้ในส่วนกลางของภาพ คลิปแนวตั้งจะได้ยังใช้ได้'},
+ {en:'16:9 · The coast is a horizontal subject: sand, sea and the torii rock stretching across the frame. Spread the 30+ group in three or four rows; step back so nobody touches the edges.',th:'16:9 · ชายฝั่งคือภาพแนวนอนโดยธรรมชาติ: ทราย ทะเล และโขดหินโทริอิพาดยาวทั้งเฟรม ภาพหมู่ 30+ คนกางเป็นสามหรือสี่แถว ถอยออกให้ไม่มีใครชิดขอบ'},
+ {en:'16:9 · Follow strong lines across the frame: the bamboo path, the boardwalk over the springs, the Skywalk running toward Fuji. Keep a small family figure in the centre for scale.',th:'16:9 · ใช้เส้นนำสายตาพาดผ่านเฟรม: ทางเดินป่าไผ่ ทางเดินไม้เหนือน้ำพุ สกายวอล์กที่ทอดไปหาฟูจิ วางคนในครอบครัวตัวเล็กๆ ไว้ตรงกลางเพื่อเทียบขนาด'},
+ {en:'16:9 · Let the castle and Christmas tree sit behind the family with room on both sides. Mouse-ear portraits in a row across three generations. Camera-off moments remain camera-off.',th:'16:9 · ให้ปราสาทและต้นคริสต์มาสอยู่หลังครอบครัวโดยเว้นที่สองข้าง พอร์เทรตหูมิกกี้เรียงแถวสามรุ่น ช่วงที่กำหนดให้เก็บกล้องก็ยังคงเก็บกล้อง'},
+ {en:'16:9 · Use the width of the city: the station facade end to end, the illuminated avenue running into depth, crowds crossing the frame. Keep the dinner unfilmed.',th:'16:9 · ใช้ความกว้างของเมือง: อาคารสถานีเต็มเฟรม ถนนไฟประดับทอดลึกเข้าไป ฝูงชนเดินตัดผ่านเฟรม มื้อเย็นยังเป็นช่วงไม่ถ่าย'},
+ {en:'16:9 · Echo D0 with the suitcase line running the length of the lobby. Film the farewell from the pavement along the coach so the waving windows run across the frame.',th:'16:9 · ย้อนภาพ D0 ด้วยแถวกระเป๋าที่ยาวตลอดล็อบบี้ ถ่ายอำลาจากริมทางตามแนวรถ ให้หน้าต่างที่มีคนโบกมือเรียงพาดผ่านเฟรม'}
 ];
 const VERTICAL_NOTES={
- '0:2':{en:'Place 3–4 bags diagonally into depth, with the household above them. Avoid a broad side-by-side line.',th:'วางกระเป๋า 3–4 ใบเฉียงลึกเข้าไป คนในบ้านอยู่เหนือแถวกระเป๋า ไม่เรียงกว้างข้างกัน'},
- '1:3':{en:'Child in the lower foreground, the window above. If Fuji appears, keep it in the upper third and the horizon level.',th:'เด็กอยู่ด้านล่างใกล้กล้อง หน้าต่างอยู่ด้านบน ถ้าฟูจิโผล่ ให้อยู่ช่วงหนึ่งในสามด้านบนและขอบฟ้าตรง'},
- '1:5':{en:'Grandma low in frame; the maple trunk and canopy fill the upper two-thirds.',th:'คุณยายอยู่ช่วงล่าง ลำต้นและพุ่มเมเปิ้ลเต็มพื้นที่สองในสามด้านบน'},
- '1:11':{en:'Family as small figures along the deck in the lower third; sea and sky fill the rest.',th:'ครอบครัวเป็นคนตัวเล็กๆ บนทางเดินในหนึ่งในสามด้านล่าง ทะเลและฟ้าเต็มส่วนที่เหลือ'},
- '2:4':{en:'Sand in the foreground → surf → the torii rock. Leave air above the torii and keep family figures inside the narrow frame.',th:'ทรายใกล้กล้อง → คลื่น → โขดหินโทริอิ เว้นพื้นที่เหนือโทริอิและเก็บคนในครอบครัวให้อยู่ในเฟรมแคบ'},
- '2:6':{en:'Use four compact staggered rows: children in front, elders seated, adults behind. Step back with the 35mm; keep faces away from the edges and the sea above. Take a separate landscape still to match the previous trip photo.',th:'จัดสี่แถวสลับกันแบบกระชับ: เด็กด้านหน้า ผู้สูงอายุนั่ง ผู้ใหญ่ยืนด้านหลัง ใช้ 35mm แล้วถอยออก เก็บใบหน้าให้ห่างขอบและทะเลอยู่ด้านบน ถ่ายภาพนิ่งแนวนอนแยกอีกใบให้เข้าคู่กับภาพทริปก่อน'},
- '2:7':{en:'One household in a compact cluster, full bodies with the sea above. Lock the same portrait framing for every household.',th:'บ้านละกลุ่มกระชับ เห็นเต็มตัวและมีทะเลด้านบน ล็อกเฟรมแนวตั้งเดียวกันทุกบ้าน'},
- '2:8':{en:'One child centred, eyes near the upper third; repeat the same camera height and distance.',th:'เด็กคนเดียวตรงกลาง ดวงตาใกล้เส้นหนึ่งในสามด้านบน ใช้ความสูงกล้องและระยะเดิมทุกคน'},
- '2:9':{en:'Plan the final 9:16 frame: family low-centre, the curve of the beach leading out to sea. Keep the group inside the portrait crop throughout the pull-back.',th:'วางแผนเฟรมสุดท้าย 9:16: ครอบครัวกลางล่าง แนวโค้งของหาดนำสายตาออกทะเล เก็บกลุ่มให้อยู่ในขอบเฟรมแนวตั้งตลอดช่วงบินถอย'},
- '2:15':{en:'Look along the length of the table from its end, with grandma visible beyond the foreground glasses.',th:'มองตามแนวยาวโต๊ะจากหัวโต๊ะ ให้เห็นคุณยายหลังแก้วในระยะหน้า'},
- '3:7':{en:'Small child and grandma near the bottom, the bridge running up the frame, Fuji above; leave room above the summit.',th:'เด็กกับคุณยายอยู่ด้านล่าง สะพานพาดขึ้นไปในเฟรม ฟูจิอยู่ด้านบน เว้นพื้นที่เหนือยอดเขา'},
- '4:1':{en:'Daughter’s side profile low in frame, castle rising behind her. Keep her reaction readable.',th:'ใบหน้าลูกสาวด้านข้างอยู่ช่วงล่าง ปราสาทสูงขึ้นไปด้านหลัง ให้เห็นปฏิกิริยาชัด'},
- '4:2':{en:'Stagger three generations in depth instead of a single wide row; keep every pair of mouse ears visible.',th:'จัดสามรุ่นซ้อนตามความลึกแทนแถวกว้างแถวเดียว ให้เห็นหูมิกกี้ครบทุกคน'},
- '6:0':{en:'Shoot diagonally down the suitcase rows toward reception. The long line should feel deeper than D0.',th:'ถ่ายเฉียงตามแนวกระเป๋าเข้าหาเคาน์เตอร์ ให้แถวยาวดูลึกกว่า D0'},
- '6:3':{en:'Rear three-quarter view from the pavement: waving hand in foreground, coach and family windows above. Follow gently as it leaves.',th:'ถ่ายจากริมทางเห็นท้ายรถเฉียงสามส่วน มือโบกอยู่ใกล้กล้อง รถและหน้าต่างครอบครัวอยู่ด้านบน ตามรถเบาๆ ตอนออกตัว'}
+ '0:2':{en:'Bags in a line across the frame, the household behind them. Hold wide; this is the frame D6 answers.',th:'กระเป๋าเรียงแถวพาดเฟรม คนในบ้านอยู่ข้างหลัง ถ่ายกว้างค้างไว้ นี่คือเฟรมที่ D6 จะตอบกลับ'},
+ '1:3':{en:'Child’s shoulder in the near corner, the window filling the rest. If Fuji appears, keep it near the centre and the horizon level.',th:'ไหล่เด็กอยู่มุมใกล้กล้อง หน้าต่างเต็มส่วนที่เหลือ ถ้าฟูจิโผล่ให้อยู่ใกล้กลางภาพและขอบฟ้าตรง'},
+ '1:5':{en:'Grandma in the centre third, the canopy across the top and both sides.',th:'คุณยายอยู่ส่วนกลางของภาพ พุ่มใบไม้คลุมด้านบนและสองข้าง'},
+ '1:11':{en:'Family as small figures along the deck; the sea and Oshima island across the width.',th:'ครอบครัวเป็นคนตัวเล็กๆ บนทางเดิน ทะเลและเกาะโอชิมะพาดเต็มความกว้าง'},
+ '2:4':{en:'Sand → surf → torii rock across the frame, the torii slightly off-centre. Family figures along the waterline.',th:'ทราย → คลื่น → โขดหินโทริอิพาดผ่านเฟรม โทริอิเยื้องกลางเล็กน้อย ครอบครัวเรียงริมน้ำ'},
+ '2:6':{en:'Three or four rows: children in front, elders seated, adults behind, arranged like the previous trip photo. Step back with the 35mm; nobody touches the edges.',th:'สามหรือสี่แถว: เด็กด้านหน้า ผู้สูงอายุนั่ง ผู้ใหญ่ยืนด้านหลัง จัดเหมือนภาพทริปก่อน ใช้ 35mm แล้วถอยออก ไม่ให้ใครชิดขอบ'},
+ '2:7':{en:'One household centred, full bodies, sea behind. Lock the same framing for every household.',th:'บ้านละกลุ่มอยู่กลางภาพ เห็นเต็มตัว ทะเลอยู่ข้างหลัง ล็อกเฟรมเดียวกันทุกบ้าน'},
+ '2:8':{en:'One child centred, eyes on the upper third; repeat the same camera height and distance.',th:'เด็กคนเดียวตรงกลาง ดวงตาอยู่เส้นหนึ่งในสามด้านบน ใช้ความสูงกล้องและระยะเดิมทุกคน'},
+ '2:9':{en:'End frame: family small in the centre, the curve of the beach running across to the sea.',th:'เฟรมจบ: ครอบครัวตัวเล็กอยู่กลางภาพ แนวโค้งของหาดพาดไปหาทะเล'},
+ '2:15':{en:'Look along the table from its end, grandma in the centre beyond the foreground glasses.',th:'มองตามแนวโต๊ะจากหัวโต๊ะ คุณยายอยู่กลางภาพหลังแก้วในระยะหน้า'},
+ '3:7':{en:'The bridge running across the frame toward Fuji; child and grandma small in the centre third.',th:'สะพานพาดผ่านเฟรมไปหาฟูจิ เด็กกับคุณยายตัวเล็กๆ อยู่ส่วนกลางของภาพ'},
+ '4:1':{en:'Daughter’s profile in the centre third, castle behind her. Keep her reaction readable.',th:'ใบหน้าลูกสาวด้านข้างอยู่ส่วนกลางของภาพ ปราสาทอยู่ข้างหลัง ให้เห็นปฏิกิริยาชัด'},
+ '4:2':{en:'Three generations in one row across the frame; every pair of mouse ears visible.',th:'สามรุ่นเรียงแถวเดียวพาดเฟรม ให้เห็นหูมิกกี้ครบทุกคน'},
+ '6:0':{en:'Shoot along the suitcase rows toward reception. The line should feel longer than D0.',th:'ถ่ายตามแนวกระเป๋าเข้าหาเคาน์เตอร์ ให้แถวดูยาวกว่า D0'},
+ '6:3':{en:'From the pavement along the coach: a waving hand in the near corner, the windows running across the frame. Follow gently as it leaves.',th:'ถ่ายจากริมทางตามแนวรถ: มือโบกอยู่มุมใกล้กล้อง หน้าต่างเรียงพาดเฟรม ตามรถเบาๆ ตอนออกตัว'}
 };
 const SEC={en:{},th:{}};
 
@@ -971,7 +972,7 @@ SEC.th.gear=GEAR('แผนอุปกรณ์รายวัน',['วัน'
 /* ───────── Settings ───────── */
 const SET=(h,a,ar,b,br,tip)=>`<h2>⚙️ ${h}</h2><div class="grid-2"><div><div class="section-label">${a}</div><table class="settings-table"><tbody>${ar.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</tbody></table></div><div><div class="section-label">${b}</div><table class="settings-table"><tbody>${br.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</tbody></table></div></div><div class="tip-box">${tip}</div>`;
 SEC.en.settings=SET('Lumix S9 — Settings to Lock Before Departure','Video Settings',[
-['Framing','Vertical 9:16 master. Compose in portrait from capture; rotate the camera where appropriate. When reframing wider footage, keep people inside a 9:16 guide throughout the shot. Final delivery: 1080 × 1920.'],
+['Framing','16:9 main film, like the past trips. Record the S9 in open gate (3:2, 6K) if your firmware offers it, so 16:9 and a 9:16 crop both come from one take. Keep faces in the middle third. Hold cameras horizontal; Insta360 is reframed in the edit. Deliver 3840 × 2160 (main) + 1080 × 1920 (short vertical cut).'],
 ['Format','4K 25fps — and it matters here: Tokyo and Izu run on <strong>50Hz</strong> power, so 25fps / 1/50s keeps indoor lights flicker-free'],
 ['Slow-mo','4K 60fps — Shirahama surf, falling leaves (raise shutter to 1/120, check for flicker indoors)'],
 ['Profile','V-Log L on D1–D3 for grading; standard profile on D4–D6'],['IBIS','Body stabilisation ON at all times'],['AF Mode','C-AF + Face/Eye detection for native lenses']],
@@ -983,7 +984,7 @@ SEC.en.settings=SET('Lumix S9 — Settings to Lock Before Departure','Video Sett
 ['ND filter','Variable ND for 90mm at Shirahama — keeps 1/50s on bright sand and sea']],
 '<strong>Card speed</strong>4K 60fps needs V90 cards. Label cards by day — swap at the hotel each evening and back up overnight.');
 SEC.th.settings=SET('Lumix S9 — ตั้งค่าให้เรียบร้อยก่อนเดินทาง','ตั้งค่าวิดีโอ',[
-['การจัดเฟรม','งานหลักแนวตั้ง 9:16 จัดภาพแนวตั้งตั้งแต่ถ่าย หมุนกล้องเมื่อเหมาะสม หากรีเฟรมจากภาพที่กว้างกว่า ให้คนอยู่ในกรอบ 9:16 ตลอดช็อต ส่งออก 1080 × 1920'],
+['การจัดเฟรม','หนังหลัก 16:9 เหมือนทริปก่อนๆ ตั้ง S9 เป็น open gate (3:2, 6K) ถ้าเฟิร์มแวร์มี จะได้ทั้ง 16:9 และครอป 9:16 จากเทคเดียว เก็บใบหน้าไว้ในส่วนกลางของภาพ ถือกล้องแนวนอน Insta360 รีเฟรมตอนตัดต่อ ส่งออก 3840 × 2160 (หนังหลัก) + 1080 × 1920 (คลิปสั้นแนวตั้ง)'],
 ['ฟอร์แมต','4K 25fps — สำคัญมากที่นี่: โตเกียวและอิซุใช้ไฟ <strong>50Hz</strong> 25fps / 1/50 วินาทีกันไฟในอาคารกะพริบ'],
 ['สโลว์โม','4K 60fps — คลื่นชิราฮามะ ใบไม้ร่วง (ชัตเตอร์ 1/120 เช็กไฟกะพริบในอาคาร)'],
 ['โปรไฟล์','V-Log L ใน D1–D3 เพื่อเกรดสี โปรไฟล์มาตรฐานใน D4–D6'],['IBIS','เปิดกันสั่นในบอดี้ตลอดเวลา'],['โหมด AF','C-AF + จับใบหน้า/ดวงตา สำหรับเลนส์ออโต้']],
@@ -1079,7 +1080,7 @@ SEC.th.grade=GR('เกรดสี — Kore-eda + Hokusai','สองเกร�
 /* ───────── Edit ───────── */
 const ED=(h,lead,rows,tip)=>`<h2>✂️ ${h}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">${lead}</p>${rows.map(([k,v])=>`<div class="edit-row"><div class="edit-label">${k}</div><div class="edit-val">${v}</div></div>`).join('')}<div class="tip-box" style="margin-top:16px;">${tip}</div>`;
 SEC.en.edit=ED('Edit Philosophy — GiftLee + D’Avella Method','<strong>Let shots breathe, trust the silence, and cut before the viewer is ready.</strong> The negative space is where the emotion lives.',[
-['Canvas','9:16 throughout. Keep the full old group photos on the portrait canvas with space above and below; do not crop relatives out. New video compositions follow the portrait sketches.'],
+['Canvas','16:9 main film, matching the past trips. Show old photos whole — pillarbox portrait photos rather than cropping relatives out. Also cut a 60–90 second 9:16 version for the family chat and Reels from the same footage.'],
 ['Structure','Prologue (past family trips + grandma’s voice) → cold open (Shirahama) → "Two days earlier…" → Act I (D0–D1) → Act II (D2–D3, peak at Shirahama) → Act III (D4–D6) → credits (household portraits, group photos across the years, “Until the next one.”). One title card inside the film: at the Disney cut-to-black.'],
 ['Voice','No talking to camera — with one exception. Grandma’s 20–30 seconds (and one voice from dad’s generation) play as audio only: over the prologue photos and again over the group shot at Shirahama. Never show the interview itself.'],
 ['Series','This is one episode of the family’s trips. Keep the same title style, the same group-photo arrangement and the same kids’ portraits every time, so the films line up when watched back to back.'],
@@ -1091,7 +1092,7 @@ SEC.en.edit=ED('Edit Philosophy — GiftLee + D’Avella Method','<strong>Let sh
 ['What to cut','If you’re watching a shot thinking "this proves we were there" — cut it. If you’re thinking "this is what it felt like" — keep it.']],
 '<strong>GiftLee’s edit rule</strong>If a slightly blurry moment of grandma laughing with a great-grandchild is in your footage, it belongs in the film. The perfect posed version does not.');
 SEC.th.edit=ED('ปรัชญาการตัดต่อ — วิถี GiftLee + D’Avella','<strong>ปล่อยให้ช็อตหายใจ เชื่อความเงียบ และตัดก่อนคนดูพร้อม</strong> พื้นที่ว่างคือที่ที่อารมณ์อาศัยอยู่',[
-['กรอบภาพ','แนวตั้ง 9:16 ตลอดเรื่อง วางภาพหมู่เก่าให้เห็นครบทั้งภาพโดยเว้นพื้นที่บนล่าง อย่าครอปจนคนในครอบครัวหาย วิดีโอใหม่ใช้การจัดเฟรมตามภาพร่างแนวตั้ง'],
+['กรอบภาพ','หนังหลัก 16:9 ให้ตรงกับทริปก่อนๆ ภาพเก่าให้เห็นครบทั้งภาพ ภาพแนวตั้งใส่ขอบดำสองข้างแทนการครอปจนคนในครอบครัวหาย ตัดคลิปแนวตั้ง 9:16 ยาว 60–90 วินาทีจากฟุตเทจเดียวกันไว้ส่งในแชตครอบครัวและ Reels'],
 ['โครงสร้าง','บทนำ (ทริปครอบครัวครั้งก่อน + เสียงคุณยาย) → ฉากเปิด (ชิราฮามะ) → "สองวันก่อนหน้า…" → องก์ 1 (D0–D1) → องก์ 2 (D2–D3 พีคที่ชิราฮามะ) → องก์ 3 (D4–D6) → เอนด์เครดิต (ภาพครอบครัวย่อย ภาพหมู่ข้ามปี “แล้วพบกันทริปหน้า”) ไตเติลการ์ดในเนื้อหนังมีใบเดียว: ตอนตัดดำที่ดิสนีย์'],
 ['เสียงพูด','ไม่พูดใส่กล้อง — ยกเว้นหนึ่งอย่าง เสียงคุณยาย 20–30 วินาที (และหนึ่งเสียงจากรุ่นคุณพ่อ) ใช้เป็นเสียงอย่างเดียว: ทับภาพเก่าในบทนำ และอีกครั้งทับภาพหมู่ที่ชิราฮามะ ไม่ต้องโชว์ภาพตอนสัมภาษณ์'],
 ['ซีรีส์','นี่คือหนึ่งตอนของทริปครอบครัว ใช้สไตล์ไตเติลเดิม การจัดแถวภาพหมู่เดิม และพอร์เทรตเด็กแบบเดิมทุกครั้ง เพื่อให้หนังต่อกันได้เมื่อดูเรียงกัน'],
@@ -1116,7 +1117,7 @@ let lang='th';
 function gearLabel(g){const t=g.join(' ').toLowerCase();
  return t.includes('35mm')?'35mm':t.includes('90mm')?'90mm':t.includes('noctilux')?'50mm':t.includes('dji')?'DRONE':t.includes('osmo')?'OP3':t.includes('insta')?'360°':t.includes('mic')?'MIC':t.includes('phone')?'PHONE':'';}
 
-// Native portrait sheets; the landscape version is preserved in assets/storyboard/.
+// Portrait sheets drawn for the earlier 9:16 plan; inside the 16:9 frame they mark the vertical-safe centre.
 const THUMB_GRIDS=[[4,2],[7,2],[6,3],[4,3],[3,2],[3,2],[3,2]];
 const SHEET_SIZES=[[1330, 1182], [1759, 894], [1330, 1182], [1086, 1448], [1152, 1366], [1152, 1366], [1151, 1366]];
 const CORRECTION_SHEET={file:'vertical-corrections-v6.png',grid:[3,2],size:[1151,1367]};
@@ -1145,7 +1146,7 @@ function art(di,si){
  const top=rowEdges?rowEdges[row]:row/rows,bottom=rowEdges?rowEdges[row+1]:(row+1)/rows;
  const panelW=right-left,panelH=bottom-top;
  // Preserve the complete panel even where generated dividers are slightly uneven.
- const ratio=(w*panelW)/(h*panelH),viewportRatio=9/16;
+ const ratio=(w*panelW)/(h*panelH),viewportRatio=16/9;
  const width=Math.min(1,ratio/viewportRatio)*100,height=Math.min(1,viewportRatio/ratio)*100;
  const x=panelW===1?0:left*100/(1-panelW),y=panelH===1?0:top*100/(1-panelH);
  return `<span class="shot-art" aria-hidden="true"><span class="shot-panel" style="width:${width}%;height:${height}%;background-image:url('assets/storyboard/${sheet.file}');background-size:${100/panelW}% ${100/panelH}%;background-position:${x}% ${y}%"></span></span>`;
@@ -1159,7 +1160,7 @@ function frame(comp,type,gear,tc,di,si){
 function previewShot(di,si){
  let dialog=document.getElementById('shot-preview');
  if(!dialog){dialog=document.createElement('dialog');dialog.id='shot-preview';dialog.className='preview-dialog';document.body.appendChild(dialog);dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});}
- dialog.innerHTML=`<button class="preview-close" onclick="this.closest('dialog').close()">${lang==='th'?'ปิด':'Close'} ×</button><p>${lang==='th'?'ภาพร่างสตอรีบอร์ดแนวตั้ง 9:16 · สร้างด้วย AI':'Vertical 9:16 storyboard sketch · AI-generated'}</p><div class="preview-image">${art(di,si)}</div><p class="preview-caption"></p>`;
+ dialog.innerHTML=`<button class="preview-close" onclick="this.closest('dialog').close()">${lang==='th'?'ปิด':'Close'} ×</button><p>${lang==='th'?'เฟรม 16:9 · ภาพร่างตรงกลางคือโซนปลอดภัยสำหรับคลิปแนวตั้ง · สร้างด้วย AI':'16:9 frame · the centred sketch is the vertical-safe zone · AI-generated'}</p><div class="preview-image">${art(di,si)}</div><p class="preview-caption"></p>`;
  dialog.querySelector('.preview-caption').textContent=DAYS[di].s[si][lang==='th'?4:2];
  dialog.showModal();
 }
@@ -1176,11 +1177,11 @@ function renderDays(){
   const rows=d.s.map(([type,comp,et,en,tt,tn,gear,hn],si)=>{sec+=8;const tc=`00:${pad(Math.floor(sec/60))}:${pad(sec%60)}:00`;
    const framing=VERTICAL_NOTES[`${di}:${si}`]?.[lang];
    const title=lang==='th'?tt:et,note=lang==='th'?tn:en,label=type==='hero'?`${TYPE.hero[lang]} ${hn}`:TYPE[type][lang];
-   return `<div class="shot-row ${ROWCLS[type]||''}" data-type="${type}">${frame(comp,type,gear,tc,di,si)}<div class="shot-body"><div class="shot-type ${TYPE[type].c}">${label}</div><div class="shot-title">${title}</div><div class="shot-note">${note}</div>${framing?`<div class="vertical-note"><strong>9:16</strong> · ${framing}</div>`:''}${gear.length?`<div class="shot-gear">${gear.map(g=>`<span class="gear-badge ${g[0]}">${g[1]}</span>`).join('')}</div>`:''}</div></div>`}).join('');
+   return `<div class="shot-row ${ROWCLS[type]||''}" data-type="${type}">${frame(comp,type,gear,tc,di,si)}<div class="shot-body"><div class="shot-type ${TYPE[type].c}">${label}</div><div class="shot-title">${title}</div><div class="shot-note">${note}</div>${framing?`<div class="vertical-note"><strong>16:9</strong> · ${framing}</div>`:''}${gear.length?`<div class="shot-gear">${gear.map(g=>`<span class="gear-badge ${g[0]}">${g[1]}</span>`).join('')}</div>`:''}</div></div>`}).join('');
   const strip=d.s.map(([type,comp,et,,tt],i)=>`<div class="filmstrip-cell" title="${(lang==='th'?tt:et).replace(/"/g,'&quot;')}" onclick="jumpShot(${di},${i})">${art(di,i)}<span class="fc-label">${TYPE[type].f}</span></div>`).join('');
   const o=open[di]??(di===0);
   return `<div class="day-block"><div class="day-block-header${o?' open':''}" style="background:linear-gradient(135deg,${d.c});" onclick="toggleDay(this)"><div><div class="day-label">${x.l}</div><div class="day-name">${x.n}</div></div><div class="day-date">${x.d}</div><div class="chevron">▶</div></div>
-  <div class="day-block-body${o?' open':''}"><div class="mindset-note"><strong>${STR[lang].mindset} · D${di}</strong>${x.m}</div><div class="vertical-guide">${VERTICAL_GUIDES[di][lang]}</div><p class="reference-note">${lang==='th'?'ภาพร่างแนวตั้ง 9:16 สร้างด้วย AI เพื่ออ้างอิงการจัดเฟรม · แตะภาพเพื่อขยาย':'Vertical 9:16 storyboard sketches · AI-generated framing references · Tap a shot to enlarge'}</p><div class="day-filmstrip">${strip}</div><div class="shot-list">${rows}</div></div></div>`}).join('');
+  <div class="day-block-body${o?' open':''}"><div class="mindset-note"><strong>${STR[lang].mindset} · D${di}</strong>${x.m}</div><div class="vertical-guide">${VERTICAL_GUIDES[di][lang]}</div><p class="reference-note">${lang==='th'?'เฟรมหลัก 16:9 · ภาพร่างตรงกลางคือส่วนที่ต้องรอดเมื่อครอปเป็นแนวตั้ง · แตะภาพเพื่อขยาย':'16:9 main frame · the centred sketch is the part that must survive a vertical crop · Tap a shot to enlarge'}</p><div class="day-filmstrip">${strip}</div><div class="shot-list">${rows}</div></div></div>`}).join('');
 }
 
 function jumpShot(di,i){const b=document.querySelectorAll('.day-block-body')[di];if(!b.classList.contains('open'))toggleDay(b.previousElementSibling);
