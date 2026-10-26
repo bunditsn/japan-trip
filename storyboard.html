@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Izu — Four Generations, One Bus</title>
+  <style>
+    :root {
+      --navy:#0b2545;--blue:#1b4f8a;--sky:#2e86de;--teal:#00b4d8;
+      --gold:#f4a261;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
+      --gray-400:#9ca3af;--gray-700:#374151;--text:#1e293b;
+      --card-shadow:0 2px 12px rgba(0,0,0,0.08);--gift-green:#2d6a4f;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--gray-100);color:var(--text);line-height:1.6;}
+    header{background:linear-gradient(135deg,#0c1d4d 0%,#1e3a8a 45%,#9a3412 100%);color:white;padding:28px 24px 20px;text-align:center;position:relative;overflow:hidden;}
+    header::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+    header .badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;padding:4px 14px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;}
+    header h1{font-size:clamp(20px,4.5vw,32px);font-weight:700;letter-spacing:-0.5px;}
+    header .sub{font-size:14px;opacity:0.7;margin-top:6px;font-style:italic;}
+    .header-meta{display:flex;gap:14px;justify-content:center;margin-top:16px;flex-wrap:wrap;}
+    .header-meta span{background:rgba(255,255,255,0.12);border-radius:8px;padding:6px 14px;font-size:13px;}
+    nav{background:var(--navy);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.25);}
+    .nav-inner{display:flex;overflow-x:auto;scrollbar-width:none;max-width:900px;margin:0 auto;}
+    .nav-inner::-webkit-scrollbar{display:none;}
+    .nav-btn{flex-shrink:0;padding:12px 16px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:12px;font-weight:500;cursor:pointer;border-bottom:3px solid transparent;transition:all 0.2s;white-space:nowrap;}
+    .nav-btn:hover{color:white;}
+    .nav-btn.active{color:var(--teal);border-bottom-color:var(--teal);}
+    main{max-width:900px;margin:0 auto;padding:24px 16px;}
+    .card{background:white;border-radius:14px;padding:22px 24px;box-shadow:var(--card-shadow);margin-bottom:18px;}
+    .card h2{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+    .section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--teal);margin-bottom:8px;}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    @media(max-width:640px){.grid-2{grid-template-columns:1fr;}}
+    .philosophy-intro{font-size:14px;color:var(--navy);border-left:4px solid var(--gift-green);padding:10px 14px;margin-bottom:20px;background:#f0fdf4;border-radius:0 8px 8px 0;}
+    .philosophy-intro cite{display:block;margin-top:6px;font-size:12px;color:var(--gray-400);font-style:normal;}
+    .question-framework{background:#f0fdf4;border-radius:12px;padding:16px 18px;margin-bottom:16px;}
+    .question-framework h3{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gift-green);margin-bottom:10px;}
+    .q-list{list-style:none;}
+    .q-list li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #d1fae5;font-size:13px;color:var(--gray-700);}
+    .q-list li:last-child{border-bottom:none;}
+    .q-num{flex-shrink:0;width:22px;height:22px;background:var(--gift-green);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-top:1px;}
+    .principles-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    @media(max-width:640px){.principles-grid{grid-template-columns:1fr;}}
+    .principle{background:var(--gray-100);border-radius:10px;padding:12px 14px;}
+    .principle .p-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--gift-green);margin-bottom:4px;}
+    .principle .p-body{font-size:13px;color:var(--gray-700);}
+    .arc-hook{background:linear-gradient(135deg,#1e1b4b,#312e81);color:white;border-radius:12px;padding:16px 18px;margin-bottom:14px;}
+    .arc-hook .hook-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;opacity:0.7;margin-bottom:4px;}
+    .arc-hook .hook-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+    .arc-hook .hook-desc{font-size:13px;opacity:0.85;}
+    .acts-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px;}
+    @media(max-width:640px){.acts-grid{grid-template-columns:1fr;}}
+    .act-card{border-radius:12px;padding:16px 18px;}
+    .act-card.act-1{background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px solid #c7d2fe;}
+    .act-card.act-2{background:linear-gradient(135deg,#fff7ed,#fffbeb);border:1px solid #fed7aa;}
+    .act-card.act-3{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid #a7f3d0;}
+    .act-num{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+    .act-1 .act-num{color:#4338ca;}.act-2 .act-num{color:#c2410c;}.act-3 .act-num{color:var(--gift-green);}
+    .act-name{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .act-days{font-size:11px;color:var(--gray-400);margin-bottom:8px;}
+    .act-feel{font-size:13px;color:var(--gray-700);font-style:italic;margin-bottom:6px;}
+    .act-beat{font-size:12px;color:var(--navy);font-weight:600;}
+    .arc-curve-wrap{background:var(--gray-100);border-radius:10px;padding:12px 16px;}
+    .arc-curve-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--gray-400);margin-bottom:6px;}
+    .away-list{display:flex;flex-direction:column;gap:8px;}
+    .away-moment{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:#f0fdf4;border-radius:10px;border:1px solid #86efac;}
+    .away-icon{font-size:20px;flex-shrink:0;line-height:1;margin-top:1px;}
+    .away-title{font-size:13px;font-weight:600;color:var(--gift-green);margin-bottom:3px;}
+    .away-why{font-size:12px;color:var(--gray-700);}
+    .hero-shot{border:2px solid #f4a261;border-radius:12px;padding:14px 16px;margin-bottom:10px;background:linear-gradient(135deg,#fffbeb,#fff7ed);position:relative;}
+    .hero-shot .hero-num{position:absolute;top:-10px;left:14px;background:#f4a261;color:white;font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;border-radius:20px;padding:2px 10px;}
+    .hero-shot .hero-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+    .hero-shot .hero-desc{font-size:13px;color:var(--gray-700);margin-bottom:8px;}
+    .hero-shot .hero-why{font-size:12px;color:#92400e;font-style:italic;}
+    .day-block{border-radius:14px;margin-bottom:16px;overflow:hidden;box-shadow:var(--card-shadow);}
+    .day-block-header{padding:14px 20px;color:white;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;}
+    .day-block-header .day-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;opacity:0.8;}
+    .day-block-header .day-name{font-size:16px;font-weight:700;flex:1;}
+    .day-block-header .day-date{font-size:12px;opacity:0.75;}
+    .day-block-header .chevron{font-size:12px;opacity:0.7;transition:transform 0.2s;}
+    .day-block-header.open .chevron{transform:rotate(90deg);}
+    .day-block-body{background:white;max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+    .day-block-body.open{max-height:none;padding:16px 20px;}
+    .day-filmstrip{display:flex;gap:3px;overflow-x:auto;scrollbar-width:thin;padding:4px 0 12px;margin-bottom:14px;border-bottom:1px solid var(--gray-200);}
+    .day-filmstrip::-webkit-scrollbar{height:3px;}
+    .day-filmstrip::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:2px;}
+    .filmstrip-cell{flex-shrink:0;width:72px;height:128px;border-radius:3px;position:relative;overflow:hidden;cursor:pointer;border:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08);transition:transform 0.15s,box-shadow 0.15s;}
+    .filmstrip-cell:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,0.25);z-index:2;}
+    .filmstrip-cell svg{position:absolute;top:0;left:0;width:100%;height:100%;}
+    .fc-label{position:absolute;bottom:0;left:0;right:0;font-size:8px;text-align:center;color:white;background:rgba(0,0,0,0.5);padding:1px 2px;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;overflow:hidden;font-family:-apple-system,sans-serif;}
+    .mindset-note{background:#f0fdf4;border-left:3px solid var(--gift-green);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#1a4731;margin-bottom:14px;font-style:italic;}
+    .mindset-note strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:0.8px;color:var(--gift-green);margin-bottom:3px;font-style:normal;font-weight:700;}
+    .shot-list{display:flex;flex-direction:column;gap:8px;}
+    .shot-row{display:grid;grid-template-columns:180px 1fr;align-items:stretch;border-radius:10px;overflow:hidden;font-size:13px;}
+    .shot-row.hero-row{outline:1px solid #fcd34d;}
+    .shot-row.no-cam{outline:1px solid #fecaca;}
+    .shot-row.present-row{outline:1px solid #86efac;}
+    .shot-frame {
+      width: 180px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      background: #090d16;
+      aspect-ratio: 9 / 16;
+      border-right: 1.5px solid var(--gray-200);
+      user-select: none;
+    }
+    .shot-frame svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+    .shot-row:hover .shot-frame svg {
+      opacity: 1;
+    }
+    /* Viewfinder Overlay */
+    .viewfinder-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px 8px;
+      color: rgba(255, 255, 255, 0.85);
+      font-family: -apple-system, SFMono-Regular, Consolas, Monaco, monospace;
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .vf-rec {
+      position: absolute;
+      top: 5px;
+      left: 6px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 7.5px;
+      color: #fca5a5;
+    }
+    .vf-rec span {
+      width: 4px;
+      height: 4px;
+      background: #ef4444;
+      border-radius: 50%;
+      display: inline-block;
+      animation: vf-blink 1.2s infinite steps(1);
+    }
+    @keyframes vf-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .vf-gear {
+      position: absolute;
+      top: 5px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 7.5px;
+      color: #93c5fd;
+      text-transform: uppercase;
+    }
+    .vf-tc {
+      position: absolute;
+      bottom: 5px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-size: 7.5px;
+      color: #cbd5e1;
+    }
+    .vf-brackets {
+      position: absolute;
+      inset: 4px;
+      border: 1px solid transparent;
+      background: 
+        linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px) 0 0,
+        linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px) 0 0,
+        linear-gradient(to left, rgba(255,255,255,0.35) 1px, transparent 1px) 100% 0,
+        linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px) 100% 0,
+        linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px) 0 100%,
+        linear-gradient(to top, rgba(255,255,255,0.35) 1px, transparent 1px) 0 100%,
+        linear-gradient(to left, rgba(255,255,255,0.35) 1px, transparent 1px) 100% 100%,
+        linear-gradient(to top, rgba(255,255,255,0.35) 1px, transparent 1px) 100% 100%;
+      background-size: 6px 6px;
+      background-repeat: no-repeat;
+    }
+    .vf-status {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.75);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #cbd5e1;
+    }
+    .vf-status.status-live {
+      color: #a7f3d0;
+    }
+    .vf-status.status-off {
+      color: #fca5a5;
+    }
+    .shot-body{background:var(--gray-100);padding:9px 12px;display:flex;flex-direction:column;gap:3px;justify-content:center;}
+    .shot-row.hero-row .shot-body{background:#fffbeb;}
+    .shot-row.no-cam .shot-body{background:#fef2f2;}
+    .shot-row.present-row .shot-body{background:#f0fdf4;}
+    .shot-type{align-self:flex-start;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;border-radius:6px;padding:2px 8px;margin-bottom:2px;}
+    .type-establish{background:#dbeafe;color:#1e40af;}.type-broll{background:#d1fae5;color:#065f46;}
+    .type-detail{background:#ede9fe;color:#4c1d95;}.type-movement{background:#ffedd5;color:#c2410c;}
+    .type-reaction{background:#fce7f3;color:#9d174d;}.type-hero{background:#fef3c7;color:#92400e;border:1px solid #fbbf24;}
+    .type-nocam{background:#fee2e2;color:#991b1b;}.type-audio{background:#f0fdf4;color:#166534;border:1px solid #86efac;}
+    .type-present{background:#dcfce7;color:#166534;border:1px solid #4ade80;}
+    .shot-title{font-weight:600;color:var(--text);line-height:1.4;}
+    .shot-note{font-size:12px;color:#64748b;line-height:1.5;}
+    .shot-gear{display:flex;gap:5px;flex-wrap:wrap;margin-top:4px;}
+    @media(max-width:500px){
+      .shot-row{grid-template-columns:1fr;}
+      .shot-frame{width:min(100%,220px);justify-self:center;height:auto;aspect-ratio:9/16;border-right:none;border-bottom:1.5px solid var(--gray-200);}
+    }
+    .gear-badge{border-radius:6px;padding:2px 7px;font-size:10px;font-weight:600;}
+    .gear-badge.lumix{background:#dbeafe;color:#1e40af;}.gear-badge.osmo{background:#cffafe;color:#0e7490;}
+    .gear-badge.drone{background:#fce7f3;color:#9d174d;}.gear-badge.insta{background:#ffedd5;color:#c2410c;}
+    .gear-badge.audio{background:#f0fdf4;color:#166534;}.gear-badge.phone{background:var(--gray-100);color:var(--gray-700);}
+    .toolkit-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+    .toolkit-item{background:var(--gray-100);border-radius:10px;padding:12px 14px;}
+    .toolkit-item .tk-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;}
+    .toolkit-item .tk-shots{font-size:12px;color:var(--gray-700);}
+    .toolkit-item .tk-shots li{margin-bottom:3px;list-style:none;padding-left:12px;position:relative;}
+    .toolkit-item .tk-shots li::before{content:'→';position:absolute;left:0;color:var(--gray-400);}
+    .settings-table{width:100%;border-collapse:collapse;font-size:13px;}
+    .settings-table th{text-align:left;padding:8px 10px;background:var(--gray-100);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--gray-400);}
+    .settings-table td{padding:9px 10px;border-bottom:1px solid var(--gray-200);vertical-align:top;}
+    .settings-table tr:last-child td{border-bottom:none;}
+    .settings-table td:first-child{font-weight:600;color:var(--blue);width:130px;}
+    .checklist{list-style:none;}
+    .checklist li{display:flex;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--gray-200);font-size:13px;color:var(--gray-700);}
+    .checklist li:last-child{border-bottom:none;}
+    .checklist li::before{content:'☐';font-size:15px;flex-shrink:0;color:var(--sky);}
+    .checklist li strong{color:var(--text);}
+    .tip-box{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px 14px;font-size:13px;color:#0369a1;margin-top:12px;}
+    .tip-box strong{display:block;margin-bottom:2px;}
+    .edit-row{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--gray-200);font-size:13px;align-items:baseline;}
+    .edit-row:last-child{border-bottom:none;}
+    .edit-label{font-weight:700;color:var(--gift-green);font-size:12px;}
+    .edit-val{color:var(--gray-700);}
+    
+
+    
+    #lang-toggle{position:fixed;top:12px;right:12px;z-index:500;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:20px;padding:0 12px;height:38px;font-size:12px;font-weight:700;letter-spacing:0.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background 0.2s,transform 0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.25);white-space:nowrap;}
+    #lang-toggle:hover{transform:scale(1.05);background:rgba(255,255,255,0.25);}
+    footer{text-align:center;padding:24px 16px;font-size:12px;color:var(--gray-400);}
+  
+    .draft-pill{display:inline-block;margin-top:14px;background:rgba(244,162,97,0.18);border:1px solid rgba(244,162,97,0.5);border-radius:10px;padding:6px 12px;font-size:12px;max-width:640px;}
+    .hero-shot{margin-top:14px;}
+    .tip-box b{font-weight:700;}
+    html[lang=th] body{font-family:-apple-system,BlinkMacSystemFont,'Sukhumvit Set','Thonburi','Segoe UI',sans-serif;}
+    .shot-frame{align-self:start;border:0;border-radius:8px;cursor:zoom-in;padding:0;}
+    .shot-art{filter:grayscale(1);display:flex;align-items:center;justify-content:center;position:absolute;inset:0;background:#faf9f6;}
+    .shot-panel{display:block;flex:none;background-repeat:no-repeat;}
+.shot-pending{background:repeating-linear-gradient(135deg,#f1f5f9 0 8px,#e2e8f0 8px 16px);color:#64748b;font-size:10px;font-weight:600;text-align:center;line-height:1.3;padding:6px;}
+    .reference-note{font-size:11px;color:#64748b;margin:0 0 12px;}
+    .shot-frame:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
+    .preview-dialog{border:0;border-radius:14px;padding:16px;width:min(440px,94vw);max-height:94vh;overflow:auto;margin:auto;background:#0b1525;color:white;}
+    .preview-dialog::backdrop{background:rgba(0,0,0,.78);}
+    .preview-image{position:relative;width:min(100%,37vh);aspect-ratio:9/16;overflow:hidden;border-radius:8px;margin:12px auto;}
+    .preview-close{float:right;background:#26384f;color:white;border:0;border-radius:6px;padding:6px 12px;cursor:pointer;}
+    .preview-caption{font-size:14px;}
+    @media(max-width:640px){.shot-row{grid-template-columns:1fr;}.shot-frame{width:min(100%,220px);justify-self:center;}}
+    .vertical-note{font-size:12px;color:#4338ca;background:#eef2ff;padding:8px 10px;border-radius:7px;margin-top:6px;}
+    .vertical-guide{font-size:13px;line-height:1.6;color:#3730a3;background:#eef2ff;border-radius:8px;padding:12px 14px;margin-bottom:12px;}
+    .route-svg-wrap{background:var(--gray-100);border-radius:12px;padding:12px;margin-bottom:14px;}
+    .route-svg-wrap svg{display:block;width:100%;height:auto;}
+    .route-legend{display:flex;flex-wrap:wrap;gap:10px 16px;font-size:12px;color:var(--gray-700);margin-bottom:18px;}
+    .route-legend span{display:inline-flex;align-items:center;gap:6px;}
+    .route-legend .sw{width:10px;height:10px;border-radius:50%;display:inline-block;}
+    .route-day{border-left:4px solid var(--gray-400);background:var(--gray-100);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:12px;}
+    .route-day-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap;}
+    .route-day-pill{color:white;font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;letter-spacing:0.4px;}
+    .route-day-head strong{font-size:14px;color:var(--navy);}
+    .route-stops{list-style:none;}
+    .route-stops li{padding:6px 0;border-top:1px solid var(--gray-200);font-size:13px;color:var(--gray-700);}
+    .route-stops li:first-child{border-top:none;}
+    .route-stops b{color:var(--text);}
+    .route-tag{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;background:var(--gray-200);color:var(--gray-700);padding:1px 6px;border-radius:4px;margin-left:6px;}
+    .route-callout{margin-top:8px;font-size:12px;color:var(--gray-700);background:#fff7ed;border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 6px 6px 0;}
+    .maps-btn{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:12px;font-weight:600;color:white;background:var(--blue);padding:6px 12px;border-radius:7px;text-decoration:none;}
+    .maps-btn:hover{background:var(--sky);}
+    .route-map-embed{margin-top:10px;border-radius:10px;overflow:hidden;border:1px solid var(--gray-200);}
+    .route-map-embed iframe{width:100%;height:280px;display:block;border:0;}
+    .route-extra{background:#f0fdf4;border-radius:10px;padding:12px 14px;margin-top:4px;}
+    .route-extra h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--gift-green);margin-bottom:8px;}
+    .route-extra ul{list-style:none;}
+    .route-extra li{font-size:13px;color:var(--gray-700);padding:5px 0;border-top:1px solid #d1fae5;}
+    .route-extra li:first-child{border-top:none;}
+    @media(max-width:640px){.route-day-head{flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<button id="lang-toggle" onclick="toggleLang()">English</button>
+<header>
+  <div style="position:relative;z-index:1;">
+    <div class="badge" data-k="hdr.badge"></div>
+    <h1 data-k="hdr.title"></h1>
+    <p class="sub" data-k="hdr.sub"></p>
+    <div class="header-meta">
+      <span data-k="hdr.m1"></span><span data-k="hdr.m2"></span><span data-k="hdr.m3"></span><span data-k="hdr.m4"></span>
+    </div>
+    <div class="draft-pill" data-k="hdr.draft"></div>
+  </div>
+</header>
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="navScroll('philosophy',this)" data-k="nav.philosophy"></button>
+    <button class="nav-btn" onclick="navScroll('arc',this)" data-k="nav.arc"></button>
+    <button class="nav-btn" onclick="navScroll('away',this)" data-k="nav.away"></button>
+    <button class="nav-btn" onclick="navScroll('heroes',this)" data-k="nav.heroes"></button>
+    <button class="nav-btn" onclick="navScroll('days',this)" data-k="nav.days"></button>
+    <button class="nav-btn" onclick="navScroll('route',this)" data-k="nav.route"></button>
+    <button class="nav-btn" onclick="navScroll('toolkit',this)" data-k="nav.toolkit"></button>
+    <button class="nav-btn" onclick="navScroll('gear',this)" data-k="nav.gear"></button>
+    <button class="nav-btn" onclick="navScroll('settings',this)" data-k="nav.settings"></button>
+    <button class="nav-btn" onclick="navScroll('checklist',this)" data-k="nav.checklist"></button>
+    <button class="nav-btn" onclick="navScroll('grade',this)" data-k="nav.grade"></button>
+    <button class="nav-btn" onclick="navScroll('edit-philosophy',this)" data-k="nav.edit"></button>
+  </div>
+</nav>
+<main>
+  <div id="philosophy"></div><div class="card" data-sec="philosophy"></div>
+  <div id="arc"></div><div class="card" data-sec="arc"></div>
+  <div id="away"></div><div class="card" data-sec="away"></div>
+  <div id="heroes"></div><div class="card" id="hero-card"></div>
+  <div id="days"></div>
+  <div class="section-label" style="padding:0 4px;margin-bottom:8px;" data-k="days.label"></div>
+  <div id="day-list"></div>
+  <div id="route"></div><div class="card" data-sec="route"></div>
+  <div id="toolkit"></div><div class="card" data-sec="toolkit"></div>
+  <div id="gear"></div><div class="card" data-sec="gear"></div>
+  <div id="settings"></div><div class="card" data-sec="settings"></div>
+  <div id="checklist"></div><div class="card" data-sec="checklist"></div>
+  <div id="grade"></div><div class="card" data-sec="grade"></div>
+  <div id="edit-philosophy"></div><div class="card" data-sec="edit"></div>
+</main>
+<footer data-k="footer"></footer>
+
+<script>
+/* Thumbnail compositions — 142×80 storyboard frames */
+const GRID=`<g stroke="rgba(255,255,255,0.15)" stroke-width="0.5"><line x1="47" y1="0" x2="47" y2="80"/><line x1="95" y1="0" x2="95" y2="80"/><line x1="0" y1="26" x2="142" y2="26"/><line x1="0" y1="53" x2="142" y2="53"/></g>`;
+const COMPS={
+/* Fuji over Suruga Bay, dark rocks + surf in foreground */
+fj:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="fjS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60a5fa"/><stop offset="100%" stop-color="#dbeafe"/></linearGradient><linearGradient id="fjW" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e3a8a"/><stop offset="100%" stop-color="#0c1d4d"/></linearGradient></defs>
+<rect width="142" height="80" fill="url(#fjS)"/><path d="M38 44 L66 16 Q71 12 76 16 L104 44 Z" fill="#64748b"/><path d="M58 24 L66 16 Q71 12 76 16 L84 24 L79 22 L75 26 L71 21 L67 26 L63 22 Z" fill="#f8fafc"/>
+<rect y="44" width="142" height="36" fill="url(#fjW)"/><path d="M0 44 H142" stroke="#bfdbfe" stroke-width="0.6" opacity="0.6"/>
+<path d="M0 80 L0 58 Q10 50 20 56 L28 52 L36 60 L40 80 Z" fill="#0f172a"/><path d="M104 80 L110 54 Q116 46 122 50 L128 42 Q134 40 136 48 L142 52 L142 80 Z" fill="#111827"/>
+<path d="M30 66 Q40 60 52 66 T76 66" fill="none" stroke="#fff" stroke-width="1.6" opacity="0.8"/><path d="M96 62 Q102 56 108 60" fill="none" stroke="#fff" stroke-width="2" opacity="0.9"/>${GRID}</svg>`,
+/* Waves on rock, slow-mo */
+wv:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#1e40af"/><rect width="142" height="22" fill="#93c5fd"/>
+<path d="M40 80 L52 38 Q62 26 74 34 L86 30 Q96 34 98 48 L104 80 Z" fill="#0b1120"/>
+<path d="M0 58 Q20 40 44 46 Q58 30 70 26 Q60 44 72 50 Q90 40 112 50 Q128 44 142 52 L142 80 L0 80 Z" fill="#e0f2fe" opacity="0.9"/>
+<circle cx="64" cy="24" r="2" fill="#fff"/><circle cx="72" cy="20" r="1.4" fill="#fff"/><circle cx="58" cy="28" r="1.2" fill="#fff"/><circle cx="78" cy="26" r="1" fill="#fff"/>${GRID}</svg>`,
+/* Red maple canopy, backlit */
+mj:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="mjSun" cx="0.72" cy="0.3" r="0.5"><stop offset="0%" stop-color="#fef3c7"/><stop offset="100%" stop-color="#fef3c7" stop-opacity="0"/></radialGradient></defs>
+<rect width="142" height="80" fill="#7c2d12"/><rect width="142" height="80" fill="url(#mjSun)"/>
+<g fill="#dc2626" opacity="0.9"><circle cx="10" cy="8" r="14"/><circle cx="34" cy="2" r="16"/><circle cx="64" cy="6" r="12"/><circle cx="128" cy="4" r="16"/><circle cx="140" cy="26" r="12"/><circle cx="4" cy="30" r="12"/></g>
+<g fill="#f97316" opacity="0.85"><circle cx="22" cy="18" r="9"/><circle cx="50" cy="14" r="8"/><circle cx="112" cy="16" r="9"/><circle cx="84" cy="2" r="9"/></g>
+<path d="M30 80 Q34 50 26 26 M118 80 Q112 50 122 22" stroke="#3b1a0a" stroke-width="4" fill="none"/>
+<path d="M0 72 Q71 62 142 72 L142 80 L0 80 Z" fill="#b45309"/><g fill="#ef4444"><circle cx="40" cy="74" r="1.5"/><circle cx="60" cy="76" r="1.2"/><circle cx="96" cy="73" r="1.4"/></g>
+<g fill="#1c1917"><circle cx="70" cy="56" r="2.6"/><rect x="68" y="58.5" width="4.4" height="12" rx="1.5"/><circle cx="78" cy="61" r="1.9"/><rect x="76.5" y="63" width="3" height="8" rx="1"/></g>${GRID}</svg>`,
+/* Coach window — Fuji gliding past */
+bus:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#1f2937"/><rect x="10" y="8" width="122" height="52" rx="6" fill="#7dd3fc"/>
+<path d="M30 50 L58 24 Q62 21 66 24 L94 50 Z" fill="#475569"/><path d="M52 30 L58 24 Q62 21 66 24 L72 30 L66 28 L62 31 L58 28 Z" fill="#fff"/>
+<rect x="10" y="48" width="122" height="12" fill="#4d7c0f"/><path d="M10 52 H132" stroke="#fde047" stroke-width="0.8" stroke-dasharray="6 4"/>
+<rect x="69" y="8" width="3" height="52" fill="#111827"/><rect y="60" width="142" height="20" fill="#374151"/><rect x="18" y="62" width="30" height="16" rx="5" fill="#4b5563"/><rect x="92" y="62" width="30" height="16" rx="5" fill="#4b5563"/>
+<circle cx="104" cy="58" r="4" fill="#fcd9b6"/><path d="M106 56 L114 50" stroke="#fcd9b6" stroke-width="1.6"/>${GRID}</svg>`,
+/* Ryokan corridor at night, yukata kids */
+ys:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#1c1208"/><path d="M0 0 L56 30 L86 30 L142 0 Z" fill="#292014"/><path d="M0 80 L56 50 L86 50 L142 80 Z" fill="#a16207"/>
+<path d="M0 0 L56 30 L56 50 L0 80 Z" fill="#fef3c7" opacity="0.35"/><path d="M142 0 L86 30 L86 50 L142 80 Z" fill="#fef3c7" opacity="0.25"/>
+<g stroke="#3f2d14" stroke-width="0.8"><line x1="14" y1="7" x2="14" y2="73"/><line x1="30" y1="16" x2="30" y2="64"/><line x1="112" y1="16" x2="112" y2="64"/><line x1="128" y1="7" x2="128" y2="73"/></g>
+<ellipse cx="22" cy="20" rx="4" ry="6" fill="#fbbf24"/><ellipse cx="120" cy="20" rx="4" ry="6" fill="#fbbf24"/><rect x="56" y="30" width="30" height="20" fill="#fde68a" opacity="0.7"/>
+<g><circle cx="66" cy="50" r="2.4" fill="#1c1917"/><path d="M63 52 L69 52 L70 62 L62 62 Z" fill="#1e3a8a"/><circle cx="76" cy="53" r="2" fill="#1c1917"/><path d="M73.5 55 L78.5 55 L79.5 63 L72.5 63 Z" fill="#be123c"/></g></svg>`,
+/* Four generations / group with Fuji */
+gp:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#bae6fd"/><path d="M44 46 L68 24 Q71 21 74 24 L98 46 Z" fill="#94a3b8"/><path d="M62 30 L68 24 Q71 21 74 24 L80 30 L74 28 L71 31 L68 28 Z" fill="#fff"/><rect y="46" width="142" height="12" fill="#2563eb"/><rect y="58" width="142" height="22" fill="#78716c"/>
+<g fill="#0f172a">${Array.from({length:17},(_,i)=>{const x=10+i*7.4,h=i%3?9:6,y=60-h;return `<circle cx="${x}" cy="${y-2.6}" r="2.4"/><rect x="${x-2.4}" y="${y}" width="4.8" height="${h+8}" rx="1.4"/>`}).join('')}</g>${GRID}</svg>`,
+/* Face / reaction */
+fa:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="faB" cx="0.3" cy="0.4" r="0.8"><stop offset="0%" stop-color="#fda4af"/><stop offset="100%" stop-color="#4c0519"/></radialGradient></defs><rect width="142" height="80" fill="url(#faB)"/>
+<circle cx="24" cy="18" r="6" fill="#fff" opacity="0.18"/><circle cx="120" cy="60" r="9" fill="#fff" opacity="0.12"/>
+<ellipse cx="80" cy="44" rx="20" ry="24" fill="#f5c9a5"/><path d="M60 38 Q62 16 80 16 Q100 16 100 38 Q92 26 80 28 Q68 26 60 38 Z" fill="#1c1917"/><circle cx="73" cy="44" r="1.8" fill="#1c1917"/><circle cx="87" cy="44" r="1.8" fill="#1c1917"/><path d="M73 54 Q80 60 87 54" stroke="#9f1239" stroke-width="1.6" fill="#be123c"/><path d="M58 80 Q60 66 80 66 Q100 66 102 80 Z" fill="#1e3a8a"/>${GRID}</svg>`,
+/* Close detail — hands / leaf */
+cu:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#57534e"/><circle cx="20" cy="16" r="10" fill="#f97316" opacity="0.25"/><circle cx="126" cy="62" r="14" fill="#dc2626" opacity="0.25"/>
+<path d="M14 80 Q30 46 62 44 Q78 44 84 52 L70 60 Q50 60 40 80 Z" fill="#e7b48f"/><path d="M142 80 Q118 50 92 50 Q82 52 80 58 L96 60 Q112 62 120 80 Z" fill="#c8956c"/>
+<path d="M76 30 L80 40 L90 36 L84 44 L92 50 L80 48 L78 58 L74 48 L62 50 L70 44 L64 36 L74 40 Z" fill="#dc2626"/><line x1="76" y1="48" x2="78" y2="60" stroke="#7f1d1d" stroke-width="1"/></svg>`,
+/* Airplane window at night */
+wn:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#0b1026"/><g fill="#fbbf24"><circle cx="50" cy="62" r="1.2"/><circle cx="60" cy="66" r="1"/><circle cx="72" cy="60" r="1.4"/><circle cx="84" cy="64" r="1"/><circle cx="92" cy="58" r="1.2"/></g><circle cx="88" cy="20" r="0.8" fill="#fff"/><circle cx="56" cy="16" r="0.6" fill="#fff"/>
+<path d="M50 50 L96 44 L98 46 L50 56 Z" fill="#64748b"/><path fill-rule="evenodd" d="M0 0 h142 v80 h-142 z M71 8 C42 8 36 22 36 40 C36 58 42 72 71 72 C100 72 106 58 106 40 C106 22 100 8 71 8 Z" fill="#090d16"/><path d="M71 9 C43 9 37.5 22.5 37.5 40 C37.5 57.5 43 71 71 71 C99 71 104.5 57.5 104.5 40 C104.5 22.5 99 9 71 9 Z" fill="none" stroke="#334155" stroke-width="1.5"/></svg>`,
+/* Dawn landing — window, pink sky */
+dw:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="dwS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6366f1"/><stop offset="55%" stop-color="#f9a8d4"/><stop offset="100%" stop-color="#fed7aa"/></linearGradient></defs><rect width="142" height="80" fill="url(#dwS)"/><path d="M44 52 L60 40 L64 40 L80 52 Z" fill="#6b21a8" opacity="0.5"/><rect y="52" width="142" height="28" fill="#1e3a8a" opacity="0.7"/>
+<path fill-rule="evenodd" d="M0 0 h142 v80 h-142 z M71 8 C42 8 36 22 36 40 C36 58 42 72 71 72 C100 72 106 58 106 40 C106 22 100 8 71 8 Z" fill="#cbd5e1"/></svg>`,
+/* Airport hall with luggage */
+ap:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#e2e8f0"/><path d="M0 0 L142 0 L142 16 Q71 4 0 16 Z" fill="#94a3b8"/><rect y="56" width="142" height="24" fill="#cbd5e1"/>
+<g>${Array.from({length:14},(_,i)=>{const c=['#1d4ed8','#be123c','#0f766e','#a16207','#6d28d9','#334155'][i%6];return `<rect x="${6+i*9.6}" y="${46-(i%3)*3}" width="7" height="${14+(i%3)*3}" rx="1.5" fill="${c}"/><rect x="${8.5+i*9.6}" y="${42-(i%3)*3}" width="2" height="4" fill="#475569"/>`}).join('')}</g>
+<g fill="#0f172a"><circle cx="30" cy="30" r="2.6"/><rect x="27.5" y="32.5" width="5" height="11" rx="1.5"/><circle cx="110" cy="31" r="2.4"/><rect x="107.6" y="33.5" width="4.8" height="10" rx="1.5"/></g>${GRID}</svg>`,
+/* Night city / Tokyo Station */
+nt:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="ntS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1e1b4b"/><stop offset="100%" stop-color="#3730a3"/></linearGradient></defs><rect width="142" height="80" fill="url(#ntS)"/>
+<rect x="0" y="22" width="18" height="40" fill="#111827"/><rect x="124" y="16" width="18" height="46" fill="#111827"/><path d="M24 62 L24 40 L40 40 L40 34 Q71 22 102 34 L102 40 L118 40 L118 62 Z" fill="#7c2d12"/><path d="M60 34 Q71 22 82 34 Z" fill="#334155"/>
+<g fill="#fde68a">${Array.from({length:10},(_,i)=>`<rect x="${28+i*9}" y="46" width="3" height="5"/>`).join('')}</g><rect y="62" width="142" height="18" fill="#0f172a"/>
+<g fill="#fbbf24" opacity="0.8"><circle cx="10" cy="70" r="3"/><circle cx="40" cy="72" r="2.4"/><circle cx="100" cy="71" r="2.8"/><circle cx="132" cy="70" r="3"/></g>${GRID}</svg>`,
+/* Castle + fireworks */
+ds:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#0f0a2e"/><g stroke="#f472b6" stroke-width="0.8" opacity="0.8">${Array.from({length:10},(_,i)=>{const a=i*Math.PI/5;return `<line x1="${36+Math.cos(a)*3}" y1="${18+Math.sin(a)*3}" x2="${36+Math.cos(a)*11}" y2="${18+Math.sin(a)*11}"/>`}).join('')}</g><g stroke="#fde047" stroke-width="0.8" opacity="0.8">${Array.from({length:10},(_,i)=>{const a=i*Math.PI/5;return `<line x1="${108+Math.cos(a)*3}" y1="${14+Math.sin(a)*3}" x2="${108+Math.cos(a)*10}" y2="${14+Math.sin(a)*10}"/>`}).join('')}</g>
+<path d="M50 66 L50 44 L56 44 L56 34 L60 24 L64 34 L64 40 L68 40 L71 18 L74 40 L78 40 L78 34 L82 24 L86 34 L86 44 L92 44 L92 66 Z" fill="#c4b5fd"/><rect y="66" width="142" height="14" fill="#020617"/>
+<g fill="#020617"><circle cx="20" cy="66" r="4"/><circle cx="30" cy="68" r="3"/><circle cx="116" cy="66" r="4"/><circle cx="126" cy="68" r="3"/></g></svg>`,
+/* Great Buddha silhouette */
+bd:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="bdS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#93c5fd"/><stop offset="100%" stop-color="#e0f2fe"/></linearGradient></defs><rect width="142" height="80" fill="url(#bdS)"/><circle cx="18" cy="20" r="12" fill="#dc2626" opacity="0.5"/><circle cx="128" cy="24" r="14" fill="#ea580c" opacity="0.45"/>
+<path d="M40 72 Q40 48 58 44 Q60 36 64 34 Q62 22 71 18 Q80 22 78 34 Q82 36 84 44 Q102 48 102 72 Z" fill="#3f6158"/><circle cx="71" cy="24" r="8" fill="#3f6158"/><rect y="70" width="142" height="10" fill="#a8a29e"/>
+<g fill="#0f172a"><circle cx="20" cy="66" r="2"/><rect x="18.2" y="68" width="3.6" height="7" rx="1"/></g>${GRID}</svg>`,
+/* Temple / shrine path */
+tp:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#fef3c7"/><path d="M0 80 L58 40 L84 40 L142 80 Z" fill="#a8a29e"/><rect x="38" y="22" width="66" height="5" fill="#b91c1c"/><rect x="34" y="18" width="74" height="4" rx="2" fill="#7f1d1d"/><rect x="46" y="27" width="5" height="40" fill="#b91c1c"/><rect x="91" y="27" width="5" height="40" fill="#b91c1c"/><rect x="44" y="32" width="54" height="3" fill="#b91c1c"/>
+<g fill="#dc2626" opacity="0.6"><circle cx="8" cy="14" r="14"/><circle cx="136" cy="12" r="14"/></g>${GRID}</svg>`,
+/* Volcano rim / chairlift */
+vl:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#bfdbfe"/><path d="M8 80 L44 26 Q71 18 98 26 L134 80 Z" fill="#a3a35b"/><path d="M44 26 Q71 18 98 26 Q71 30 44 26 Z" fill="#65a30d"/><line x1="20" y1="80" x2="64" y2="22" stroke="#334155" stroke-width="0.6"/>
+<g fill="#1f2937"><rect x="31" y="62" width="6" height="3"/><rect x="43" y="47" width="6" height="3"/><rect x="55" y="32" width="6" height="3"/></g>${GRID}</svg>`,
+/* Food detail */
+fd:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#292524"/><ellipse cx="71" cy="44" rx="44" ry="26" fill="#f5f5f4"/><ellipse cx="71" cy="44" rx="36" ry="20" fill="#1e293b"/>
+<g><ellipse cx="58" cy="42" rx="9" ry="5" fill="#fb7185"/><ellipse cx="76" cy="38" rx="8" ry="5" fill="#fdba74"/><ellipse cx="84" cy="50" rx="9" ry="5" fill="#f87171"/><ellipse cx="64" cy="52" rx="6" ry="4" fill="#bef264"/></g>
+<line x1="110" y1="12" x2="88" y2="38" stroke="#d6b88f" stroke-width="2"/><line x1="116" y1="14" x2="92" y2="40" stroke="#d6b88f" stroke-width="2"/></svg>`,
+/* Boat / cave */
+bt:`<svg viewBox="0 0 142 80" xmlns="http://www.w3.org/2000/svg"><rect width="142" height="80" fill="#0b1120"/><path d="M30 80 L30 30 Q71 -4 112 30 L112 80 Z" fill="#38bdf8"/><path d="M60 0 L82 0 L78 20 L64 20 Z" fill="#e0f2fe" opacity="0.8"/><rect x="30" y="56" width="82" height="24" fill="#0369a1"/>
+<path d="M40 60 L102 60 L96 70 L46 70 Z" fill="#f8fafc"/><g fill="#0f172a"><circle cx="58" cy="56" r="2.4"/><circle cx="68" cy="55" r="2"/><circle cx="78" cy="56" r="2.4"/><circle cx="88" cy="56" r="2"/></g></svg>`
+};
+
+/* ───────── Gear shorthands ───────── */
+const L35=['lumix','S9 + 35mm Summilux'], N50=['lumix','S9 + 50mm Noctilux f/1.2'], A90=['lumix','S9 + 90mm APO'],
+      OP=['osmo','Osmo Pocket 3'], X5=['insta','Insta360 X5'], DR=['drone','DJI Mini 3 Pro'], PH=['phone','Phone'], MIC=['audio','S9 internal mic'],
+      TRI=['phone','Tripod / GorillaPod'];
+
+/* ───────── Simple strings ───────── */
+const STR={
+en:{
+'hdr.badge':'Vertical 9:16 · Shot Plan · GiftLee Method',
+'hdr.title':'Izu — Four Generations, One Bus',
+'hdr.sub':'Our family trip, every couple of years · thirty-plus people · the week we all fit in one frame',
+'hdr.m1':'📅 4–10 Dec 2026','hdr.m2':'🎬 3-Act Narrative','hdr.m3':'🎞 Observational · One Voice: Grandma','hdr.m4':'👵→👶 Four Generations · 30+',
+'hdr.draft':'✏️ Draft — built on the itinerary as of 21 Oct (flights booked). Shots are tied to places, not clock times, so they survive changes.',
+'nav.philosophy':'Philosophy','nav.arc':'Story Arc','nav.away':'Put It Away','nav.heroes':'Hero Shots','nav.days':'Day-by-Day','nav.route':'Route Map','nav.toolkit':'Shot Toolkit','nav.gear':'Gear Plan','nav.settings':'Settings','nav.checklist':'Pre-Trip','nav.grade':'Color Grade','nav.edit':'Edit',
+'days.label':'Day-by-Day Shot Plan','mindset':'GiftLee Mindset',
+'heroes.title':'⭐ Hero Shots — 7 Anchors of the Edit','heroes.intro':'If you only get these seven, the film works. Everything else exists to support them.',
+'footer':'Izu · Four Generations, One Bus · 2026 · Lycka’s Family · GiftLee Method'
+},
+th:{
+'hdr.badge':'แนวตั้ง 9:16 · แผนถ่ายทำ · วิถี GiftLee',
+'hdr.title':'อิซุ — สี่รุ่น หนึ่งรถบัส',
+'hdr.sub':'ทริปครอบครัวที่มีทุกสองสามปี · กว่าสามสิบชีวิต · สัปดาห์ที่ทุกคนอยู่ในเฟรมเดียวกัน',
+'hdr.m1':'📅 4–10 ธ.ค. 2026','hdr.m2':'🎬 เรื่องเล่า 3 องก์','hdr.m3':'🎞 เฝ้าสังเกต · เสียงเดียว: คุณยาย','hdr.m4':'👵→👶 สี่รุ่น · 30+ คน',
+'hdr.draft':'✏️ ฉบับร่าง — อิงแผนเที่ยว ณ 21 ต.ค. (จองไฟลต์แล้ว) ช็อตผูกกับสถานที่ ไม่ได้ผูกกับเวลา แผนเปลี่ยนก็ยังใช้ได้',
+'nav.philosophy':'ปรัชญา','nav.arc':'โครงเรื่อง','nav.away':'เก็บกล้อง','nav.heroes':'ช็อตฮีโร่','nav.days':'รายวัน','nav.route':'แผนที่เส้นทาง','nav.toolkit':'ชุดช็อต','nav.gear':'แผนอุปกรณ์','nav.settings':'ตั้งค่ากล้อง','nav.checklist':'ก่อนเดินทาง','nav.grade':'เกรดสี','nav.edit':'ตัดต่อ',
+'days.label':'แผนถ่ายทำรายวัน','mindset':'แนวคิด GiftLee',
+'heroes.title':'⭐ ช็อตฮีโร่ — 7 หมุดหลักของการตัดต่อ','heroes.intro':'ได้แค่เจ็ดช็อตนี้ หนังก็เดินได้แล้ว ที่เหลือมีไว้เสริมเจ็ดช็อตนี้เท่านั้น',
+'footer':'อิซุ · สี่รุ่น หนึ่งรถบัส · 2026 · ครอบครัว ลิคกะ · วิถี GiftLee'
+}};
+
+/* ───────── Hero shots ───────── */
+const HEROES=[
+{n:1,gear:[A90,L35,TRI],
+ en:{t:'Shirahama — White Sand, the Torii on the Rock, Surf',s:'S9 + 90mm · tripod · early afternoon 13:00–15:00, sun behind you · Izu Shirahama beach / Shirahama Shrine torii · D2',
+  d:'Izu Shirahama faces east, so in the afternoon the sun is behind the camera and the sea turns turquoise over white sand. From along the beach, 90mm compresses the small torii on its rock against the breaking surf; switch to 35mm for a wide with the family as small figures along the waterline. 4K 60fps for the surf. Walk the sand with grandma for five minutes before you lift the camera.',
+  w:'The cold open and the emotional peak. No Fuji here: the sea, the torii and the whole family on one beach carry it.'},
+ th:{t:'ชิราฮามะ (Shirahama) — ทรายขาว โทริอิบนโขดหิน และคลื่น',s:'S9 + 90mm · ขาตั้ง · บ่ายต้น 13:00–15:00 แดดอยู่หลังกล้อง · หาดอิซุชิราฮามะ / โทริอิศาลเจ้าชิราฮามะ · D2',
+  d:'หาดอิซุชิราฮามะหันไปทางทิศตะวันออก ช่วงบ่ายแดดจึงอยู่หลังกล้อง ทะเลเป็นสีฟ้าเทอร์ควอยซ์บนทรายขาว ถ่ายจากริมหาดด้วย 90mm บีบระยะให้โทริอิเล็กๆ บนโขดหินซ้อนกับคลื่นที่แตก แล้วสลับเป็น 35mm มุมกว้างให้ครอบครัวเป็นคนตัวเล็กๆ เรียงริมน้ำ ถ่ายคลื่น 4K 60fps ก่อนยกกล้อง เดินบนทรายกับคุณยายห้านาทีก่อน',
+  w:'ฉากเปิดเรื่องและจุดพีคทางอารมณ์ ที่นี่ไม่มีฟูจิ ทะเล โทริอิ และทั้งครอบครัวบนหาดเดียวกันคือสิ่งที่เล่าเรื่อง'}},
+{n:2,gear:[N50,L35],
+ en:{t:'Momiji Canopy — Backlit Red, Grandma Walking Under',s:'S9 + Noctilux f/1.2 · shoot toward the sun through the leaves · Atami Baien (maple festival 14 Nov–6 Dec) · D1 ~11:00–12:30',
+  d:'December sun is low even at midday — get under the maples and shoot toward it so the leaves glow like stained glass. Wide-open Noctilux turns the background into red bokeh. The subject: grandma walking slowly under the canopy, a grandchild kicking fallen leaves ahead of her. Hold 10+ seconds; let them walk out of frame.',
+  w:'The colour of the film. If the leaves are past peak, Shuzenji on D3 is the second chance.'},
+ th:{t:'อุโมงค์ใบไม้แดง — ย้อนแสง คุณยายเดินอยู่ข้างใต้',s:'S9 + Noctilux f/1.2 · ถ่ายย้อนแดดผ่านใบไม้ · สวนอาตามิไบเอ็น (Atami Baien) งานใบไม้แดง 14 พ.ย.–6 ธ.ค. · D1 ~11:00–12:30',
+  d:'แดดเดือนธันวาคมอยู่ต่ำแม้ตอนเที่ยง — เข้าไปใต้ต้นเมเปิ้ลแล้วถ่ายย้อนแดด ใบไม้จะเรืองแสงเหมือนกระจกสี Noctilux เปิดสุดทำให้ฉากหลังเป็นโบเก้สีแดง ตัวแบบ: คุณยายเดินช้าๆ ใต้ร่มใบไม้ มีหลานเตะใบไม้ร่วงนำหน้า ค้างไว้ 10 วินาทีขึ้นไป ปล่อยให้เดินออกจากเฟรมเอง',
+  w:'สีของหนังทั้งเรื่อง ถ้าใบไม้เลยพีค ชูเซ็นจิใน D3 คือโอกาสที่สอง'}},
+{n:3,gear:[N50,L35,TRI],
+ en:{t:'Four Generations — One Frame',s:'Two parts: Noctilux detail of hands + the one posed group shot on the beach · Izu Shirahama · D2',
+  d:'Part 1 (unposed): grandma’s hand holding the 1-year-old’s hand — Noctilux, f/1.2, eye-level with the child. Part 2: the only posed shot of the whole trip — all 30+ people on the sand with the sea and the torii rock behind. Tripod + 10s interval burst so you are in it too. In the afternoon the sun is behind the camera, so watch for squinting: shoot on the count of three with eyes closed, then open. <strong>Match the past trips:</strong> bring the group photo from the last family trip on your phone and arrange everyone the same way (same rows, grandma in the same place) so the photos can sit side by side across the years.',
+  w:'For the vertical video, use compact staggered rows and leave sea and sky above the group. Keep the matching arrangement from the previous trip for a separate landscape still. If Fuji is clear at the Mishima Skywalk on D3, take a bonus group still there too. The spine of the film — and the one frame that links this trip to every trip before and after it.'},
+ th:{t:'สี่รุ่น — ในเฟรมเดียว',s:'สองส่วน: Noctilux ถ่ายมือ + ภาพหมู่ที่จัดท่าภาพเดียวบนชายหาด · อิซุชิราฮามะ · D2',
+  d:'ส่วนที่ 1 (ไม่จัดท่า): มือคุณยายจับมือหลานวัย 1 ขวบ — Noctilux f/1.2 ระดับสายตาเด็ก ส่วนที่ 2: ภาพจัดท่าภาพเดียวของทั้งทริป — ทั้ง 30+ คนบนหาดทราย มีทะเลและโขดหินโทริอิอยู่ข้างหลัง ใช้ขาตั้ง + ตั้งเวลาถ่ายรัวทุก 10 วินาที เพื่อให้คุณได้อยู่ในภาพด้วย ช่วงบ่ายแดดอยู่หลังกล้อง ระวังคนหยีตา: ให้หลับตาแล้วลืมพร้อมกันตอนนับสาม <strong>ให้ตรงกับทริปก่อนๆ:</strong> เปิดภาพหมู่จากทริปครอบครัวครั้งก่อนในโทรศัพท์ แล้วจัดทุกคนแบบเดิม (แถวเดิม คุณยายอยู่ตำแหน่งเดิม) เพื่อให้วางภาพเทียบกันได้ข้ามปี',
+  w:'วิดีโอแนวตั้งจัดหลายแถวกระชับและเว้นทะเลกับฟ้าด้านบน เก็บการจัดแถวแบบทริปก่อนสำหรับภาพนิ่งแนวนอนแยกอีกใบ ถ้าฟูจิชัดที่สะพานมิชิมะสกายวอล์กใน D3 ถ่ายภาพหมู่โบนัสที่นั่นด้วย แกนหลักของหนัง — และเฟรมเดียวที่เชื่อมทริปนี้กับทุกทริปก่อนหน้าและทริปต่อไป'}},
+{n:4,gear:[X5,MIC],
+ en:{t:'"Fuji-san!" — The Reveal From the Coach Window',s:'Insta360 X5 · suction mount on a front side window · heading north from Shuzenji toward Mishima · D3 late morning',
+  d:'Mount on the inside of a side window near the front (never the windscreen — ask the driver first) and let it run. As the coach leaves the Izu valleys and heads north to Mishima, Fuji rises straight ahead and grows with every kilometre. The real hero is the audio: ten kids shouting "Fuji-san!" at once. Reframe in post — Fuji first, then whip to the kids’ faces. On a clear D1 morning Fuji may also show on the right past Atsugi — keep the camera running then too.',
+  w:'The moment the whole family sees Fuji together. Can’t be staged, can’t be repeated.'},
+ th:{t:'"ฟูจิซัง!" — ภาพเผยจากหน้าต่างรถบัส',s:'Insta360 X5 · ตัวดูดกระจกติดหน้าต่างข้างด้านหน้า · ขาขึ้นเหนือจากชูเซ็นจิไปมิชิมะ · สายๆ D3',
+  d:'ติดด้านในหน้าต่างข้างช่วงหน้ารถ (ห้ามติดกระจกหน้า — ขออนุญาตคนขับก่อน) แล้วปล่อยถ่ายไปเลย ตอนรถออกจากหุบเขาอิซุมุ่งเหนือไปมิชิมะ ฟูจิจะโผล่ตรงหน้าและใหญ่ขึ้นทุกกิโลเมตร ฮีโร่ตัวจริงคือเสียง: เด็กสิบคนตะโกน "ฟูจิซัง!" พร้อมกัน รีเฟรมตอนตัดต่อ — ฟูจิก่อน แล้วหมุนไปที่หน้าเด็กๆ ถ้าเช้า D1 ฟ้าใส ฟูจิอาจโผล่ทางขวาหลังผ่านอัตสึงิ — เปิดกล้องไว้ด้วย',
+  w:'ช่วงที่ทั้งครอบครัวเห็นฟูจิด้วยกัน จัดฉากไม่ได้ ถ่ายซ้ำไม่ได้'}},
+{n:5,gear:[OP,N50],
+ en:{t:'Yukata Night — Kids in the Ryokan Corridor',s:'Osmo Pocket 3 low-light · or Noctilux handheld · KAI Anjin corridor after check-in · D1 evening',
+  d:'Kids in matching yukata padding down a lantern-lit corridor in slippers, grandparents following. Shoot from low and behind, let them run away from the camera. 25fps, shutter 1/50 to keep the warm lamps flicker-free. One take, then the camera goes back to the room — dinner is coming.',
+  w:'The quiet "we are somewhere else" moment of Act I.'},
+ th:{t:'คืนยูกาตะ — เด็กๆ ในทางเดินเรียวกัง',s:'Osmo Pocket 3 แสงน้อย · หรือ Noctilux ถือมือ · ทางเดิน KAI Anjin หลังเช็กอิน · เย็น D1',
+  d:'เด็กๆ ใส่ยูกาตะเหมือนกัน เดินรองเท้าแตะไปตามทางเดินที่มีโคมไฟ ผู้ใหญ่เดินตามหลัง ถ่ายมุมต่ำจากด้านหลัง ปล่อยให้วิ่งออกห่างจากกล้อง 25fps ชัตเตอร์ 1/50 กันไฟกะพริบ ถ่ายเทคเดียว แล้วเก็บกล้องไว้ในห้อง — มื้อเย็นกำลังมา',
+  w:'โมเมนต์เงียบๆ ของ "เรามาอยู่อีกที่หนึ่งแล้ว" ในองก์ 1'}},
+{n:6,gear:[A90,L35],
+ en:{t:'Mishima Skywalk — Fuji Beside the Bridge, Scale Through a Child',s:'S9 + 90mm from the start of the bridge · then 35mm low angle · Mishima Skywalk (400 m suspension bridge) · D3 early afternoon',
+  d:'90mm from the deck at the start of the span: the smallest child walking hand in hand with grandma along the 400-metre bridge, compressed so Fuji towers over the railing. Then switch to 35mm, crouch low behind grandma as she stops to look. If Fuji is hidden, the long bridge and Suruga Bay on the other side still carry the shot. No words needed.',
+  w:'Act II closes on Fuji and stillness before the city.'},
+ th:{t:'มิชิมะสกายวอล์ก (Mishima Skywalk) — ฟูจิข้างสะพาน ขนาดผ่านสายตาเด็ก',s:'S9 + 90mm จากต้นสะพาน · แล้ว 35mm มุมต่ำ · มิชิมะสกายวอล์ก (สะพานแขวน 400 ม.) · บ่ายต้น D3',
+  d:'90mm จากลานต้นสะพาน: เด็กคนเล็กที่สุดจูงมือคุณยายเดินไปตามสะพานยาว 400 เมตร บีบระยะให้ฟูจิสูงตระหง่านเหนือราวสะพาน จากนั้นเปลี่ยนเป็น 35mm ย่อตัวต่ำหลังคุณยายตอนท่านหยุดมอง ถ้าฟูจิมีเมฆบัง สะพานยาวกับอ่าวซูรุกะอีกฝั่งก็ยังเล่าเรื่องได้ ไม่ต้องมีคำพูด',
+  w:'องก์ 2 ปิดด้วยฟูจิและความนิ่ง ก่อนเข้าเมือง'}},
+{n:7,gear:[L35,OP],
+ en:{t:'Disney Night — The Uncaptured Moment',s:'Film the waiting only · kids on the curb, castle at blue hour (~16:30) · camera OFF when the show starts · D4',
+  d:'Film the anticipation: kids sitting on the curb, light-up toys, the castle turning blue as the sun goes down. When the night show or fireworks start — camera off. Watch it holding your daughter. Park rules: no tripods, selfie sticks or drones.',
+  w:'In the edit: anticipation → park ambience → cut to black → title card → next morning in Ginza.'},
+ th:{t:'คืนดิสนีย์ — ช่วงเวลาที่ไม่ถูกบันทึก',s:'ถ่ายแค่ช่วงรอ · เด็กๆ นั่งริมทาง ปราสาทยามบลูอาวร์ (~16:30) · ปิดกล้องเมื่อโชว์เริ่ม · D4',
+  d:'ถ่ายความตื่นเต้นระหว่างรอ: เด็กๆ นั่งริมทาง ของเล่นมีไฟ ปราสาทเปลี่ยนเป็นสีฟ้าตอนพระอาทิตย์ตก พอโชว์กลางคืนหรือพลุเริ่ม — ปิดกล้อง ดูโชว์กอดลูกสาวไว้ กฎสวนสนุก: ห้ามขาตั้ง ไม้เซลฟี่ และโดรน',
+  w:'ตอนตัดต่อ: ช่วงรอ → เสียงบรรยากาศในสวน → ตัดดำ → ไตเติลการ์ด → เช้าวันใหม่ที่กินซ่า'}}
+];
+
+/* ───────── Days ─────────
+   shot = [type, comp, enTitle, enNote, thTitle, thNote, gear[], heroNum?] */
+const DAYS=[
+{c:'#4338ca,#6366f1',
+ en:{l:'Day 0 · Act I',n:'Night Flight — Last to Leave',d:'Fri 4 Dec · Bangkok 22:30 → Narita T1 06:20 Sat (TG640) · most of the family flew this morning (TG676, landed 15:55) and are already asleep at Hotel Mystays Premier Narita',m:'The family leaves in pieces, and your household goes last. While the others are already in Japan, you are still at home with a school bag and a suitcase. Shoot it small.'},
+ th:{l:'วันที่ 0 · องก์ 1',n:'ไฟลต์กลางคืน — ออกเดินทางเป็นบ้านสุดท้าย',d:'ศ. 4 ธ.ค. · กรุงเทพฯ 22:30 → นาริตะ T1 06:20 วันเสาร์ (TG640) · คนส่วนใหญ่บินไปตั้งแต่เช้า (TG676 ถึง 15:55) และนอนอยู่ที่ Hotel Mystays Premier Narita แล้ว',m:'ครอบครัวออกเดินทางไม่พร้อมกัน และบ้านเราไปเป็นบ้านสุดท้าย ขณะที่คนอื่นถึงญี่ปุ่นแล้ว เรายังอยู่บ้านกับกระเป๋านักเรียนและกระเป๋าเดินทาง ถ่ายให้เล็ก'},
+ s:[
+ ['detail','cu','After the last class — school bag down, suitcase up','Your daughter home from school on Friday: uniform, school bag on the floor, suitcase by the door. The trip starts after the last bell, and this opens Act I.','เลิกเรียนคาบสุดท้าย — วางกระเป๋านักเรียน หยิบกระเป๋าเดินทาง','ลูกสาวกลับจากโรงเรียนวันศุกร์: ชุดนักเรียน กระเป๋านักเรียนวางบนพื้น กระเป๋าเดินทางรออยู่ที่ประตู ทริปเริ่มหลังเสียงออดเลิกเรียน และใช้เปิดองก์ 1',[OP]],
+ ['detail','cu','The family chat — the others already in Japan','Phone screen on Friday afternoon as photos arrive from Narita: the main group landing, the Mystays lobby, a dinner without you. Ask them beforehand to film their own take-off and arrival on a phone, so they are in Act I too.','แชตครอบครัว — คนอื่นถึงญี่ปุ่นแล้ว','จอโทรศัพท์บ่ายวันศุกร์ ตอนรูปจากนาริตะทยอยเข้ามา: กลุ่มใหญ่ลงเครื่อง ล็อบบี้ Mystays มื้อเย็นที่ไม่มีเรา ขอไว้ล่วงหน้าให้ถ่ายตอนเครื่องขึ้นและตอนถึงด้วยโทรศัพท์ จะได้มีพวกเขาในองก์ 1 ด้วย',[PH]],
+ ['establish','ap','Suvarnabhumi check-in at night — a short line of suitcases','Only the night-flight group and their bags. Hold one wide. Small on purpose: on D6 the hotel lobby fills with 30+ suitcases, and the film comes back to this frame.','เช็กอินสุวรรณภูมิยามค่ำ — กระเป๋าแถวสั้นๆ','มีแค่กลุ่มไฟลต์กลางคืนกับกระเป๋า ถ่ายมุมกว้างค้างไว้หนึ่งช็อต ตั้งใจให้เล็ก: ใน D6 ล็อบบี้โรงแรมจะเต็มไปด้วยกระเป๋า 30+ ใบ แล้วหนังจะย้อนกลับมาที่เฟรมนี้',[L35]],
+ ['detail','cu','The headcount — a short one','The recurring motif of the film starts small: only the night-flight group. Film the lips and the pointing finger. The full count waits for Narita on the 5th.','การนับหัว — รอบสั้นๆ','โมทีฟที่วนกลับมาตลอดเรื่องเริ่มจากเล็กๆ: มีแค่กลุ่มไฟลต์กลางคืน ถ่ายปากและนิ้วที่ชี้ การนับครบทั้งบ้านรอไว้ที่นาริตะวันที่ 5',[OP]],
+ ['reaction','fa','Kids at the gate window, faces close to the glass','Plane outside, kids in pyjamas. Don’t call them — wait for them to point.','เด็กๆ ที่หน้าต่างเกต หน้าชิดกระจก','เครื่องบินอยู่ข้างนอก เด็กๆ ใส่ชุดนอน ไม่ต้องเรียก — รอให้ชี้เอง',[OP]],
+ ['broll','wn','Night take-off — Bangkok lights falling away','Phone flat against the window. 20 seconds is enough.','เครื่องขึ้นกลางคืน — ไฟกรุงเทพฯ ค่อยๆ ไกลออกไป','วางโทรศัพท์แนบกระจก 20 วินาทีพอ',[PH]],
+ ['reaction','fa','Asleep in the cabin','Quiet, low, no flash. Your daughter asleep after a full school week: the tired, honest end of the first night.','หลับบนเครื่อง','เงียบ มุมต่ำ ไม่ใช้แฟลช ลูกสาวหลับหลังเรียนมาทั้งสัปดาห์ ปิดคืนแรกแบบเหนื่อยและจริง',[OP]],
+ ['broll','dw','Dawn approach into Narita','Landing 06:20 is just before sunrise in early December: a deep-blue sky turning pink over the Chiba fields. If Fuji shows on the horizon — free bonus shot.','รุ่งอรุณก่อนลงจอดนาริตะ','ลงจอด 06:20 ก่อนพระอาทิตย์ขึ้นเล็กน้อยในต้นเดือนธันวาคม ฟ้าสีน้ำเงินเข้มค่อยๆ เป็นสีชมพูเหนือทุ่งชิบะ ถ้าเห็นฟูจิที่ขอบฟ้า — ได้ช็อตโบนัสฟรี',[PH]]
+ ]},
+{c:'#991b1b,#ea580c',
+ en:{l:'Day 1 · Act I',n:'Narita → Atami Red Leaves → Mt Komuro → KAI Anjin',d:'Sat 5 Dec · Arrival, momiji at Atami Baien, the sea from Mt Komuro, first ryokan night',m:'The morning everyone finally shares one coach. Shoot the reunion, then let the red leaves wake everyone up.'},
+ th:{l:'วันที่ 1 · องก์ 1',n:'นาริตะ → ใบไม้แดงอาตามิ → เขาโคมุโระ → KAI Anjin',d:'ส. 5 ธ.ค. · ถึงญี่ปุ่น ใบไม้แดงที่อาตามิไบเอ็น ทะเลจากเขาโคมุโระ คืนแรกที่เรียวกัง',m:'เช้าที่ทุกคนได้ขึ้นรถบัสคันเดียวกันในที่สุด ถ่ายตอนได้เจอกัน แล้วปล่อยให้ใบไม้แดงปลุกทุกคนให้ตื่น'},
+ s:[
+ ['reaction','fa','The reunion — Narita arrivals, Saturday morning','You walk out of T1 arrivals after a night on the plane (out around 07:30), and the rest of the family is waiting — or you take the hotel shuttle and find them in the Mystays breakfast room. Either way, this is the first time the cousins see each other. Ask someone on their side to film you coming through the doors on a phone, while your Osmo films the kids spotting each other. Then everyone boards the coach together.','ได้เจอกัน — ประตูขาเข้านาริตะ เช้าวันเสาร์','บ้านเราเดินออกจากประตูขาเข้า T1 หลังนั่งเครื่องมาทั้งคืน (ออกมาราว 07:30) และครอบครัวที่เหลือรออยู่ — หรือเรานั่งรถรับส่งของโรงแรมไปเจอกันที่ห้องอาหารเช้าของ Mystays ไม่ว่าแบบไหน นี่คือครั้งแรกที่ลูกพี่ลูกน้องได้เจอกัน ขอให้ใครสักคนฝั่งโน้นถ่ายตอนเราเดินออกประตูมาด้วยโทรศัพท์ ส่วน Osmo ของเราถ่ายตอนเด็กๆ เห็นกัน แล้วทุกคนขึ้นรถบัสพร้อมกัน',[OP,PH]],
+ ['detail','cu','Headcount #2 — the first full count','Everyone together for the first time. Same finger, new country, a much longer count.','นับหัวครั้งที่ 2 — นับครบครั้งแรก','ทุกคนอยู่พร้อมหน้าครั้งแรก นิ้วเดิม ประเทศใหม่ นับยาวขึ้นมาก',[OP]],
+ ['movement','ap','Luggage disappearing into the coach belly','Lock-off on the bus side as bag after bag goes in. Speed it up in post.','กระเป๋าหายเข้าไปใต้ท้องรถบัส','ตั้งกล้องนิ่งข้างรถ ให้กระเป๋าทยอยเข้าไปทีละใบ เร่งสปีดตอนตัดต่อ',[L35]],
+ ['broll','bus','Coach window — the city falls away','Insta360 on a side window from Narita onward. On a clear morning Fuji may show on the right past Atsugi — a free early glimpse; the big reveal is planned for D3.','หน้าต่างรถบัส — เมืองค่อยๆ ไกลออกไป','ติด Insta360 ที่หน้าต่างข้างตั้งแต่ออกจากนาริตะ เช้าที่ฟ้าใสฟูจิอาจโผล่ทางขวาหลังผ่านอัตสึงิ — ได้เห็นก่อนฟรีๆ ส่วนภาพเผยฟูจิจริงวางไว้ที่ D3',[X5]],
+ ['detail','fd','Ebina SA — vending machines, warm drinks, small hands','Osmo close. Kids choosing hot cans from the machine, steam from a cup. Ebina is the usual Tomei rest stop on the way to Atami.','Ebina SA — ตู้กดน้ำ เครื่องดื่มอุ่น มือเล็กๆ','Osmo ระยะใกล้ เด็กเลือกกระป๋องร้อนจากตู้ ไอน้ำลอยจากแก้ว Ebina คือจุดพักปกติบนทางด่วนโทเมไปอาตามิ',[OP]],
+ ['hero','mj','Momiji canopy — backlit red, grandma walking under','Atami Baien, late morning. Shoot toward the sun through the leaves, Noctilux wide open. The garden is on a slope: let grandma choose how far up she walks.','อุโมงค์ใบไม้แดง — ย้อนแสง คุณยายเดินใต้ร่มใบไม้','อาตามิไบเอ็นช่วงสายๆ ถ่ายย้อนแดดผ่านใบไม้ Noctilux เปิดสุด สวนเป็นเนินลาด ให้คุณยายเลือกเองว่าจะเดินขึ้นไปแค่ไหน',[N50],2],
+ ['broll','mj','The stream through Atami Baien — small bridges under red leaves','90mm from the bank so the family crossing a little bridge sits inside layers of red and yellow. Kids leaning over the rail to look at the water.','ลำธารในอาตามิไบเอ็น — สะพานเล็กใต้ใบไม้แดง','90mm จากริมตลิ่ง ให้ครอบครัวที่กำลังข้ามสะพานเล็กอยู่ในชั้นใบไม้แดงเหลือง เด็กๆ ชะโงกดูน้ำจากราวสะพาน',[A90]],
+ ['detail','cu','A single red leaf in a child’s palm','Noctilux close (70cm minimum — or Osmo if closer). The visual rhyme for the whole momiji sequence.','ใบไม้แดงใบเดียวบนฝ่ามือเด็ก','Noctilux ระยะใกล้ (ใกล้สุด 70 ซม. — ใกล้กว่านั้นใช้ Osmo) ภาพที่ร้อยเรียงทั้งซีเควนซ์ใบไม้แดง',[N50,OP]],
+ ['audio','mj','Atami Baien stream — 60 seconds still','Running water, footsteps on gravel, leaves underfoot. This track can carry the whole momiji sequence.','ลำธารอาตามิไบเอ็น — นิ่ง 60 วินาที','เสียงน้ำไหล เสียงเดินบนกรวด เสียงใบไม้ใต้เท้า แทร็กนี้รองรับทั้งซีเควนซ์ใบไม้แดงได้',[MIC]],
+ ['establish','vl','Mt Komuro chairlift rising up the hill','35mm from below as the chairs climb. Aim to arrive by 14:30 — the lift closes around 16:00 and stops in strong wind.','กระเช้าเก้าอี้เขาโคมุโระขึ้นเนินเขา','35mm ถ่ายจากด้านล่างตอนเก้าอี้ไต่ขึ้น ควรถึงก่อน 14:30 — กระเช้าปิดราว 16:00 และหยุดเมื่อลมแรง',[L35]],
+ ['movement','vl','Insta360 on the chairlift — invisible-stick shot','Lanyard on your wrist — anything dropped is gone. Reframe in post.','Insta360 บนกระเช้า — ช็อตไม้เซลฟี่ล่องหน','คล้องสายข้อมือ — ของหล่นแล้วหายเลย รีเฟรมตอนตัดต่อ',[X5]],
+ ['establish','vl','MISORA ridge walk — the sea from the summit','Osmo walk-with along the deck: Sagami Bay and Oshima island below, Fuji to the north on a clear day. The family as a line of small figures against the sky.','ทางเดินสันเขา MISORA — ทะเลจากยอดเขา','Osmo เดินตามไปบนทางเดิน: อ่าวซางามิและเกาะโอชิมะอยู่ด้านล่าง วันฟ้าใสเห็นฟูจิทางทิศเหนือ ครอบครัวเป็นแถวคนตัวเล็กๆ ตัดกับท้องฟ้า',[OP]],
+ ['establish','ys','KAI Anjin arrival at dusk — shoes lined at the entrance','The genkan full of 30+ pairs of shoes. One frame says "the whole family is here". KAI Anjin is about 15 minutes from Mt Komuro.','ถึง KAI Anjin ยามโพล้เพล้ — รองเท้าเรียงที่ทางเข้า','เก็งกังเต็มไปด้วยรองเท้า 30+ คู่ เฟรมเดียวบอกว่า "ครอบครัวมาครบแล้ว" KAI Anjin อยู่ห่างเขาโคมุโระราว 15 นาที',[L35]],
+ ['hero','ys','Yukata night — kids in the ryokan corridor','Low, from behind, one take. 25fps · 1/50.','คืนยูกาตะ — เด็กๆ ในทางเดินเรียวกัง','มุมต่ำ จากด้านหลัง เทคเดียว 25fps · 1/50',[OP],5],
+ ['present','fd','First kaiseki dinner','One wide of the long table if you want. Then the camera goes in the bag.','มื้อไคเซกิแรก','ถ่ายโต๊ะยาวมุมกว้างหนึ่งช็อตถ้าอยากได้ แล้วเก็บกล้องลงกระเป๋า',[]],
+ ['nocam','ys','Onsen — never','No cameras in or near the baths. Absolute rule — law, privacy, respect.','ออนเซ็น — ห้ามเด็ดขาด','ห้ามกล้องในหรือใกล้บ่อแช่ กฎเด็ดขาด — ทั้งกฎหมาย ความเป็นส่วนตัว และมารยาท',[]]
+ ]},
+{c:'#075985,#0ea5e9',
+ en:{l:'Day 2 · Act II',n:'South Izu Coast — Seafood, White Sand, the Sea',d:'Sun 6 Dec · Route 135 down the east coast → seafood lunch in a harbour town → Izu Shirahama → back to KAI Anjin',m:'The heart of the film. A slow day by the sea for every generation. Arrive at Shirahama and walk the sand with grandma for five minutes before you film anything.'},
+ th:{l:'วันที่ 2 · องก์ 2',n:'ชายฝั่งอิซุใต้ — ซีฟู้ด ทรายขาว ทะเล',d:'อา. 6 ธ.ค. · ถนน 135 เลียบชายฝั่งตะวันออก → มื้อกลางวันซีฟู้ดในเมืองท่า → อิซุชิราฮามะ → กลับ KAI Anjin',m:'หัวใจของหนัง วันช้าๆ ริมทะเลสำหรับทุกรุ่น ถึงชิราฮามะแล้วเดินบนทรายกับคุณยายห้านาทีก่อนจะถ่ายอะไร'},
+ s:[
+ ['establish','bus','Coast road reveal — the sea on the left all the way south','Insta360 on a left-side window down Route 135: cliffs, small harbours, the open Pacific. The transition from Act I to Act II.','ภาพเผยถนนเลียบชายฝั่ง — ทะเลอยู่ทางซ้ายตลอดทางลงใต้','Insta360 ติดหน้าต่างฝั่งซ้ายตลอดถนน 135: หน้าผา ท่าเรือเล็กๆ มหาสมุทรแปซิฟิก รอยต่อจากองก์ 1 สู่องก์ 2',[X5]],
+ ['detail','fd','Seafood lunch — kinmedai, grilled shellfish, first bites','Shimoda or another harbour town on the way. Osmo close on the grill or the red kinmedai, then the kids’ faces trying something new. Book the group table ahead: it is a Sunday at peak season.','มื้อกลางวันซีฟู้ด — ปลาคินเมได หอยย่าง คำแรก','ชิโมดะหรือเมืองท่าอื่นระหว่างทาง Osmo ใกล้ๆ ที่เตาย่างหรือปลาคินเมไดสีแดง แล้วหน้าเด็กๆ ตอนลองของใหม่ จองโต๊ะกลุ่มไว้ก่อน วันอาทิตย์ช่วงไฮซีซัน',[OP]],
+ ['broll','wv','Harbour-town walk — fishing boats, narrow streets','35mm. Grandparents and kids walking together past the boats. One wide, one walk-with, then move on.','เดินเล่นเมืองท่า — เรือประมง ซอยแคบ','35mm ปู่ย่าตายายกับเด็กๆ เดินด้วยกันผ่านเรือประมง มุมกว้างหนึ่ง เดินตามหนึ่ง แล้วไปต่อ',[L35,OP]],
+ ['present','wv','First five minutes on Shirahama','Don’t touch the camera. Take off your shoes, walk the sand next to grandma and look at the sea. This one is for memory.','ห้านาทีแรกที่ชิราฮามะ','อย่าแตะกล้อง ถอดรองเท้า เดินบนทรายข้างคุณยายแล้วมองทะเล ช่วงนี้เก็บไว้ในความทรงจำ',[]],
+ ['hero','wv','Shirahama — white sand, the torii on the rock, surf','90mm from along the beach to stack the torii rock against the surf. Tripod. Then a 35mm wide with the family along the waterline.','ชิราฮามะ — ทรายขาว โทริอิบนโขดหิน และคลื่น','90mm จากริมหาดให้โขดหินโทริอิซ้อนกับคลื่น ใช้ขาตั้ง แล้ว 35mm มุมกว้างมีครอบครัวเรียงริมน้ำ',[A90,L35,TRI],1],
+ ['movement','wv','Slow-motion surf on the rocks at the end of the beach','4K 60fps, 90mm, ND filter. Hold 15 seconds — you will slow it down in the edit.','สโลว์โมชันคลื่นแตกบนโขดหินปลายหาด','4K 60fps, 90mm, ฟิลเตอร์ ND ค้าง 15 วินาที — ไว้ทำสโลว์ตอนตัดต่อ',[A90]],
+ ['hero','gp','Four generations — one frame','Hands detail first (Noctilux), then the one posed group shot of all 30+ on the sand, sea and torii rock behind. Tripod + interval timer. For the vertical video, use compact staggered rows with sea and sky above. Take a separate landscape still arranged like the last trip’s group photo.','สี่รุ่น — ในเฟรมเดียว','ถ่ายมือก่อน (Noctilux) แล้วภาพหมู่จัดท่าภาพเดียว 30+ คนบนหาดทราย ทะเลและโขดหินโทริอิอยู่ข้างหลัง ขาตั้ง + ตั้งเวลาถ่ายรัว วิดีโอแนวตั้งจัดหลายแถวกระชับให้เห็นทะเลกับฟ้าด้านบน แล้วถ่ายภาพนิ่งแนวนอนแยกโดยจัดแถวเหมือนภาพหมู่ทริปก่อน',[N50,L35,TRI],3],
+ ['reaction','gp','Household portraits — one per family, same spot','Right after the group shot, while everyone is still there: each household steps in for 5 seconds of video, same framing, sea behind. Lock the tripod and don’t move it. Nobody is left out of the keepsake; these become the end credits.','ภาพครอบครัวย่อย — บ้านละหนึ่งช็อต จุดเดียวกัน','ต่อจากภาพหมู่ทันที ตอนทุกคนยังอยู่: แต่ละบ้านเข้ามายืนถ่ายวิดีโอ 5 วินาที เฟรมเดิม ทะเลอยู่ข้างหลัง ล็อกขาตั้งไว้ไม่ขยับ ไม่มีใครตกหล่นจากของที่ระลึก ช็อตพวกนี้คือเอนด์เครดิต',[L35,TRI]],
+ ['reaction','fa','Kids, two years on — one portrait each','Each child, 3 seconds, standing straight, looking at the lens, same distance. Repeat exactly on the next family trip — the series is the point. Noctilux at f/2 so the eyes stay sharp.','เด็กๆ ผ่านไปสองปี — คนละหนึ่งพอร์เทรต','เด็กแต่ละคน 3 วินาที ยืนตรง มองเลนส์ ระยะเท่ากัน ถ่ายซ้ำแบบเดิมในทริปครอบครัวครั้งหน้า — ความต่อเนื่องคือหัวใจ Noctilux ที่ f/2 ให้ตาคมชัด',[N50]],
+ ['movement','gp','Drone pull-back — family on the sand → the bay','ONLY if registered, the local rules allow it, you stay away from the shrine, and you keep 30 m from strangers. A public beach on a Sunday may rule it out — if in doubt, skip; the S9 shots already carry it.','โดรนบินถอยหลัง — ครอบครัวบนหาด → อ่าว','ทำเฉพาะเมื่อลงทะเบียนแล้ว กฎท้องถิ่นอนุญาต อยู่ห่างศาลเจ้า และห่างคนแปลกหน้า 30 ม. หาดสาธารณะวันอาทิตย์อาจบินไม่ได้ — ถ้าไม่แน่ใจให้ข้าม ช็อต S9 เพียงพอแล้ว',[DR]],
+ ['audio','wv','Shirahama waves — 60 seconds still','Camera on the sand, nobody talking. The sound bed for the cold open.','เสียงคลื่นชิราฮามะ — นิ่ง 60 วินาที','วางกล้องบนทราย ไม่มีใครพูด เป็นเสียงพื้นของฉากเปิดเรื่อง',[MIC]],
+ ['reaction','fa','Kids running from the waves','Osmo low at the waterline. Shoes off, trousers rolled, shrieking at the cold December water. Grandma watching from the dry sand behind them.','เด็กๆ วิ่งหนีคลื่น','Osmo ต่ำระดับน้ำ ถอดรองเท้า พับขากางเกง กรี๊ดเพราะน้ำทะเลเดือนธันวาคมเย็น คุณยายนั่งดูอยู่บนทรายแห้งข้างหลัง',[OP]],
+ ['reaction','fa','Grandma looking at the sea — from a distance','90mm from 15 metres away so she doesn’t notice. Hold until she turns away.','คุณยายมองทะเล — จากระยะไกล','90mm จากระยะ 15 เมตร ให้ท่านไม่รู้ตัว ค้างไว้จนท่านหันไปทางอื่น',[A90]],
+ ['broll','bus','The sleeping bus — kids asleep in rows on the way back','Insta360 on the ceiling or seat back. The Act II exhale.','รถบัสหลับ — เด็กๆ หลับเรียงแถวขากลับ','Insta360 ติดเพดานหรือพนักเบาะ จังหวะผ่อนลมหายใจขององก์ 2',[X5]],
+ ['audio','fa','Grandma’s voice — one question','Before dinner, somewhere quiet in the ryokan. Ask one thing: “What do you remember from our first family trip?” Record 20–30 seconds — you only need the sound. Then the same question to one person from dad’s generation. The only talking in the whole film.','เสียงคุณยาย — คำถามเดียว','ก่อนมื้อเย็น หามุมเงียบในเรียวกัง ถามเรื่องเดียว: “จำอะไรได้บ้างจากทริปครอบครัวครั้งแรก?” อัด 20–30 วินาที — ใช้แค่เสียง แล้วถามคำถามเดียวกันกับรุ่นคุณพ่อหนึ่งคน เป็นเสียงพูดเดียวในหนังทั้งเรื่อง',[['audio','DJI Mic / S9 mic'],OP]],
+ ['establish','ys','The whole-family dinner — everyone in yukata, the toast','The reunion dinner. One wide of the full room from the doorway, then the toast: glasses up, grandma in the centre. If she says a few words, keep rolling. 25fps · 1/50.','มื้อเย็นรวมญาติ — ทุกคนใส่ยูกาตะ ชนแก้ว','มื้อเย็นของการรวมญาติ มุมกว้างหนึ่งช็อตเห็นทั้งห้องจากประตู แล้วตอนชนแก้ว: ยกแก้วขึ้น คุณยายอยู่ตรงกลาง ถ้าท่านพูดอะไรสักสองสามคำ ถ่ายต่อไป 25fps · 1/50',[L35,OP]],
+ ['present','ys','After the toast — the rest of the night','Camera in the bag. This dinner is why the family travels together.','หลังชนแก้ว — ที่เหลือของค่ำคืน','เก็บกล้องลงกระเป๋า มื้อนี้คือเหตุผลที่ครอบครัวเดินทางด้วยกัน',[]]
+ ]},
+{c:'#78350f,#b45309',
+ en:{l:'Day 3 · Act II',n:'Shuzenji → Kakitagawa → Mishima Skywalk → Ginza',d:'Mon 7 Dec · Hot-spring town, spring water, Fuji from the bridge, into the city',m:'The road north out of Izu. The coach becomes the transition: from a temple town, to clear spring water, to Fuji, to city lights.'},
+ th:{l:'วันที่ 3 · องก์ 2',n:'ชูเซ็นจิ → คาคิตะกาวะ → มิชิมะสกายวอล์ก → กินซ่า',d:'จ. 7 ธ.ค. · เมืองออนเซ็น น้ำพุใส ฟูจิจากสะพาน เข้าเมือง',m:'ถนนขึ้นเหนือออกจากอิซุ รถบัสคือรอยต่อ: จากเมืองวัด สู่น้ำพุใส สู่ฟูจิ สู่แสงไฟในเมือง'},
+ s:[
+ ['reaction','fa','Kids bowing goodbye to the ryokan staff','35mm, natural. Japanese staff wave until the bus is out of sight — film that from the back window.','เด็กๆ โค้งลาพนักงานเรียวกัง','35mm ตามธรรมชาติ พนักงานญี่ปุ่นจะโบกมือจนรถลับตา — ถ่ายจากหน้าต่างหลังรถ',[L35,OP]],
+ ['broll','tp','Shuzenji — the temple and the Katsura River maples','35mm. The second chance at red leaves: maples along the river and around the temple. The temple’s special autumn garden opening has usually ended by early December — film from the grounds and the river. No filming inside the hall.','ชูเซ็นจิ — วัดและใบไม้แดงริมแม่น้ำคัตสึระ','35mm โอกาสที่สองของใบไม้แดง: เมเปิ้ลริมแม่น้ำและรอบวัด สวนวัดที่เปิดพิเศษช่วงใบไม้แดงมักปิดแล้วในต้นเดือนธันวาคม — ถ่ายจากลานวัดและริมแม่น้ำ ห้ามถ่ายในหอวัด',[L35]],
+ ['movement','tp','Shuzenji bamboo path — walk-with','Osmo at chest height walking with the family through the bamboo. Short and flat — good for grandma.','ทางเดินป่าไผ่ชูเซ็นจิ — เดินตาม','Osmo ระดับอก เดินไปพร้อมครอบครัวผ่านป่าไผ่ ทางสั้นและเรียบ — เหมาะกับคุณยาย',[OP]],
+ ['hero','bus','"Fuji-san!" — reveal from the coach window','Insta360 on a front side window as the coach heads north to Mishima. Fuji rises straight ahead.','"ฟูจิซัง!" — ภาพเผยจากหน้าต่างรถบัส','ติด Insta360 ที่หน้าต่างข้างด้านหน้าตอนรถมุ่งเหนือไปมิชิมะ ฟูจิโผล่ตรงหน้า',[X5],4],
+ ['detail','cu','Headcount #3 — Kakitagawa car park','The motif again. Kids now count themselves.','นับหัวครั้งที่ 3 — ลานจอดรถคาคิตะกาวะ','โมทีฟกลับมาอีก ตอนนี้เด็กๆ นับกันเอง',[OP]],
+ ['establish','wv','Kakitagawa — spring water boiling up through the sand','From the viewing deck, 90mm down into the blue pool where Fuji’s snowmelt pushes up through the sand. Then 35mm wide with the kids leaning over the rail.','คาคิตะกาวะ — น้ำพุผุดขึ้นจากทราย','จากระเบียงชม 90mm ลงไปที่บ่อสีฟ้าที่น้ำจากหิมะฟูจิดันขึ้นมาผ่านทราย แล้ว 35mm มุมกว้างมีเด็กๆ ชะโงกดูที่ราว',[A90,L35]],
+ ['audio','wv','Kakitagawa spring — 60 seconds still','Running water, birds, the river under the boardwalk. A clean sound bed between the temple and Fuji.','น้ำพุคาคิตะกาวะ — นิ่ง 60 วินาที','เสียงน้ำไหล นก แม่น้ำใต้ทางเดินไม้ เสียงพื้นสะอาดๆ ระหว่างวัดกับฟูจิ',[MIC]],
+ ['hero','fj','Mishima Skywalk — Fuji beside the bridge, scale through a child','90mm from the start of the bridge, then 35mm low behind grandma.','มิชิมะสกายวอล์ก — ฟูจิข้างสะพาน ขนาดผ่านสายตาเด็ก','90mm จากต้นสะพาน แล้ว 35mm มุมต่ำหลังคุณยาย',[A90,L35],6],
+ ['reaction','fa','Grandma looking at Fuji — from a distance','90mm from 15 metres away so she doesn’t notice. Hold until she turns away.','คุณยายมองฟูจิ — จากระยะไกล','90mm จากระยะ 15 เมตร ให้ท่านไม่รู้ตัว ค้างไว้จนท่านหันไปทางอื่น',[A90]],
+ ['broll','bus','Fuji in the window at dusk — the Tomei heading east','Insta360 on a left-side window. Fuji slides past as a dark silhouette against an orange sky, then is gone.','ฟูจิในหน้าต่างยามโพล้เพล้ — ทางด่วนโทเมมุ่งตะวันออก','Insta360 ติดหน้าต่างฝั่งซ้าย ฟูจิเลื่อนผ่านเป็นเงาดำตัดฟ้าสีส้ม แล้วก็หายไป',[X5]],
+ ['establish','nt','Coach into Tokyo at night — the coast becomes the city','Insta360 on the window as the expressway lights thicken. The transition into Act III.','รถบัสเข้าโตเกียวยามค่ำ — ชายฝั่งกลายเป็นเมือง','Insta360 ติดหน้าต่างตอนแสงไฟทางด่วนหนาขึ้น รอยต่อสู่องก์ 3',[X5]],
+ ['detail','bus','The empty coach — last look','After everyone gets off in Ginza: one Osmo shot down the empty aisle. The end of "one bus".','รถบัสว่างเปล่า — มองครั้งสุดท้าย','หลังทุกคนลงที่กินซ่า: Osmo หนึ่งช็อตตามทางเดินว่างๆ จุดจบของ "หนึ่งรถบัส"',[OP]]
+ ]},
+{c:'#9d174d,#ec4899',
+ en:{l:'Day 4 · Act III',n:'Tokyo Disneyland',d:'Tue 8 Dec · Christmas season',m:'The family splits into small groups today. Film only your own group — trying to cover everyone is how you miss everything.'},
+ th:{l:'วันที่ 4 · องก์ 3',n:'โตเกียวดิสนีย์แลนด์',d:'อ. 8 ธ.ค. · ช่วงคริสต์มาส',m:'วันนี้ครอบครัวแยกเป็นกลุ่มเล็ก ถ่ายแค่กลุ่มของตัวเอง — พยายามถ่ายทุกคนคือวิธีพลาดทุกอย่าง'},
+ s:[
+ ['establish','ds','Gate opening — the crowd moving in','One wide from the entrance plaza. Then put the camera away until you are inside.','ประตูเปิด — ฝูงชนไหลเข้า','มุมกว้างหนึ่งช็อตจากลานทางเข้า แล้วเก็บกล้องจนกว่าจะเข้าไปข้างใน',[L35]],
+ ['reaction','fa','Your daughter’s first sight of the castle','35mm, from the side, not the front. Don’t say "look!" — let her find it.','ลูกสาวเห็นปราสาทครั้งแรก','35mm จากด้านข้าง ไม่ใช่ด้านหน้า อย่าพูดว่า "ดูสิ!" — ปล่อยให้เธอเห็นเอง',[L35]],
+ ['detail','cu','Mouse ears across three generations','Osmo — a row of headbands on grandparents, parents and kids. Grandpa in ears is the shot.','ที่คาดผมหูมิกกี้สามรุ่น','Osmo — แถวที่คาดผมบนหัวปู่ย่า พ่อแม่ และเด็กๆ คุณตาใส่หูมิกกี้คือช็อตเด็ด',[OP]],
+ ['broll','ds','Christmas tree + decorations','35mm. One wide, one detail of ornaments. No more.','ต้นคริสต์มาส + ของตกแต่ง','35mm มุมกว้างหนึ่ง รายละเอียดของประดับหนึ่ง พอแค่นั้น',[L35]],
+ ['hero','ds','Disney night — the uncaptured moment','Film the waiting at blue hour. Camera off when the show starts.','คืนดิสนีย์ — ช่วงเวลาที่ไม่ถูกบันทึก','ถ่ายช่วงรอยามบลูอาวร์ ปิดกล้องเมื่อโชว์เริ่ม',[L35,OP],7],
+ ['nocam','ds','The night show itself','Watch it. Hold your daughter. The film already has everything it needs.','ตัวโชว์กลางคืน','ดูโชว์ กอดลูกสาวไว้ หนังมีทุกอย่างที่ต้องการแล้ว',[]]
+ ]},
+{c:'#1e3a8a,#6366f1',
+ en:{l:'Day 5 · Act III',n:'Tokyo Free Day',d:'Wed 9 Dec · Ginza / Marunouchi · the last full day with everyone',m:'Unscripted: follow whichever small group you’re with, light kit. Tonight is the last night the whole family sleeps under one roof — no need to film it.'},
+ th:{l:'วันที่ 5 · องก์ 3',n:'วันอิสระในโตเกียว',d:'พ. 9 ธ.ค. · กินซ่า / มารุโนะอุจิ · วันเต็มวันสุดท้ายที่อยู่กันครบ',m:'ไม่มีสคริปต์: ตามกลุ่มเล็กที่อยู่ด้วย อุปกรณ์เบาๆ คืนนี้คือคืนสุดท้ายที่ทั้งครอบครัวนอนใต้หลังคาเดียวกัน — ไม่ต้องถ่าย'},
+ s:[
+ ['broll','nt','Ginza 4-chome crossing — the crowd washing past','Lock-off from the corner, 30 seconds. Your family in the middle of the crowd if you can.','ทางแยกกินซ่า 4-โจเมะ — ฝูงชนไหลผ่าน','ตั้งกล้องนิ่งจากมุมถนน 30 วินาที ถ้าได้ ให้ครอบครัวอยู่กลางฝูงชน',[L35]],
+ ['reaction','fa','Grandma in the depachika food hall','Osmo from the hip. Her face at the wagashi counter.','คุณยายในฟู้ดฮอลล์ใต้ห้าง','Osmo ระดับสะโพก หน้าท่านที่เคาน์เตอร์ขนมวากาชิ',[OP]],
+ ['establish','nt','Tokyo Station Marunouchi facade — blue hour','Noctilux on a tripod, ~16:30–17:00. The Leica glow on the red brick and lights. The city signature shot.','อาคารสถานีโตเกียวฝั่งมารุโนะอุจิ — บลูอาวร์','Noctilux บนขาตั้ง ~16:30–17:00 Leica Glow บนอิฐแดงและแสงไฟ ช็อตลายเซ็นของเมือง',[N50,TRI]],
+ ['broll','nt','Marunouchi Naka-dori illumination — champagne-gold trees','Noctilux handheld, wide open. Kids walking under the lit trees.','ไฟประดับถนนนากาโดริ มารุโนะอุจิ — ต้นไม้สีทองแชมเปญ','Noctilux ถือมือ เปิดสุด เด็กๆ เดินใต้ต้นไม้ประดับไฟ',[N50]],
+ ['audio','nt','Station concourse — 60 seconds','Announcements, footsteps, train chimes. Tokyo in one sound.','โถงสถานี — 60 วินาที','เสียงประกาศ เสียงฝีเท้า เสียงเมโลดี้รถไฟ โตเกียวในเสียงเดียว',[MIC]],
+ ['present','fd','The last night all together','Dinner wherever the family ends up. The camera stays in the room.','คืนสุดท้ายที่อยู่กันครบ','มื้อเย็นที่ไหนก็ได้ที่ครอบครัวไปรวมกัน กล้องอยู่ในห้องพัก',[]]
+ ]},
+{c:'#334155,#64748b',
+ en:{l:'Day 6 · Act III',n:'Goodbye — The Coach Leaves Without You',d:'Thu 10 Dec · the family leaves Daiwa Roynet Ginza by coach for Narita (~17:00 flight) · a few stay until 11–12 Dec · you fly from Haneda tonight (TG661, 00:20)',m:'The ending of the film. This time you are the one who stays: the family leaves first, and you are on the pavement to see them off. Film the lobby, the count and the coach — then put the camera away for your own last evening.'},
+ th:{l:'วันที่ 6 · องก์ 3',n:'บอกลา — รถบัสออกไปโดยไม่มีเรา',d:'พฤ. 10 ธ.ค. · ครอบครัวออกจาก Daiwa Roynet กินซ่าด้วยรถบัสไปนาริตะ (ไฟลต์ ~17:00) · บางบ้านอยู่ต่อถึง 11–12 ธ.ค. · บ้านเราบินจากฮาเนดะคืนนี้ (TG661 เวลา 00:20)',m:'ฉากจบของหนัง ครั้งนี้เราเป็นฝ่ายที่อยู่: ครอบครัวไปก่อน และเรายืนส่งอยู่ริมทาง ถ่ายล็อบบี้ การนับหัว และรถบัส — แล้วเก็บกล้องไว้สำหรับเย็นสุดท้ายของบ้านเราเอง'},
+ s:[
+ ['establish','ap','30+ suitcases in the lobby — the long line','Same angle as the Suvarnabhumi frame on D0 if you can. The trip began with your short line; this is everyone’s. Lock off and let people walk through it.','กระเป๋า 30+ ใบในล็อบบี้ — แถวยาว','มุมเดียวกับเฟรมสุวรรณภูมิใน D0 ถ้าทำได้ ทริปเริ่มด้วยแถวสั้นๆ ของบ้านเรา ตรงนี้คือแถวของทุกคน ตั้งกล้องนิ่งแล้วปล่อยให้คนเดินผ่าน',[L35]],
+ ['detail','cu','Final headcount — the lobby, everyone, one last time','The last time the whole family is in one place. Count here, before anyone boards. "...31, 32. Everyone." The last line of the film is a number.','นับหัวครั้งสุดท้าย — ล็อบบี้ ทุกคน ครั้งสุดท้าย','ครั้งสุดท้ายที่ทั้งครอบครัวอยู่ที่เดียวกัน นับตรงนี้ก่อนใครขึ้นรถ "...31, 32 ครบ" ประโยคสุดท้ายของหนังคือตัวเลข',[OP]],
+ ['movement','ap','Luggage back into the coach belly','The same lock-off as at Narita on D1, in reverse. Speed it up in post.','กระเป๋ากลับเข้าใต้ท้องรถบัส','ตั้งกล้องนิ่งแบบเดียวกับที่นาริตะใน D1 แต่กลับกัน เร่งสปีดตอนตัดต่อ',[L35]],
+ ['reaction','fa','Closing frame — the coach pulls away, hands at every window','From the pavement, Osmo at chest height. Grandma at her window, the kids pressed to the glass, waving back at you. If grandma is staying on, film over her shoulder as she waves beside you instead. The film ends before the coach turns the corner.','เฟรมปิดเรื่อง — รถบัสออกตัว มือโบกจากทุกหน้าต่าง','ถ่ายจากริมทาง Osmo ระดับอก คุณยายที่หน้าต่าง เด็กๆ หน้าชิดกระจก โบกมือกลับมาหาเรา ถ้าคุณยายอยู่ต่อ ให้ถ่ายข้ามไหล่ท่านขณะที่ท่านยืนโบกมืออยู่ข้างเราแทน หนังจบก่อนรถเลี้ยวพ้นหัวมุม',[OP]],
+ ['present','ap','Your own last evening — and Haneda','Bags at the hotel, one last walk through Ginza as a household, then a taxi to Haneda T3 for the 00:20 flight. No camera needed. If you want a post-credits shot: your short line of suitcases by the lobby door, the same frame as D0.','เย็นสุดท้ายของบ้านเรา — และฮาเนดะ','ฝากกระเป๋าไว้ที่โรงแรม เดินกินซ่ากันเองในบ้านเป็นครั้งสุดท้าย แล้วนั่งแท็กซี่ไปฮาเนดะ T3 สำหรับไฟลต์ 00:20 ไม่ต้องใช้กล้อง ถ้าอยากได้ช็อตหลังเครดิต: แถวกระเป๋าสั้นๆ ของบ้านเราข้างประตูล็อบบี้ เฟรมเดียวกับ D0',[]]
+ ]}
+];
+
+const VERTICAL_GUIDES=[
+ {en:'9:16 · Keep this departure intimate. Let the short suitcase line recede toward the family. Fill the portrait frame with one face at the gate or in the cabin.',th:'9:16 · เปิดเรื่องด้วยบ้านเราเล็กๆ วางแถวกระเป๋าลึกเข้าไปหาคนในบ้าน ใช้ใบหน้าเดียวเป็นจุดเด่นที่เกตและบนเครื่อง'},
+ {en:'9:16 · Build depth: luggage toward the coach, maple trunks above grandma at Atami Baien, the chairlift line climbing Mt Komuro, shoes toward the ryokan door. Leave space above faces for the canopy and the sky.',th:'9:16 · จัดภาพให้มีความลึก: กระเป๋านำสายตาเข้ารถ ลำต้นเมเปิ้ลอยู่เหนือคุณยายที่อาตามิไบเอ็น แนวกระเช้าไต่ขึ้นเขาโคมุโระ รองเท้าเรียงเข้าประตูเรียวกัง เว้นพื้นที่เหนือใบหน้าสำหรับพุ่มใบไม้และท้องฟ้า'},
+ {en:'9:16 · Stack the coast in layers: sand below, turquoise sea in the middle, the torii rock and sky above. For the 30+ group, step back and use several compact rows; keep everyone inside the frame.',th:'9:16 · วางชายฝั่งเป็นชั้น: ทรายด้านล่าง ทะเลสีฟ้าตรงกลาง โขดหินโทริอิและท้องฟ้าด้านบน ภาพหมู่ 30+ คนให้ถอยออกและจัดหลายแถวกระชับ เก็บทุกคนไว้ในเฟรม'},
+ {en:'9:16 · Follow strong lines: the bamboo path, the boardwalk over the springs, the Skywalk deck with Fuji above it. Keep a small family figure low in frame to show scale.',th:'9:16 · ใช้เส้นนำสายตา: ทางเดินป่าไผ่ ทางเดินไม้เหนือน้ำพุ พื้นสะพานสกายวอล์กที่มีฟูจิอยู่ด้านบน วางคนในครอบครัวเล็กๆ ด้านล่างเพื่อเทียบขนาด'},
+ {en:'9:16 · Let the castle and Christmas tree rise above the family. Arrange mouse-ear portraits in depth. Camera-off moments remain camera-off.',th:'9:16 · ให้ปราสาทและต้นคริสต์มาสสูงเหนือครอบครัว จัดพอร์เทรตหูมิกกี้ซ้อนกันตามความลึก ช่วงที่กำหนดให้เก็บกล้องก็ยังคงเก็บกล้อง'},
+ {en:'9:16 · Use tall city layers: people below the clock tower, children under illuminated branches, dome above the station entrance. Keep the dinner unfilmed.',th:'9:16 · ใช้เมืองเป็นชั้นแนวตั้ง: คนอยู่ใต้หอนาฬิกา เด็กๆ ใต้กิ่งไม้ประดับไฟ โดมเหนือทางเข้าสถานี มื้อเย็นยังเป็นช่วงไม่ถ่าย'},
+ {en:'9:16 · Echo D0 with luggage receding into the lobby. Film the farewell from the pavement, looking along the coach so waving windows stack into depth.',th:'9:16 · ย้อนภาพ D0 ด้วยแถวกระเป๋าที่ลึกเข้าไปในล็อบบี้ ถ่ายอำลาจากริมทาง มองตามแนวยาวรถเพื่อให้หน้าต่างที่มีคนโบกมือเรียงลึกเข้าไป'}
+];
+const VERTICAL_NOTES={
+ '0:2':{en:'Place 3–4 bags diagonally into depth, with the household above them. Avoid a broad side-by-side line.',th:'วางกระเป๋า 3–4 ใบเฉียงลึกเข้าไป คนในบ้านอยู่เหนือแถวกระเป๋า ไม่เรียงกว้างข้างกัน'},
+ '1:3':{en:'Child in the lower foreground, the window above. If Fuji appears, keep it in the upper third and the horizon level.',th:'เด็กอยู่ด้านล่างใกล้กล้อง หน้าต่างอยู่ด้านบน ถ้าฟูจิโผล่ ให้อยู่ช่วงหนึ่งในสามด้านบนและขอบฟ้าตรง'},
+ '1:5':{en:'Grandma low in frame; the maple trunk and canopy fill the upper two-thirds.',th:'คุณยายอยู่ช่วงล่าง ลำต้นและพุ่มเมเปิ้ลเต็มพื้นที่สองในสามด้านบน'},
+ '1:11':{en:'Family as small figures along the deck in the lower third; sea and sky fill the rest.',th:'ครอบครัวเป็นคนตัวเล็กๆ บนทางเดินในหนึ่งในสามด้านล่าง ทะเลและฟ้าเต็มส่วนที่เหลือ'},
+ '2:4':{en:'Sand in the foreground → surf → the torii rock. Leave air above the torii and keep family figures inside the narrow frame.',th:'ทรายใกล้กล้อง → คลื่น → โขดหินโทริอิ เว้นพื้นที่เหนือโทริอิและเก็บคนในครอบครัวให้อยู่ในเฟรมแคบ'},
+ '2:6':{en:'Use four compact staggered rows: children in front, elders seated, adults behind. Step back with the 35mm; keep faces away from the edges and the sea above. Take a separate landscape still to match the previous trip photo.',th:'จัดสี่แถวสลับกันแบบกระชับ: เด็กด้านหน้า ผู้สูงอายุนั่ง ผู้ใหญ่ยืนด้านหลัง ใช้ 35mm แล้วถอยออก เก็บใบหน้าให้ห่างขอบและทะเลอยู่ด้านบน ถ่ายภาพนิ่งแนวนอนแยกอีกใบให้เข้าคู่กับภาพทริปก่อน'},
+ '2:7':{en:'One household in a compact cluster, full bodies with the sea above. Lock the same portrait framing for every household.',th:'บ้านละกลุ่มกระชับ เห็นเต็มตัวและมีทะเลด้านบน ล็อกเฟรมแนวตั้งเดียวกันทุกบ้าน'},
+ '2:8':{en:'One child centred, eyes near the upper third; repeat the same camera height and distance.',th:'เด็กคนเดียวตรงกลาง ดวงตาใกล้เส้นหนึ่งในสามด้านบน ใช้ความสูงกล้องและระยะเดิมทุกคน'},
+ '2:9':{en:'Plan the final 9:16 frame: family low-centre, the curve of the beach leading out to sea. Keep the group inside the portrait crop throughout the pull-back.',th:'วางแผนเฟรมสุดท้าย 9:16: ครอบครัวกลางล่าง แนวโค้งของหาดนำสายตาออกทะเล เก็บกลุ่มให้อยู่ในขอบเฟรมแนวตั้งตลอดช่วงบินถอย'},
+ '2:15':{en:'Look along the length of the table from its end, with grandma visible beyond the foreground glasses.',th:'มองตามแนวยาวโต๊ะจากหัวโต๊ะ ให้เห็นคุณยายหลังแก้วในระยะหน้า'},
+ '3:7':{en:'Small child and grandma near the bottom, the bridge running up the frame, Fuji above; leave room above the summit.',th:'เด็กกับคุณยายอยู่ด้านล่าง สะพานพาดขึ้นไปในเฟรม ฟูจิอยู่ด้านบน เว้นพื้นที่เหนือยอดเขา'},
+ '4:1':{en:'Daughter’s side profile low in frame, castle rising behind her. Keep her reaction readable.',th:'ใบหน้าลูกสาวด้านข้างอยู่ช่วงล่าง ปราสาทสูงขึ้นไปด้านหลัง ให้เห็นปฏิกิริยาชัด'},
+ '4:2':{en:'Stagger three generations in depth instead of a single wide row; keep every pair of mouse ears visible.',th:'จัดสามรุ่นซ้อนตามความลึกแทนแถวกว้างแถวเดียว ให้เห็นหูมิกกี้ครบทุกคน'},
+ '6:0':{en:'Shoot diagonally down the suitcase rows toward reception. The long line should feel deeper than D0.',th:'ถ่ายเฉียงตามแนวกระเป๋าเข้าหาเคาน์เตอร์ ให้แถวยาวดูลึกกว่า D0'},
+ '6:3':{en:'Rear three-quarter view from the pavement: waving hand in foreground, coach and family windows above. Follow gently as it leaves.',th:'ถ่ายจากริมทางเห็นท้ายรถเฉียงสามส่วน มือโบกอยู่ใกล้กล้อง รถและหน้าต่างครอบครัวอยู่ด้านบน ตามรถเบาๆ ตอนออกตัว'}
+};
+const SEC={en:{},th:{}};
+
+/* ───────── Philosophy ───────── */
+SEC.en.philosophy=`<h2>🌿 The GiftLee Philosophy</h2>
+<div class="philosophy-intro">"I don't care about a good photo. I care about honesty."<cite>— Nan Goldin, as cited by GiftLee</cite></div>
+<p style="font-size:14px;color:var(--gray-700);margin-bottom:16px;">With thirty-plus people the temptation is to film <strong>everyone</strong>. Don't. This film is about one thing: <strong>four generations</strong> — from grandma to the 1-year-old — fitting into the same frame for one week. Pair old and young whenever you can. Let everyone else be background.</p>
+<div class="question-framework"><h3>Before you lift the camera — three questions</h3><ul class="q-list">
+<li><span class="q-num">1</span><span>Will this shot tell the emotional truth of this moment — or just prove we were here?</span></li>
+<li><span class="q-num">2</span><span>If I film this, will I miss <strong>being in it</strong>? Is that trade worth it?</span></li>
+<li><span class="q-num">3</span><span>Is this one of the <strong>7 Hero Shots</strong>? If not — does it serve the story, or is it a tourist checkbox?</span></li></ul></div>
+<div class="section-label">Core Principles</div><div class="principles-grid">
+<div class="principle"><div class="p-label">Honesty over perfection</div><div class="p-body">A slightly blurry shot of a real moment beats a sharp shot of a posed one. Always.</div></div>
+<div class="principle"><div class="p-label">Generations in one frame</div><div class="p-body">The strongest shots have an old face and a young face together. Look for hands, shoulders, laps.</div></div>
+<div class="principle"><div class="p-label">Find the quiet edge</div><div class="p-body">Thirty people are loud. Shoot from the back of the group, the end of the line, the far side of the beach.</div></div>
+<div class="principle"><div class="p-label">Live the ending</div><div class="p-body">Shirahama’s first five minutes, the Disney night show, the coach pulling away — be there. The film has enough.</div></div></div>`;
+SEC.th.philosophy=`<h2>🌿 ปรัชญาแบบ GiftLee</h2>
+<div class="philosophy-intro">"ฉันไม่สนใจภาพที่สวย ฉันสนใจความจริง"<cite>— Nan Goldin ตามที่ GiftLee อ้างถึง</cite></div>
+<p style="font-size:14px;color:var(--gray-700);margin-bottom:16px;">มีคนกว่าสามสิบคน ความอยากคือการถ่าย<strong>ทุกคน</strong> อย่าทำ หนังเรื่องนี้พูดเรื่องเดียว: <strong>สี่รุ่น</strong> — ตั้งแต่คุณยายถึงหลานวัย 1 ขวบ — ได้อยู่ในเฟรมเดียวกันตลอดหนึ่งสัปดาห์ จับคู่คนแก่กับเด็กเมื่อไรก็ได้ คนอื่นปล่อยเป็นฉากหลัง</p>
+<div class="question-framework"><h3>ก่อนยกกล้อง — สามคำถาม</h3><ul class="q-list">
+<li><span class="q-num">1</span><span>ช็อตนี้เล่าความจริงทางอารมณ์ของช่วงนี้ — หรือแค่พิสูจน์ว่าเรามาถึง?</span></li>
+<li><span class="q-num">2</span><span>ถ้าถ่ายตอนนี้ ฉันจะพลาด<strong>การได้อยู่ในช่วงเวลานั้น</strong>ไหม? คุ้มไหม?</span></li>
+<li><span class="q-num">3</span><span>นี่คือหนึ่งใน <strong>7 ช็อตฮีโร่</strong> ไหม? ถ้าไม่ใช่ — มันรับใช้เรื่องเล่า หรือแค่ติ๊กเช็กลิสต์นักท่องเที่ยว?</span></li></ul></div>
+<div class="section-label">หลักการสำคัญ</div><div class="principles-grid">
+<div class="principle"><div class="p-label">ความจริงเหนือความสมบูรณ์แบบ</div><div class="p-body">ช็อตเบลอนิดๆ ของช่วงเวลาจริง ชนะช็อตคมชัดที่จัดท่าเสมอ</div></div>
+<div class="principle"><div class="p-label">หลายรุ่นในเฟรมเดียว</div><div class="p-body">ช็อตที่ทรงพลังที่สุดมีหน้าคนแก่กับหน้าเด็กอยู่ด้วยกัน มองหามือ ไหล่ ตัก</div></div>
+<div class="principle"><div class="p-label">หามุมที่เงียบ</div><div class="p-body">คนสามสิบคนเสียงดัง ถ่ายจากท้ายกลุ่ม ปลายแถว อีกฝั่งของชายหาด</div></div>
+<div class="principle"><div class="p-label">ใช้ชีวิตในตอนจบ</div><div class="p-body">ห้านาทีแรกที่ชิราฮามะ โชว์กลางคืนดิสนีย์ รถบัสที่ออกตัวจากไป — อยู่ตรงนั้น หนังมีพอแล้ว</div></div></div>`;
+
+/* ───────── Story arc ───────── */
+const CURVE=(a,b,c)=>`<div class="arc-curve-wrap"><div class="arc-curve-label">${a}</div><svg viewBox="0 0 600 90" style="width:100%;height:auto;display:block"><path d="M10 78 C120 72 170 50 240 30 C290 14 320 12 350 18 C420 34 470 60 590 70" fill="none" stroke="#0ea5e9" stroke-width="3"/><circle cx="330" cy="13" r="6" fill="#f4a261"/><text x="342" y="12" font-size="12" fill="#92400e" font-weight="700">🗻 ${b}</text><line x1="200" y1="0" x2="200" y2="90" stroke="#cbd5e1" stroke-dasharray="4 4"/><line x1="440" y1="0" x2="440" y2="90" stroke="#cbd5e1" stroke-dasharray="4 4"/>${c.map((t,i)=>`<text x="${[20,215,455][i]}" y="88" font-size="11" fill="#64748b">${t}</text>`).join('')}</svg></div>`;
+SEC.en.arc=`<h2>🎞 Story Arc — 3 Acts</h2>
+<p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">Not "7 days in Japan." A film with a spine — a family too big for one room arrives scattered, ends up in one frame on a white-sand beach, then scatters into the city and comes home together.</p>
+<div class="arc-hook" style="background:linear-gradient(135deg,#78350f,#b45309)"><div class="hook-label">Prologue · the tradition</div><div class="hook-title">Photos and clips from the family trips before this one</div><div class="hook-desc">15–20 seconds of the past trips — the old group photos, the kids when they were smaller — with grandma’s voice over them (recorded on D2). This film is one chapter in a series, not a one-off.</div></div>
+<div class="arc-hook"><div class="hook-label">Cold Open</div><div class="hook-title">Shirahama — surf breaking under the torii on its rock, white sand, a line of tiny figures along the water</div><div class="hook-desc">Cut to: a school bag dropped by the door, then Suvarnabhumi at night — one household, a short line of suitcases. Everyone else is already in Japan. "Two days earlier…" The contrast tells the story before a single word.</div></div>
+<div class="acts-grid">
+<div class="act-card act-1"><div class="act-num">Act I</div><div class="act-name">The Gathering</div><div class="act-days">D0 · D1</div><div class="act-feel">Scattered across different flights, tired — then one coach, red leaves and a ryokan.</div><div class="act-beat">Different flights, one coach.</div></div>
+<div class="act-card act-2"><div class="act-num">Act II</div><div class="act-name">The Coast</div><div class="act-days">D2 · D3</div><div class="act-feel">White sand, a torii on the rocks, spring water, Fuji from a bridge.</div><div class="act-beat">Everyone in the same frame.</div></div>
+<div class="act-card act-3"><div class="act-num">Act III</div><div class="act-name">The City & Home</div><div class="act-days">D4 · D5 · D6</div><div class="act-feel">Groups split up, lights, Disney, last walks — then one last headcount.</div><div class="act-beat">Everyone goes their own way — and comes back.</div></div></div>
+${CURVE('Emotional tension curve','peak · Shirahama',['Act I · Gathering','Act II · The Coast','Act III · City & Home'])}
+<div class="tip-box"><strong>Recurring motifs — shoot every time you see them</strong>🧮 <b>The headcount</b> — someone counting heads at every stop. Opens and closes the film: a short count on D0, the first full count at the coach on D1, the final count in the hotel lobby on D6, just before the coach leaves.<br>🧳 <b>The suitcases</b> — your household’s short line on D0, the whole family’s 30+ in the lobby on D6.<br>🚌 <b>The bus</b> — Insta360 always running; it is the family's home for three days.<br>🤲 <b>Hands across generations</b> — grandma's hand, a child's hand.<br>🖼 <b>The same group photo</b> — arranged like the last trip's, to sit side by side.<br>👨‍👩‍👧 <b>Household portraits</b> — one per family, same spot; the end credits.<br>📏 <b>Kids, two years on</b> — one straight portrait each, repeated every trip.</div>
+<div class="tip-box" style="background:#fffbeb;border-color:#fcd34d;color:#92400e"><strong>Closing frame</strong>Thursday, early afternoon: the coach to Narita pulls away from the Ginza hotel, grandma and the kids waving from the windows, you on the pavement. The film ends before the coach turns the corner. Then the credits: household portraits, the group photos from every trip side by side, and one last card — “Until the next one.”</div>`;
+SEC.th.arc=`<h2>🎞 โครงเรื่อง — 3 องก์</h2>
+<p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">ไม่ใช่ "7 วันในญี่ปุ่น" แต่เป็นหนังที่มีแกน — ครอบครัวที่ใหญ่เกินห้องเดียว มาถึงแบบกระจัดกระจาย ได้อยู่ในเฟรมเดียวกันบนหาดทรายขาว แล้วแยกย้ายในเมือง ก่อนกลับบ้านพร้อมกัน</p>
+<div class="arc-hook" style="background:linear-gradient(135deg,#78350f,#b45309)"><div class="hook-label">บทนำ · ธรรมเนียมของบ้านเรา</div><div class="hook-title">ภาพและคลิปจากทริปครอบครัวครั้งก่อนๆ</div><div class="hook-desc">15–20 วินาทีของทริปที่ผ่านมา — ภาพหมู่เก่าๆ เด็กๆ ตอนยังตัวเล็ก — มีเสียงคุณยายทับ (อัดใน D2) หนังเรื่องนี้คือหนึ่งตอนในซีรีส์ ไม่ใช่เรื่องเดียวจบ</div></div>
+<div class="arc-hook"><div class="hook-label">ฉากเปิด</div><div class="hook-title">ชิราฮามะ — คลื่นแตกใต้โทริอิบนโขดหิน ทรายขาว แถวคนตัวเล็กๆ เรียงริมน้ำ</div><div class="hook-desc">ตัดไป: กระเป๋านักเรียนวางลงข้างประตู แล้วเป็นสุวรรณภูมิยามค่ำ — บ้านเดียว กระเป๋าแถวสั้นๆ คนอื่นถึงญี่ปุ่นไปแล้ว "สองวันก่อนหน้า…" ความต่างเล่าเรื่องได้ก่อนจะมีคำพูดสักคำ</div></div>
+<div class="acts-grid">
+<div class="act-card act-1"><div class="act-num">องก์ 1</div><div class="act-name">การรวมตัว</div><div class="act-days">D0 · D1</div><div class="act-feel">แยกกันบินคนละไฟลต์ เหนื่อย — แล้วก็รถบัสคันเดียว ใบไม้แดง และเรียวกัง</div><div class="act-beat">คนละไฟลต์ รถคันเดียวกัน</div></div>
+<div class="act-card act-2"><div class="act-num">องก์ 2</div><div class="act-name">ชายฝั่ง</div><div class="act-days">D2 · D3</div><div class="act-feel">ทรายขาว โทริอิบนโขดหิน น้ำพุใส ฟูจิจากสะพาน</div><div class="act-beat">ทุกคนอยู่ในเฟรมเดียวกัน</div></div>
+<div class="act-card act-3"><div class="act-num">องก์ 3</div><div class="act-name">เมืองและบ้าน</div><div class="act-days">D4 · D5 · D6</div><div class="act-feel">แยกกลุ่ม แสงไฟ ดิสนีย์ เดินเล่นครั้งสุดท้าย — แล้วนับหัวครั้งสุดท้าย</div><div class="act-beat">ต่างคนต่างไป — แล้วก็กลับมาพร้อมกัน</div></div></div>
+${CURVE('เส้นกราฟอารมณ์','พีค · ชิราฮามะ',['องก์ 1 · การรวมตัว','องก์ 2 · ชายฝั่ง','องก์ 3 · เมืองและบ้าน'])}
+<div class="tip-box"><strong>โมทีฟที่วนกลับมา — เห็นเมื่อไรถ่ายทุกครั้ง</strong>🧮 <b>การนับหัว</b> — ใครสักคนนับคนทุกจุดที่แวะ เปิดและปิดหนัง: รอบสั้นๆ ใน D0 นับครบครั้งแรกตอนขึ้นรถบัสใน D1 นับครั้งสุดท้ายที่ล็อบบี้โรงแรมใน D6 ก่อนรถบัสออก<br>🧳 <b>กระเป๋า</b> — แถวสั้นๆ ของบ้านเราใน D0 และกระเป๋า 30+ ใบของทั้งครอบครัวในล็อบบี้ใน D6<br>🚌 <b>รถบัส</b> — Insta360 เปิดตลอด รถคือบ้านของครอบครัวสามวัน<br>🤲 <b>มือข้ามรุ่น</b> — มือคุณยาย มือเด็ก<br>🖼 <b>ภาพหมู่แบบเดิม</b> — จัดแถวเหมือนทริปก่อน ไว้วางเทียบกัน<br>👨‍👩‍👧 <b>ภาพครอบครัวย่อย</b> — บ้านละหนึ่งช็อต จุดเดียวกัน ใช้เป็นเอนด์เครดิต<br>📏 <b>เด็กๆ ผ่านไปสองปี</b> — พอร์เทรตตรงๆ คนละหนึ่ง ถ่ายซ้ำทุกทริป</div>
+<div class="tip-box" style="background:#fffbeb;border-color:#fcd34d;color:#92400e"><strong>เฟรมปิดเรื่อง</strong>วันพฤหัสบดีช่วงบ่าย: รถบัสไปนาริตะออกจากโรงแรมที่กินซ่า คุณยายและเด็กๆ โบกมือจากหน้าต่าง เรายืนอยู่ริมทาง หนังจบก่อนรถเลี้ยวพ้นหัวมุม จากนั้นเอนด์เครดิต: ภาพครอบครัวย่อย ภาพหมู่จากทุกทริปวางเทียบกัน และการ์ดสุดท้าย — “แล้วพบกันทริปหน้า”</div>`;
+
+/* ───────── Put it away ───────── */
+const AWAY=(title,intro,items)=>`<h2>🌿 ${title}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">${intro}</p><div class="away-list">${items.map(([i,t,w])=>`<div class="away-moment"><div class="away-icon">${i}</div><div><div class="away-title">${t}</div><div class="away-why">${w}</div></div></div>`).join('')}</div>`;
+SEC.en.away=AWAY('When to Put the Camera Away','GiftLee’s best films are made from what she chose <strong>not</strong> to film. These moments belong to the trip, not the film.',[
+['♨️','Onsen — always, no exceptions','No cameras in or near the baths. It is the law, other guests’ privacy, and basic respect.'],
+['🌊','First five minutes on Shirahama','Walk the sand next to grandma and look at the sea. This is the shot you take with your memory.'],
+['🍱','The first kaiseki dinner — D1','One wide of the long table if you want, then the camera goes in the bag. Be at the table.'],
+['🥂','The reunion dinner — D2, after the toast','Film the room and the toast. Then the camera is done for the night — this dinner is why the family travels together.'],
+['👵','When grandma is telling the kids a story','If she notices the camera, the story changes. Listen instead.'],
+['🙏','Inside temple halls','Shuzenji’s main hall and most temple interiors forbid photography. Respect the sign.'],
+['🎆','Disney night show — D4','The waiting is the film. Watch the show holding your daughter.'],
+['✈️','Departure gate — beyond one shot','One shot of grandma and the youngest. Then pack it and sit with them.']]);
+SEC.th.away=AWAY('เมื่อไรควรเก็บกล้อง','หนังที่ดีที่สุดของ GiftLee สร้างจากสิ่งที่เธอเลือก<strong>ไม่</strong>ถ่าย ช่วงเวลาเหล่านี้เป็นของทริป ไม่ใช่ของหนัง',[
+['♨️','ออนเซ็น — ทุกครั้ง ไม่มีข้อยกเว้น','ห้ามกล้องในหรือใกล้บ่อแช่ เป็นทั้งกฎหมาย ความเป็นส่วนตัวของแขกคนอื่น และมารยาทพื้นฐาน'],
+['🌊','ห้านาทีแรกที่ชิราฮามะ','เดินบนทรายข้างคุณยายแล้วมองทะเล ช็อตนี้ถ่ายด้วยความทรงจำ'],
+['🍱','มื้อไคเซกิแรก — D1','ถ่ายโต๊ะยาวมุมกว้างหนึ่งช็อตถ้าอยากได้ แล้วเก็บกล้อง อยู่ที่โต๊ะ'],
+['🥂','มื้อเย็นรวมญาติ — D2 หลังชนแก้ว','ถ่ายห้องและตอนชนแก้ว จากนั้นกล้องจบงานของคืนนี้ — มื้อนี้คือเหตุผลที่ครอบครัวเดินทางด้วยกัน'],
+['👵','ตอนคุณยายเล่านิทานให้เด็กๆ ฟัง','ถ้าท่านเห็นกล้อง เรื่องเล่าจะเปลี่ยน ฟังแทน'],
+['🙏','ภายในหอวัด','หอหลักของวัดชูเซ็นจิและภายในวัดส่วนใหญ่ห้ามถ่ายภาพ เคารพป้าย'],
+['🎆','โชว์กลางคืนดิสนีย์ — D4','ช่วงรอคือหนัง ดูโชว์กอดลูกสาวไว้'],
+['✈️','เกตขากลับ — เกินหนึ่งช็อต','ถ่ายคุณยายกับคนเล็กสุดหนึ่งช็อต แล้วเก็บกล้องไปนั่งกับพวกเขา']]);
+
+/* ───────── Toolkit ───────── */
+const TK=(h,intro,items)=>`<h2>🧰 ${h}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">${intro}</p><div class="toolkit-grid">${items.map(([cls,t,li])=>`<div class="toolkit-item"><div class="tk-type ${cls}" style="display:inline-block;border-radius:6px;padding:2px 8px">${t}</div><ul class="tk-shots">${li.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>`;
+SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
+<p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">A schematic route (not to scale, but directions are real) plus the full stop list for every day — straight from the draft itinerary. Tap "Open in Google Maps" on any day for the real roads on your phone.</p>
+<div class="route-svg-wrap"><svg viewBox="0 0 820 440" xmlns="http://www.w3.org/2000/svg">
+<path d="M 300,130 l 30,-48 l 30,48 z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="330" y="146" text-anchor="middle" font-size="10" fill="#64748b">Mt Fuji</text>
+<polyline points="720,50 640,150 560,190 480,240 495,312 470,300" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
+<polyline points="470,300 462,350 455,385 440,405" fill="none" stroke="#075985" stroke-width="3" stroke-linecap="round"/>
+<polyline points="470,300 365,290 350,215 385,185 560,190 640,150" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+<polyline points="640,150 690,120" fill="none" stroke="#9d174d" stroke-width="3" stroke-linecap="round"/>
+<path d="M 640,150 q 24,-16 0,-32 q -24,14 0,32" fill="none" stroke="#1e3a8a" stroke-width="2.5" stroke-dasharray="2 4"/>
+<polyline points="640,150 720,50" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
+<g font-size="12" fill="#0b2545">
+<circle cx="720" cy="50" r="6" fill="#991b1b"/><text x="720" y="36" text-anchor="middle">Narita (NRT / Mystays)</text>
+<circle cx="560" cy="190" r="4" fill="#991b1b"/><text x="560" y="210" text-anchor="middle" font-size="10">Ebina SA</text>
+<circle cx="480" cy="240" r="5.5" fill="#991b1b"/><text x="494" y="244" text-anchor="start">Atami Baien</text>
+<circle cx="495" cy="312" r="4.5" fill="#991b1b"/><text x="508" y="320" text-anchor="start" font-size="10">Mt Komuro</text>
+<circle cx="470" cy="300" r="6.5" fill="#075985"/><text x="484" y="297" text-anchor="start">KAI Anjin (Ito)</text>
+<circle cx="455" cy="385" r="5.5" fill="#075985"/><text x="469" y="389" text-anchor="start">Izu Shirahama</text>
+<circle cx="440" cy="405" r="4.5" fill="#075985"/><text x="426" y="420" text-anchor="end" font-size="10">Shimoda</text>
+<circle cx="365" cy="290" r="6" fill="#78350f"/><text x="351" y="294" text-anchor="end">Shuzenji</text>
+<circle cx="350" cy="215" r="4.5" fill="#78350f"/><text x="336" y="219" text-anchor="end" font-size="10">Kakitagawa</text>
+<circle cx="385" cy="185" r="5.5" fill="#78350f"/><text x="399" y="181" text-anchor="start" font-size="10">Mishima Skywalk</text>
+<circle cx="640" cy="150" r="6.5" fill="#78350f"/><text x="640" y="176" text-anchor="middle">Ginza / Tokyo</text>
+<circle cx="690" cy="120" r="5" fill="#9d174d"/><text x="704" y="112" text-anchor="start" font-size="10">Disneyland</text>
+</g>
+</svg></div>
+<div class="route-legend">
+<span><span class="sw" style="background:#991b1b"></span>D1 — to Ito</span>
+<span><span class="sw" style="background:#075985"></span>D2 — south coast</span>
+<span><span class="sw" style="background:#78350f"></span>D3 — to Ginza</span>
+<span><span class="sw" style="background:#9d174d"></span>D4 — Disneyland</span>
+<span><span class="sw" style="background:#1e3a8a"></span>D5 — free day</span>
+<span><span class="sw" style="background:#334155"></span>D6 — return</span>
+</div>
+<div class="route-day" style="border-left-color:#4338ca"><div class="route-day-head"><span class="route-day-pill" style="background:#4338ca">D0</span><strong>Departure — two households, two routes</strong></div>
+<ol class="route-stops">
+<li><b>Most of the family</b> — Bangkok → Narita, morning flight → overnight at Hotel Mystays Premier Narita.</li>
+<li><b>Your household</b> — Bangkok → Narita, TG640 at 22:30 after Friday classes → lands early morning Dec 5.</li>
+</ol>
+<div class="route-callout">No shared stop yet — who else is on the night flight is still unconfirmed.</div></div>
+<div class="route-day" style="border-left-color:#991b1b"><div class="route-day-head"><span class="route-day-pill" style="background:#991b1b">D1</span><strong>Narita → Atami → Ito</strong></div>
+<ol class="route-stops">
+<li><b>Narita Airport T1</b> — night flight lands 06:20, first full reunion and headcount.</li>
+<li><b>Hotel Mystays Premier Narita</b> — morning group boards the coach, leaving around 08:00.</li>
+<li><b>Ebina SA</b> — Tomei Expressway rest stop.</li>
+<li><b>Atami Baien</b> — maple festival 14 Nov–6 Dec 2026, usual peak late Nov–early Dec. Arrive around 11:00; lunch in Atami.</li>
+<li><b>Mt Komuro + MISORA ridge walk</b> — chairlift to the summit; sea and Oshima island, Fuji on a clear day. Arrive by 14:30.</li>
+<li><b>KAI Anjin</b> — about 15 minutes from Mt Komuro. Check-in, dinner.</li>
+</ol>
+<div class="route-callout">This season Atami Baien has <b>no free group-coach parking</b> (roadworks near Sasajiri junction): coaches drop off at a designated point and use paid parking — tell the coach company. Mt Komuro lift hours differ by source (9:30–16:00 or 8:30–16:30); call 0557-45-1444.</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Narita%20International%20Airport&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">📍 Open in Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Narita%20International%20Airport&daddr=Ebina%20SA%2C%20Tomei%20Expressway+to:Atami%20Baien%2C%20Atami%2C%20Shizuoka+to:Komuroyama%20Park%2C%20Ito%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D1 route map"></iframe></div></div>
+<div class="route-day" style="border-left-color:#075985"><div class="route-day-head"><span class="route-day-pill" style="background:#075985">D2</span><strong>South Izu coast — Shirahama</strong></div>
+<ol class="route-stops">
+<li><b>KAI Anjin</b> — leave around 09:00, south on Route 135 along the east coast.</li>
+<li><b>Harbour town (Shimoda or on the way)</b> — seafood lunch, kinmedai. Book the group table ahead.</li>
+<li><b>Izu Shirahama beach</b> — white sand, the torii on the rock; group photo, household portraits, kids’ portraits, 13:00–15:00.</li>
+<li><b>Coastal town walk</b><span class="route-tag">if time</span> — Shimoda harbour.</li>
+<li><b>KAI Anjin</b> — back around 17:00; whole-family reunion dinner in yukata.</li>
+</ol>
+<div class="route-callout">Kumomi dropped from the group plan (26 Oct) — big-coach access on the narrow west-coast roads is uncertain. Route 135 on the east coast is a regular tour-coach road. Sunday traffic heading back north can be slow; leave a buffer.</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka%7CIzu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka&travelmode=driving">📍 Open in Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka+to:Izu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D2 route map"></iframe></div></div>
+<div class="route-day" style="border-left-color:#78350f"><div class="route-day-head"><span class="route-day-pill" style="background:#78350f">D3</span><strong>Ito → Shuzenji → Mishima → Ginza</strong></div>
+<ol class="route-stops">
+<li><b>KAI Anjin</b> — check-out.</li>
+<li><b>Shuzenji Onsen</b> — temple, maples along the Katsura River, bamboo path.</li>
+<li><b>Shuzenji Nature Park maple grove</b><span class="route-tag">optional</span> — about 10 minutes from town; stop if the leaves are still good.</li>
+<li><b>Kakitagawa Park</b> — clear spring water rising through the sand; short, flat boardwalk.</li>
+<li><b>Mishima Skywalk</b> — 400 m suspension bridge, Fuji view; open 9:00–17:00.</li>
+<li><b>Daiwa Roynet Hotel Ginza PREMIER</b> — arrive around 18:00–19:00 on a Monday; check-in.</li>
+</ol>
+<div class="route-callout">Shuzenji temple’s special autumn garden opening ended on 2 Dec last year, so expect it closed on the 7th — the river and town are free to walk. Check coach parking at Kakitagawa (small car park) and the Skywalk. Coach drop-off point in Ginza still open.</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&waypoints=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka%7CKakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka%7CMishima%20Skywalk%2C%20Mishima%2C%20Shizuoka&travelmode=driving">📍 Open in Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka+to:Kakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka+to:Mishima%20Skywalk%2C%20Mishima%2C%20Shizuoka+to:Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D3 route map"></iframe></div></div>
+<div class="route-day" style="border-left-color:#9d174d"><div class="route-day-head"><span class="route-day-pill" style="background:#9d174d">D4</span><strong>Tokyo Disneyland</strong></div>
+<ol class="route-stops"><li><b>Tokyo Disneyland</b> — full day, Christmas season.</li></ol>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Ginza%2C%20Tokyo&destination=Tokyo%20Disneyland&travelmode=transit">📍 Open in Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Ginza%2C%20Tokyo&daddr=Tokyo%20Disneyland&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D4 route map"></iframe></div></div>
+<div class="route-day" style="border-left-color:#1e3a8a"><div class="route-day-head"><span class="route-day-pill" style="background:#1e3a8a">D5</span><strong>Free day, Tokyo</strong></div>
+<ol class="route-stops"><li>No fixed stops — kept open on purpose.</li></ol></div>
+<div class="route-day" style="border-left-color:#334155"><div class="route-day-head"><span class="route-day-pill" style="background:#334155">D6</span><strong>Tokyo → Narita</strong></div>
+<ol class="route-stops">
+<li><b>Free morning</b> in Tokyo.</li>
+<li><b>Ginza hotel lobby</b> — final full headcount before the coach leaves; you wave it off.</li>
+<li><b>Narita Airport</b> — majority depart ~17:00; some stay until 11–12 Dec.</li>
+<li><b>Your household</b> — stays in Tokyo; evening taxi to Haneda T3 for TG661 at 00:20.</li>
+</ol>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&destination=Narita%20International%20Airport&travelmode=driving">📍 Open in Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&daddr=Narita%20International%20Airport&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D6 route map"></iframe></div></div>
+<div class="route-extra"><h3>Spotted on enjoytokyo.jp — worth adding?</h3>
+<ul>
+<li><b>Hase-dera</b> — dropped with Kamakura (26 Oct). The red leaves now come from Atami Baien (D1) and Shuzenji (D3).</li>
+<li><b>Naritasan Park</b><span class="route-tag">maybe D0</span> — free, right by Narita, peak mid-Nov–early Dec. Could fit the morning-flight group's free hours Friday evening before check-in — not added yet, needs someone to confirm there's actually time.</li>
+<li><b>Meiji Jingu Gaien gingko avenue</b><span class="route-tag">maybe D5</span> — central Tokyo, peak late Nov–early Dec, an easy walk. A ready-made option if the family wants one fixed thing on the otherwise-open D5.</li>
+<li>The rest of the list (Takao-san, Showa Kinen Park, Rikugien, Koshu-kaido, Akigawa Keikoku, Nikko's Iroha-zaka, Tanigawadake, Sankeien, Oyama, Yoro Valley, Musashi-Kyuryo, Tsukinoishi) sit too far from this route to fit without bumping something already planned — skipped.</li>
+</ul></div>
+<p style="font-size:11px;color:var(--gray-400);margin-top:10px;">Sources: iwafu.com and rurubu.jp (Atami Baien maple festival 2026 and coach parking; Atami tourist association 0557-85-2222), mapple.net / at-s.com (Mt Komuro lift hours), aumo.jp (Mishima Skywalk hours), enjoytokyo.jp (Kanto koyo spots, Oct 2026), Izu City tourist association Shuzenji branch 0558-72-2501.</p>
+`;
+
+SEC.en.toolkit=TK('Shot Toolkit — Every Location Needs These','Three shot types minimum = something editable in post. But first — ask the three GiftLee questions.',[
+['type-establish','Establish · Wide',['Show where we are','Include something moving','Hold for 8+ seconds']],
+['type-broll','B-roll · Medium',['The activity happening','People in the environment','Don’t announce the shot']],
+['type-detail','Detail · Close',['Food, leaves, hands, signs','f/1.4 or f/1.2 · soft background','Osmo for sub-70cm shots']],
+['type-movement','Movement',['Walk-with: chest height, IBIS on','Reveal: start tight, pull back','Lock-off: let the group move through']],
+['type-reaction','Reaction',['Faces — not posed','Old + young in one frame','Kids over adults for authenticity']],
+['type-audio','Ambient Audio',['60 sec stationary at each location','Waves, river, station chimes','Nobody talks during this take']]]);
+SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่ละวันไปไหนบ้าง</h2>
+<p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">เส้นทางแบบย่อ (ไม่ได้สเกลตามจริง แต่ทิศทางถูกต้อง) พร้อมจุดแวะทั้งหมดของแต่ละวัน ยึดตามแผนเที่ยวร่างล่าสุด กดปุ่ม "เปิดใน Google Maps" ของวันไหนก็ได้ เพื่อดูถนนจริงบนมือถือ</p>
+<div class="route-svg-wrap"><svg viewBox="0 0 820 440" xmlns="http://www.w3.org/2000/svg">
+<path d="M 300,130 l 30,-48 l 30,48 z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="330" y="146" text-anchor="middle" font-size="10" fill="#64748b">Mt Fuji</text>
+<polyline points="720,50 640,150 560,190 480,240 495,312 470,300" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
+<polyline points="470,300 462,350 455,385 440,405" fill="none" stroke="#075985" stroke-width="3" stroke-linecap="round"/>
+<polyline points="470,300 365,290 350,215 385,185 560,190 640,150" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
+<polyline points="640,150 690,120" fill="none" stroke="#9d174d" stroke-width="3" stroke-linecap="round"/>
+<path d="M 640,150 q 24,-16 0,-32 q -24,14 0,32" fill="none" stroke="#1e3a8a" stroke-width="2.5" stroke-dasharray="2 4"/>
+<polyline points="640,150 720,50" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
+<g font-size="12" fill="#0b2545">
+<circle cx="720" cy="50" r="6" fill="#991b1b"/><text x="720" y="36" text-anchor="middle">Narita (NRT / Mystays)</text>
+<circle cx="560" cy="190" r="4" fill="#991b1b"/><text x="560" y="210" text-anchor="middle" font-size="10">Ebina SA</text>
+<circle cx="480" cy="240" r="5.5" fill="#991b1b"/><text x="494" y="244" text-anchor="start">Atami Baien</text>
+<circle cx="495" cy="312" r="4.5" fill="#991b1b"/><text x="508" y="320" text-anchor="start" font-size="10">Mt Komuro</text>
+<circle cx="470" cy="300" r="6.5" fill="#075985"/><text x="484" y="297" text-anchor="start">KAI Anjin (Ito)</text>
+<circle cx="455" cy="385" r="5.5" fill="#075985"/><text x="469" y="389" text-anchor="start">Izu Shirahama</text>
+<circle cx="440" cy="405" r="4.5" fill="#075985"/><text x="426" y="420" text-anchor="end" font-size="10">Shimoda</text>
+<circle cx="365" cy="290" r="6" fill="#78350f"/><text x="351" y="294" text-anchor="end">Shuzenji</text>
+<circle cx="350" cy="215" r="4.5" fill="#78350f"/><text x="336" y="219" text-anchor="end" font-size="10">Kakitagawa</text>
+<circle cx="385" cy="185" r="5.5" fill="#78350f"/><text x="399" y="181" text-anchor="start" font-size="10">Mishima Skywalk</text>
+<circle cx="640" cy="150" r="6.5" fill="#78350f"/><text x="640" y="176" text-anchor="middle">Ginza / Tokyo</text>
+<circle cx="690" cy="120" r="5" fill="#9d174d"/><text x="704" y="112" text-anchor="start" font-size="10">Disneyland</text>
+</g>
+</svg></div>
+<div class="route-legend">
+<span><span class="sw" style="background:#991b1b"></span>D1 — ไปอิโต</span>
+<span><span class="sw" style="background:#075985"></span>D2 — ชายฝั่งใต้</span>
+<span><span class="sw" style="background:#78350f"></span>D3 — ไปกินซ่า</span>
+<span><span class="sw" style="background:#9d174d"></span>D4 — ดิสนีย์แลนด์</span>
+<span><span class="sw" style="background:#1e3a8a"></span>D5 — วันอิสระ</span>
+<span><span class="sw" style="background:#334155"></span>D6 — เดินทางกลับ</span>
+</div>
+<div class="route-day" style="border-left-color:#4338ca"><div class="route-day-head"><span class="route-day-pill" style="background:#4338ca">D0</span><strong>วันออกเดินทาง — สองบ้าน สองเส้นทาง</strong></div>
+<ol class="route-stops">
+<li><b>คนส่วนใหญ่ของครอบครัว</b> — กรุงเทพฯ → นาริตะ ไฟลต์เช้า → ค้างคืนที่ Hotel Mystays Premier Narita</li>
+<li><b>บ้านของเรา</b> — กรุงเทพฯ → นาริตะ TG640 เวลา 22:30 หลังเลิกเรียนวันศุกร์ → ถึงเช้าตรู่วันที่ 5 ธ.ค.</li>
+</ol>
+<div class="route-callout">ยังไม่มีจุดร่วมกันในวันนี้ — ใครอยู่ไฟลต์กลางคืนบ้างยังไม่ยืนยัน</div></div>
+<div class="route-day" style="border-left-color:#991b1b"><div class="route-day-head"><span class="route-day-pill" style="background:#991b1b">D1</span><strong>นาริตะ → อาตามิ → อิโต</strong></div>
+<ol class="route-stops">
+<li><b>สนามบินนาริตะ T1</b> — ไฟลต์กลางคืนลงจอด 06:20 รวมญาติครบทีมแรกและนับหัว</li>
+<li><b>Hotel Mystays Premier Narita</b> — กลุ่มไฟลต์เช้าขึ้นรถบัส ออกราว 08:00</li>
+<li><b>Ebina SA</b> — จุดพักทางด่วนโทเม</li>
+<li><b>อาตามิไบเอ็น (Atami Baien)</b> — งานใบไม้แดง 14 พ.ย.–6 ธ.ค. 2026 ช่วงพีคปกติปลาย พ.ย.–ต้น ธ.ค. ถึงราว 11:00 ทานกลางวันที่อาตามิ</li>
+<li><b>เขาโคมุโระ (Mt Komuro) + ทางเดินสันเขา MISORA</b> — กระเช้าขึ้นยอด วิวทะเลและเกาะโอชิมะ วันฟ้าใสเห็นฟูจิ ควรถึงก่อน 14:30</li>
+<li><b>KAI Anjin</b> — ห่างเขาโคมุโระราว 15 นาที เช็กอิน ทานอาหารเย็น</li>
+</ol>
+<div class="route-callout">ปีนี้อาตามิไบเอ็น<b>ไม่มีที่จอดรถบัสกลุ่มฟรี</b> (มีงานก่อสร้างแถวสี่แยกซาซาจิริ) รถบัสต้องส่งคนตรงจุดที่กำหนดแล้วไปจอดที่จอดเสียเงิน — แจ้งบริษัทรถบัสด้วย เวลาเปิดกระเช้าเขาโคมุโระแต่ละแหล่งไม่ตรงกัน (9:30–16:00 หรือ 8:30–16:30) โทรเช็ก 0557-45-1444</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Narita%20International%20Airport&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">📍 เปิดใน Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Narita%20International%20Airport&daddr=Ebina%20SA%2C%20Tomei%20Expressway+to:Atami%20Baien%2C%20Atami%2C%20Shizuoka+to:Komuroyama%20Park%2C%20Ito%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D1"></iframe></div></div>
+<div class="route-day" style="border-left-color:#075985"><div class="route-day-head"><span class="route-day-pill" style="background:#075985">D2</span><strong>ชายฝั่งอิซุใต้ — ชิราฮามะ</strong></div>
+<ol class="route-stops">
+<li><b>KAI Anjin</b> — ออกราว 09:00 ลงใต้ตามถนน 135 เลียบชายฝั่งตะวันออก</li>
+<li><b>เมืองท่าริมทะเล (ชิโมดะ หรือระหว่างทาง)</b> — มื้อกลางวันซีฟู้ด ปลาคินเมได จองโต๊ะกลุ่มไว้ก่อน</li>
+<li><b>หาดอิซุชิราฮามะ (Izu Shirahama)</b> — ทรายขาว โทริอิบนโขดหิน ภาพหมู่ ภาพครอบครัวย่อย พอร์เทรตเด็กๆ ช่วงบ่าย 13:00–15:00</li>
+<li><b>เดินเล่นเมืองริมทะเล</b><span class="route-tag">ถ้ามีเวลา</span> — ท่าเรือชิโมดะ</li>
+<li><b>KAI Anjin</b> — กลับราว 17:00 มื้อเย็นรวมญาติทั้งครอบครัว ใส่ยูกาตะ</li>
+</ol>
+<div class="route-callout">ตัดคุโมมิออกจากแผนของกลุ่มแล้ว (26 ต.ค.) — ไม่แน่ใจว่ารถบัสใหญ่วิ่งถนนแคบฝั่งตะวันตกได้ ถนน 135 ฝั่งตะวันออกเป็นเส้นทางที่รถบัสทัวร์ใช้ประจำ ขากลับวันอาทิตย์อาจรถติด เผื่อเวลาไว้</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka%7CIzu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka&travelmode=driving">📍 เปิดใน Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka+to:Izu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D2"></iframe></div></div>
+<div class="route-day" style="border-left-color:#78350f"><div class="route-day-head"><span class="route-day-pill" style="background:#78350f">D3</span><strong>อิโต → ชูเซ็นจิ → มิชิมะ → กินซ่า</strong></div>
+<ol class="route-stops">
+<li><b>KAI Anjin</b> — เช็กเอาต์</li>
+<li><b>ชูเซ็นจิออนเซ็น (Shuzenji)</b> — วัด ใบไม้แดงริมแม่น้ำคัตสึระ ทางเดินป่าไผ่</li>
+<li><b>ป่าเมเปิ้ล Shuzenji Nature Park</b><span class="route-tag">ไม่บังคับ</span> — ห่างจากเมืองราว 10 นาที แวะถ้าใบไม้ยังสวย</li>
+<li><b>สวนคาคิตะกาวะ (Kakitagawa Park)</b> — น้ำพุใสผุดขึ้นจากทราย ทางเดินไม้สั้นและเรียบ</li>
+<li><b>มิชิมะสกายวอล์ก (Mishima Skywalk)</b> — สะพานแขวน 400 ม. วิวฟูจิ เปิด 9:00–17:00</li>
+<li><b>Daiwa Roynet Hotel Ginza PREMIER</b> — ถึงราว 18:00–19:00 วันจันทร์ เช็กอิน</li>
+</ol>
+<div class="route-callout">สวนวัดชูเซ็นจิที่เปิดพิเศษช่วงใบไม้แดงปีที่แล้วปิด 2 ธ.ค. — วันที่ 7 น่าจะปิดแล้ว แต่ริมแม่น้ำและในเมืองเดินชมได้ฟรี เช็กที่จอดรถบัสที่คาคิตะกาวะ (ลานจอดเล็ก) และสกายวอล์ก จุดจอดรถบัสที่กินซ่ายังไม่สรุป</div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&waypoints=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka%7CKakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka%7CMishima%20Skywalk%2C%20Mishima%2C%20Shizuoka&travelmode=driving">📍 เปิดใน Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka+to:Kakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka+to:Mishima%20Skywalk%2C%20Mishima%2C%20Shizuoka+to:Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D3"></iframe></div></div>
+<div class="route-day" style="border-left-color:#9d174d"><div class="route-day-head"><span class="route-day-pill" style="background:#9d174d">D4</span><strong>โตเกียวดิสนีย์แลนด์</strong></div>
+<ol class="route-stops"><li><b>โตเกียวดิสนีย์แลนด์</b> — เต็มวัน ช่วงคริสต์มาส</li></ol>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Ginza%2C%20Tokyo&destination=Tokyo%20Disneyland&travelmode=transit">📍 เปิดใน Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Ginza%2C%20Tokyo&daddr=Tokyo%20Disneyland&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D4"></iframe></div></div>
+<div class="route-day" style="border-left-color:#1e3a8a"><div class="route-day-head"><span class="route-day-pill" style="background:#1e3a8a">D5</span><strong>วันอิสระในโตเกียว</strong></div>
+<ol class="route-stops"><li>ไม่มีจุดตายตัว — ตั้งใจเว้นไว้ให้อิสระ</li></ol></div>
+<div class="route-day" style="border-left-color:#334155"><div class="route-day-head"><span class="route-day-pill" style="background:#334155">D6</span><strong>โตเกียว → นาริตะ</strong></div>
+<ol class="route-stops">
+<li><b>เช้าอิสระ</b> ในโตเกียว</li>
+<li><b>ล็อบบี้โรงแรมกินซ่า</b> — นับหัวครั้งสุดท้ายก่อนรถบัสออก เรายืนส่ง</li>
+<li><b>สนามบินนาริตะ</b> — คนส่วนใหญ่กลับไฟลต์ ~17:00 บางบ้านอยู่ต่อถึง 11–12 ธ.ค.</li>
+<li><b>บ้านของเรา</b> — อยู่โตเกียวต่อ เย็นนั่งแท็กซี่ไปฮาเนดะ T3 ไฟลต์ TG661 เวลา 00:20</li>
+</ol>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&destination=Narita%20International%20Airport&travelmode=driving">📍 เปิดใน Google Maps</a>
+<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&daddr=Narita%20International%20Airport&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D6"></iframe></div></div>
+<div class="route-extra"><h3>เจอใน enjoytokyo.jp — น่าเพิ่มไหม</h3>
+<ul>
+<li><b>วัดฮาเซะ</b> — ตัดออกพร้อมคามาคุระ (26 ต.ค.) ใบไม้แดงตอนนี้มาจากอาตามิไบเอ็น (D1) และชูเซ็นจิ (D3)</li>
+<li><b>สวนนาริตะซัง (Naritasan Park)</b><span class="route-tag">อาจเพิ่มใน D0</span> — เข้าฟรี อยู่ใกล้นาริตะ ช่วงพีคกลาง พ.ย.–ต้น ธ.ค. น่าจะพอดีกับเวลาว่างของกลุ่มไฟลต์เช้าตอนเย็นวันศุกร์ก่อนเช็กอิน — ยังไม่ได้เพิ่มเข้าแผน ต้องมีคนช่วยเช็กว่าเวลาพอจริงไหม</li>
+<li><b>ถนนแปะก๊วยเมจิจิงงูไกเอ็น</b><span class="route-tag">อาจเพิ่มใน D5</span> — อยู่กลางโตเกียว ช่วงพีคปลาย พ.ย.–ต้น ธ.ค. เดินถึงง่าย เป็นตัวเลือกสำเร็จรูปถ้าอยากมีจุดตายตัวสักจุดใน D5 ที่ว่างอยู่</li>
+<li>ที่เหลือในลิสต์ (ทาคาโอซัง, สวนโชวะคิเนน, ริคุกิเอ็น, ถนนแปะก๊วยโคชูไคโด, หุบเขาอากิกาวะ, อิโรฮะซากะที่นิกโก้, ทานิกาวาดาเกะ, ซังเคเอ็น, ภูเขาโอยามะ, หุบเขาโยโร, สวนป่ามูซาชิคิวเรียว, สวนสึกิโนะอิชิโมมิจิ) อยู่ไกลจากเส้นทางนี้เกินไป ถ้าจะแวะต้องตัดอย่างอื่นที่วางแผนไว้แล้วออก — เลยข้ามไปก่อน</li>
+</ul></div>
+<p style="font-size:11px;color:var(--gray-400);margin-top:10px;">ที่มา: iwafu.com และ rurubu.jp (งานใบไม้แดงอาตามิไบเอ็นปี 2026 และที่จอดรถบัส; สมาคมท่องเที่ยวอาตามิ 0557-85-2222), mapple.net / at-s.com (เวลากระเช้าเขาโคมุโระ), aumo.jp (เวลาเปิดมิชิมะสกายวอล์ก), enjoytokyo.jp (จุดชมใบไม้แดงแถบคันโต, ต.ค. 2026), สมาคมท่องเที่ยวเมืองอิซุ สาขาชูเซ็นจิ 0558-72-2501</p>
+`;
+
+SEC.th.toolkit=TK('ชุดช็อต — ทุกสถานที่ต้องมี','อย่างน้อยสามประเภท = มีของให้ตัดต่อ แต่ก่อนอื่น — ถามสามคำถามของ GiftLee',[
+['type-establish','เปิดฉาก · มุมกว้าง',['บอกว่าเราอยู่ที่ไหน','มีอะไรเคลื่อนไหวในเฟรม','ค้าง 8 วินาทีขึ้นไป']],
+['type-broll','บีโรล · ระยะกลาง',['กิจกรรมที่กำลังเกิด','คนในสภาพแวดล้อม','ไม่ต้องประกาศว่าถ่าย']],
+['type-detail','รายละเอียด · ระยะใกล้',['อาหาร ใบไม้ มือ ป้าย','f/1.4 หรือ f/1.2 · ฉากหลังละลาย','ใกล้กว่า 70 ซม. ใช้ Osmo']],
+['type-movement','เคลื่อนกล้อง',['เดินตาม: ระดับอก เปิดกันสั่น','เผยภาพ: เริ่มแคบ แล้วถอยออก','ตั้งนิ่ง: ปล่อยให้กลุ่มเดินผ่าน']],
+['type-reaction','ปฏิกิริยา',['ใบหน้า — ไม่จัดท่า','คนแก่ + เด็กในเฟรมเดียว','เด็กจริงใจกว่าผู้ใหญ่']],
+['type-audio','เสียงบรรยากาศ',['นิ่ง 60 วินาทีทุกสถานที่','คลื่น แม่น้ำ เสียงเมโลดี้สถานี','ห้ามใครพูดในเทคนี้']]]);
+
+/* ───────── Gear ───────── */
+const GEAR=(h,cols,rows,tip)=>`<h2>🎒 ${h}</h2><table class="settings-table"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table><div class="tip-box">${tip}</div>`;
+SEC.en.gear=GEAR('Gear Assignment by Day',['Day','Primary','Support','Reason'],[
+['D0 · Flight','S9 + 35mm','Osmo · Phone','35mm for the check-in wide. Osmo for the cabin. Phone on the window.'],
+['D1 · Atami + Mt Komuro','S9 + Noctilux · +90mm','Insta360 (coach, chairlift) · Osmo','Noctilux is the momiji lens at Atami Baien. 90mm for the stream and bridges. Insta360 on the coach window from Narita and on the Mt Komuro chairlift.'],
+['D2 · Shirahama','S9 + 90mm · +35mm · tripod','Insta360 · Osmo · drone (only if legal — likely skip)','90mm stacks the torii rock against the surf. Tripod for the group shot. Osmo for lunch and the kids at the waterline.'],
+['D3 · Shuzenji → Mishima','S9 + 90mm · +35mm','Insta360 (coach) · Osmo','90mm for Fuji from the Skywalk and down into the Kakitagawa springs. Osmo on the bamboo path. Insta360 for the Fuji reveal and the coach into Tokyo.'],
+['D4 · Disney','S9 + 35mm','Osmo','No tripods, selfie sticks or drones in the park. Light and handheld.'],
+['D5 · Tokyo','Osmo · S9 + Noctilux (blue hour)','GorillaPod','Pocket kit all day. Noctilux only for Tokyo Station at blue hour.'],
+['D6 · Goodbye','Osmo · S9 + 35mm','—','35mm for the suitcase line and the luggage lock-off. Osmo for the count and the coach pulling away.']],
+'<strong>Insta360 on the coach</strong>Mount it on a side window only — never the windscreen. Ask the driver on Day 1 and keep it there for three days. Plug it into USB power so it can run all day.');
+SEC.th.gear=GEAR('แผนอุปกรณ์รายวัน',['วัน','หลัก','เสริม','เหตุผล'],[
+['D0 · บิน','S9 + 35mm','Osmo · โทรศัพท์','35mm ถ่ายมุมกว้างตอนเช็กอิน Osmo ในเครื่อง โทรศัพท์ที่หน้าต่าง'],
+['D1 · อาตามิ + เขาโคมุโระ','S9 + Noctilux · +90mm','Insta360 (รถบัส กระเช้า) · Osmo','Noctilux คือเลนส์ใบไม้แดงที่อาตามิไบเอ็น 90mm สำหรับลำธารและสะพาน Insta360 ติดหน้าต่างรถบัสตั้งแต่นาริตะและบนกระเช้าเขาโคมุโระ'],
+['D2 · ชิราฮามะ','S9 + 90mm · +35mm · ขาตั้ง','Insta360 · Osmo · โดรน (เฉพาะถ้าถูกกฎ — น่าจะข้าม)','90mm ซ้อนโขดหินโทริอิกับคลื่น ขาตั้งสำหรับภาพหมู่ Osmo สำหรับมื้อกลางวันและเด็กๆ ริมน้ำ'],
+['D3 · ชูเซ็นจิ → มิชิมะ','S9 + 90mm · +35mm','Insta360 (รถบัส) · Osmo','90mm สำหรับฟูจิจากสกายวอล์กและมองลงน้ำพุคาคิตะกาวะ Osmo บนทางเดินป่าไผ่ Insta360 สำหรับภาพเผยฟูจิและรถบัสเข้าโตเกียว'],
+['D4 · ดิสนีย์','S9 + 35mm','Osmo','ห้ามขาตั้ง ไม้เซลฟี่ โดรนในสวน เบาและถือมือ'],
+['D5 · โตเกียว','Osmo · S9 + Noctilux (บลูอาวร์)','GorillaPod','ชุดพกพาทั้งวัน Noctilux เฉพาะสถานีโตเกียวช่วงบลูอาวร์'],
+['D6 · บอกลา','Osmo · S9 + 35mm','—','35mm สำหรับแถวกระเป๋าและช็อตขนกระเป๋า Osmo สำหรับการนับหัวและรถบัสออกตัว']],
+'<strong>Insta360 บนรถบัส</strong>ติดเฉพาะหน้าต่างข้าง — ห้ามติดกระจกหน้า ขออนุญาตคนขับวันแรกแล้วติดไว้สามวัน เสียบไฟ USB ให้ถ่ายได้ทั้งวัน');
+
+/* ───────── Settings ───────── */
+const SET=(h,a,ar,b,br,tip)=>`<h2>⚙️ ${h}</h2><div class="grid-2"><div><div class="section-label">${a}</div><table class="settings-table"><tbody>${ar.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</tbody></table></div><div><div class="section-label">${b}</div><table class="settings-table"><tbody>${br.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</tbody></table></div></div><div class="tip-box">${tip}</div>`;
+SEC.en.settings=SET('Lumix S9 — Settings to Lock Before Departure','Video Settings',[
+['Framing','Vertical 9:16 master. Compose in portrait from capture; rotate the camera where appropriate. When reframing wider footage, keep people inside a 9:16 guide throughout the shot. Final delivery: 1080 × 1920.'],
+['Format','4K 25fps — and it matters here: Tokyo and Izu run on <strong>50Hz</strong> power, so 25fps / 1/50s keeps indoor lights flicker-free'],
+['Slow-mo','4K 60fps — Shirahama surf, falling leaves (raise shutter to 1/120, check for flicker indoors)'],
+['Profile','V-Log L on D1–D3 for grading; standard profile on D4–D6'],['IBIS','Body stabilisation ON at all times'],['AF Mode','C-AF + Face/Eye detection for native lenses']],
+'Cold Weather · Leica M Lenses',[
+['Temperature','Izu 6–15°C, Tokyo 4–12°C. Batteries drain faster — keep spares in an inside pocket'],
+['Condensation','Coming into a warm ryokan: put the camera in a ziplock bag before you go in, open it after 30 min'],
+['Focus','Manual only through the M-to-L adapter · peaking ON (red) · MF Assist ON'],
+['Noctilux f/1.2','Focus on the eyes. DOF ~3cm at 1m. Shoot wide open for the momiji glow'],
+['ND filter','Variable ND for 90mm at Shirahama — keeps 1/50s on bright sand and sea']],
+'<strong>Card speed</strong>4K 60fps needs V90 cards. Label cards by day — swap at the hotel each evening and back up overnight.');
+SEC.th.settings=SET('Lumix S9 — ตั้งค่าให้เรียบร้อยก่อนเดินทาง','ตั้งค่าวิดีโอ',[
+['การจัดเฟรม','งานหลักแนวตั้ง 9:16 จัดภาพแนวตั้งตั้งแต่ถ่าย หมุนกล้องเมื่อเหมาะสม หากรีเฟรมจากภาพที่กว้างกว่า ให้คนอยู่ในกรอบ 9:16 ตลอดช็อต ส่งออก 1080 × 1920'],
+['ฟอร์แมต','4K 25fps — สำคัญมากที่นี่: โตเกียวและอิซุใช้ไฟ <strong>50Hz</strong> 25fps / 1/50 วินาทีกันไฟในอาคารกะพริบ'],
+['สโลว์โม','4K 60fps — คลื่นชิราฮามะ ใบไม้ร่วง (ชัตเตอร์ 1/120 เช็กไฟกะพริบในอาคาร)'],
+['โปรไฟล์','V-Log L ใน D1–D3 เพื่อเกรดสี โปรไฟล์มาตรฐานใน D4–D6'],['IBIS','เปิดกันสั่นในบอดี้ตลอดเวลา'],['โหมด AF','C-AF + จับใบหน้า/ดวงตา สำหรับเลนส์ออโต้']],
+'อากาศหนาว · เลนส์ Leica M',[
+['อุณหภูมิ','อิซุ 6–15°C โตเกียว 4–12°C แบตหมดเร็วขึ้น — เก็บแบตสำรองในกระเป๋าด้านในเสื้อ'],
+['ไอน้ำเกาะ','เข้าเรียวกังที่อุ่น: ใส่กล้องในถุงซิปล็อกก่อนเข้า แล้วเปิดหลัง 30 นาที'],
+['โฟกัส','แมนนวลเท่านั้นผ่านอะแดปเตอร์ M-to-L · เปิด peaking (แดง) · เปิด MF Assist'],
+['Noctilux f/1.2','โฟกัสที่ดวงตา ระยะชัด ~3 ซม. ที่ 1 ม. เปิดสุดเพื่อแสงเรืองของใบไม้แดง'],
+['ฟิลเตอร์ ND','Variable ND สำหรับ 90mm ที่ชิราฮามะ — รักษา 1/50 วินาทีบนทรายและทะเลที่สว่าง']],
+'<strong>ความเร็วการ์ด</strong>4K 60fps ต้องใช้การ์ด V90 ติดป้ายการ์ดตามวัน — เปลี่ยนที่โรงแรมทุกเย็นและแบ็กอัปข้ามคืน');
+
+/* ───────── Checklist ───────── */
+const CK=(h,a,ai,b,bi)=>`<h2>✅ ${h}</h2><div class="grid-2"><div><div class="section-label">${a}</div><ul class="checklist">${ai.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><div class="section-label">${b}</div><ul class="checklist">${bi.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>`;
+SEC.en.checklist=CK('Pre-Trip Checklist','Gear',[
+'<span><strong>Format all SD cards</strong> — fresh start for the trip</span>','<span><strong>4× S9 batteries</strong> — cold drains them faster</span>',
+'<span><strong>V90 cards × 4 minimum</strong> — 4K 60fps fills fast</span>','<span><strong>Variable ND filter</strong> — for the 90mm at Shirahama</span>',
+'<span><strong>Tripod / GorillaPod</strong> — group shot + Tokyo Station blue hour</span>','<span><strong>Insta360 suction mount + USB cable</strong> — for the coach window</span>',
+'<span><strong>Wrist straps</strong> — Osmo on the boat, Insta360 on the chairlift</span>','<span><strong>Ziplock bags</strong> — condensation control at the ryokan</span>',
+'<span><strong>M-to-L adapter</strong> — all three Leica lenses</span>'],
+'Admin',[
+'<span><strong>Register the DJI Mini 3 Pro with Japan MLIT (DIPS 2.0)</strong> — required for drones 100g+ · Remote ID on</span>',
+'<span><strong>Drone no-go</strong> — all of central Tokyo (DID), Disney, shrines and temples. Shirahama beach only, after checking local rules — likely leave it at home</span>',
+'<span><strong>Set the S9 clock to Japan time</strong> — UTC+9 (Bangkok +2h)</span>',
+'<span><strong>Ask the coach company</strong> — OK to mount a camera on a side window?</span>',
+'<span><strong>Check the maple report in late Nov</strong> — Atami tourist association 0557-85-2222 (Atami Baien) · Shuzenji branch, Izu City Tourist Association 0558-72-2501</span>',
+'<span><strong>Disney park rules</strong> — no tripods / selfie sticks; check current camera rules</span>',
+'<span><strong>Backup drive</strong> — 7 days of 4K fills fast</span>',
+'<span><strong>Collect photos + clips from past family trips</strong> — ask every household; you need the old group photos for the prologue and to copy the arrangement</span>',
+'<span><strong>Ask the main group to film for you</strong> — their take-off, their arrival at Narita, and someone filming you come through Narita arrivals on the 5th; phone footage is fine</span>',
+'<span><strong>Save the last trip’s group photo to your phone</strong> — reference for arranging everyone at Shirahama</span>',
+'<span><strong>List the households</strong> — so no family is missed in the portraits</span>',
+'<span><strong>Tell grandma the question in advance</strong> — “What do you remember from our first family trip?”</span>',
+'<span><strong>Ask KAI Anjin for one room for the whole-family dinner on 6 Dec</strong></span>']);
+SEC.th.checklist=CK('เช็กลิสต์ก่อนเดินทาง','อุปกรณ์',[
+'<span><strong>ฟอร์แมตการ์ด SD ทั้งหมด</strong> — เริ่มทริปใหม่สะอาดๆ</span>','<span><strong>แบต S9 × 4</strong> — อากาศเย็นทำให้หมดเร็ว</span>',
+'<span><strong>การ์ด V90 อย่างน้อย 4 ใบ</strong> — 4K 60fps เต็มเร็ว</span>','<span><strong>ฟิลเตอร์ Variable ND</strong> — สำหรับ 90mm ที่ชิราฮามะ</span>',
+'<span><strong>ขาตั้ง / GorillaPod</strong> — ภาพหมู่ + สถานีโตเกียวบลูอาวร์</span>','<span><strong>ตัวดูดกระจก Insta360 + สาย USB</strong> — สำหรับหน้าต่างรถบัส</span>',
+'<span><strong>สายคล้องข้อมือ</strong> — Osmo บนเรือ Insta360 บนกระเช้า</span>','<span><strong>ถุงซิปล็อก</strong> — กันไอน้ำเกาะที่เรียวกัง</span>',
+'<span><strong>อะแดปเตอร์ M-to-L</strong> — สำหรับเลนส์ Leica ทั้งสามตัว</span>'],
+'งานเอกสาร',[
+'<span><strong>ลงทะเบียน DJI Mini 3 Pro กับกระทรวง MLIT ญี่ปุ่น (DIPS 2.0)</strong> — บังคับสำหรับโดรน 100 กรัมขึ้นไป · เปิด Remote ID</span>',
+'<span><strong>ห้ามบินโดรน</strong> — ใจกลางโตเกียวทั้งหมด (DID) ดิสนีย์ ศาลเจ้าและวัด หาดชิราฮามะเท่านั้น หลังเช็กกฎท้องถิ่น — น่าจะไม่ต้องเอาไป</span>',
+'<span><strong>ตั้งนาฬิกา S9 เป็นเวลาญี่ปุ่น</strong> — UTC+9 (เร็วกว่ากรุงเทพฯ 2 ชม.)</span>',
+'<span><strong>ถามบริษัทรถบัส</strong> — ติดกล้องที่หน้าต่างข้างได้ไหม?</span>',
+'<span><strong>เช็กรายงานใบไม้แดงปลาย พ.ย.</strong> — สมาคมท่องเที่ยวอาตามิ 0557-85-2222 (อาตามิไบเอ็น) · สมาคมท่องเที่ยวเมืองอิซุ สาขาชูเซ็นจิ 0558-72-2501</span>',
+'<span><strong>กฎดิสนีย์</strong> — ห้ามขาตั้ง / ไม้เซลฟี่ เช็กกฎกล้องล่าสุด</span>',
+'<span><strong>ฮาร์ดดิสก์สำรอง</strong> — 4K เจ็ดวันเต็มเร็ว</span>',
+'<span><strong>รวบรวมภาพ + คลิปจากทริปครอบครัวครั้งก่อนๆ</strong> — ขอจากทุกบ้าน ต้องใช้ภาพหมู่เก่าสำหรับบทนำและเพื่อจัดแถวตาม</span>',
+'<span><strong>ขอให้กลุ่มใหญ่ช่วยถ่ายให้</strong> — ตอนเครื่องขึ้น ตอนถึงนาริตะ และให้ใครสักคนถ่ายตอนเราเดินออกจากประตูขาเข้านาริตะวันที่ 5 ถ่ายด้วยโทรศัพท์ก็พอ</span>',
+'<span><strong>เซฟภาพหมู่ทริปล่าสุดไว้ในโทรศัพท์</strong> — ไว้ดูตอนจัดแถวที่ชิราฮามะ</span>',
+'<span><strong>ทำรายชื่อครอบครัวย่อย</strong> — จะได้ไม่ตกหล่นบ้านไหนตอนถ่ายพอร์เทรต</span>',
+'<span><strong>บอกคำถามคุณยายล่วงหน้า</strong> — “จำอะไรได้บ้างจากทริปครอบครัวครั้งแรก?”</span>',
+'<span><strong>ขอห้องรวมสำหรับมื้อเย็นทั้งครอบครัวที่ KAI Anjin คืน 6 ธ.ค.</strong></span>']);
+
+/* ───────── Color grade ───────── */
+const GR=(h,intro,g1,g2,rh,rec,wh,cols,rows,tip)=>`<h2>🎨 ${h}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">${intro}</p>
+<div class="grid-2" style="margin-bottom:16px">${[g1,g2].map(([t,s,d],i)=>`<div class="principle" style="${i?'background:#eff6ff':''}"><div class="p-label">${t}</div><div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">${s}</div><div class="p-body">${d}</div></div>`).join('')}</div>
+<div class="section-label">${rh}</div><table class="settings-table" style="margin-bottom:16px"><tbody>${rec.map(([k,v])=>`<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</tbody></table>
+<div class="section-label">${wh}</div><table class="settings-table"><thead><tr>${cols.map(c=>`<th>${c}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table><div class="tip-box">${tip}</div>`;
+SEC.en.grade=GR('Color Grade — Kore-eda + Hokusai','Two grades, applied selectively. Kore-eda’s <em>Our Little Sister</em> was shot in Kamakura — soft, natural family light. Hokusai’s Fuji prints give the landscape palette: deep Prussian-blue sea, white snow, crisp winter sky.',
+['Kore-eda Grade — default','For people','Natural, slightly cool winter daylight, true skin tones, gently lifted shadows, low contrast. Family days, reactions, ryokan, city.'],
+['Hokusai Vista Grade','For Fuji + coast + momiji','Deep blue sea pushed toward Prussian blue, clean white snow cap (never clipped), cyan sky, warm highlights on rock. Reds kept true but controlled.'],
+'Vista Grade Recipe',[
+['Blues','Shift sea hue toward Prussian/indigo; keep sky cyan and clean. This is the "Great Wave" palette.'],
+['Highlights','Protect the snow cap — pull highlights down before anything else.'],
+['Reds','Momiji clips fast in V-Log. Lower red saturation 10–15% and lift red luminance — glow, not neon.'],
+['Shadows','Slightly lifted and cool. Rocks stay dark but not crushed.'],
+['Contrast','Medium, soft curve. Winter air is clear — let it look clear, not punchy.']],
+'Where Each Grade Applies',['Day','Grade','Why'],[
+['D0 · Flight','Kore-eda','Airport and cabin — no landscape'],
+['D1 · Atami + Mt Komuro','Vista for momiji and the sea view · Kore-eda for ryokan','The red leaves earn it; the yukata night stays warm and true'],
+['D2 · Shirahama','Vista · Kore-eda for lunch and dinner','The whole point — white sand, turquoise sea, the torii on its rock'],
+['D3 · Shuzenji → Mishima','Mixed','Kore-eda for Shuzenji and Kakitagawa; Vista for Fuji from the Skywalk'],
+['D4–D6','Kore-eda (+ night grade for blue hour)','People and city — keep the Leica glow cool, not gold']],
+'<strong>💡 Shooting tip</strong>Shoot V-Log on D1–D3 for grading room. D4–D6 can be standard profile straight out of camera. Never V-Log in dark interiors — too much noise when you lift shadows.');
+SEC.th.grade=GR('เกรดสี — Kore-eda + Hokusai','สองเกรด ใช้ตามจังหวะ หนัง <em>Our Little Sister</em> ของ Kore-eda ถ่ายที่คามาคุระ — แสงครอบครัวนุ่มเป็นธรรมชาติ ภาพพิมพ์ฟูจิของ Hokusai ให้พาเลตต์แลนด์สเคป: ทะเลสีน้ำเงินปรัสเซียนเข้ม หิมะขาว ฟ้าฤดูหนาวใส',
+['เกรด Kore-eda — ค่าเริ่มต้น','สำหรับคน','แสงกลางวันฤดูหนาวเป็นธรรมชาติ อมเย็นเล็กน้อย สีผิวจริง เงายกขึ้นนิดๆ คอนทราสต์ต่ำ วันครอบครัว ปฏิกิริยา เรียวกัง เมือง'],
+['เกรด Hokusai Vista','สำหรับฟูจิ + ชายฝั่ง + ใบไม้แดง','ทะเลน้ำเงินเข้มดันไปทางปรัสเซียนบลู ยอดหิมะขาวสะอาด (ห้ามโอเวอร์) ฟ้าไซแอน ไฮไลต์อุ่นบนโขดหิน สีแดงคงความจริงแต่คุมไว้'],
+'สูตรเกรด Vista',[
+['สีน้ำเงิน','ดันโทนทะเลไปทางปรัสเซียน/คราม ฟ้าคงความไซแอนสะอาด นี่คือพาเลตต์ "คลื่นยักษ์"'],
+['ไฮไลต์','ปกป้องยอดหิมะ — ดึงไฮไลต์ลงก่อนทำอย่างอื่น'],
+['สีแดง','ใบไม้แดงโอเวอร์ง่ายใน V-Log ลดความอิ่มสีแดง 10–15% และยกความสว่างสีแดง — เรืองแสง ไม่ใช่นีออน'],
+['เงา','ยกขึ้นเล็กน้อยและอมเย็น โขดหินคงความเข้มแต่ไม่ดำสนิท'],
+['คอนทราสต์','ปานกลาง เคิร์ฟนุ่ม อากาศหนาวใส — ปล่อยให้ดูใส ไม่ต้องจัดจ้าน']],
+'ใช้เกรดไหนวันไหน',['วัน','เกรด','เหตุผล'],[
+['D0 · บิน','Kore-eda','สนามบินและในเครื่อง — ไม่มีแลนด์สเคป'],
+['D1 · อาตามิ + เขาโคมุโระ','Vista สำหรับใบไม้แดงและวิวทะเล · Kore-eda สำหรับเรียวกัง','ใบไม้แดงสมควรได้ คืนยูกาตะคงความอุ่นและจริง'],
+['D2 · ชิราฮามะ','Vista · Kore-eda สำหรับมื้อกลางวันและมื้อเย็น','หัวใจหลัก — ทรายขาว ทะเลสีฟ้า โทริอิบนโขดหิน'],
+['D3 · ชูเซ็นจิ → มิชิมะ','ผสม','Kore-eda สำหรับชูเซ็นจิและคาคิตะกาวะ · Vista สำหรับฟูจิจากสกายวอล์ก'],
+['D4–D6','Kore-eda (+ เกรดกลางคืนสำหรับบลูอาวร์)','คนและเมือง — ให้ Leica Glow อมเย็น ไม่ใช่สีทอง']],
+'<strong>💡 เคล็ดลับการถ่าย</strong>ถ่าย V-Log ใน D1–D3 เพื่อเผื่อเกรด D4–D6 ใช้โปรไฟล์มาตรฐานจากกล้องได้เลย ห้าม V-Log ในที่มืด — นอยส์เยอะตอนยกเงา');
+
+/* ───────── Edit ───────── */
+const ED=(h,lead,rows,tip)=>`<h2>✂️ ${h}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">${lead}</p>${rows.map(([k,v])=>`<div class="edit-row"><div class="edit-label">${k}</div><div class="edit-val">${v}</div></div>`).join('')}<div class="tip-box" style="margin-top:16px;">${tip}</div>`;
+SEC.en.edit=ED('Edit Philosophy — GiftLee + D’Avella Method','<strong>Let shots breathe, trust the silence, and cut before the viewer is ready.</strong> The negative space is where the emotion lives.',[
+['Canvas','9:16 throughout. Keep the full old group photos on the portrait canvas with space above and below; do not crop relatives out. New video compositions follow the portrait sketches.'],
+['Structure','Prologue (past family trips + grandma’s voice) → cold open (Shirahama) → "Two days earlier…" → Act I (D0–D1) → Act II (D2–D3, peak at Shirahama) → Act III (D4–D6) → credits (household portraits, group photos across the years, “Until the next one.”). One title card inside the film: at the Disney cut-to-black.'],
+['Voice','No talking to camera — with one exception. Grandma’s 20–30 seconds (and one voice from dad’s generation) play as audio only: over the prologue photos and again over the group shot at Shirahama. Never show the interview itself.'],
+['Series','This is one episode of the family’s trips. Keep the same title style, the same group-photo arrangement and the same kids’ portraits every time, so the films line up when watched back to back.'],
+['Pacing','8–12 second average shot length. Faster cuts only for the coach/road energy. Act III slows to 12–15 sec.'],
+['Music','Instrumental, understated — piano or koto-like plucked strings, royalty-free. No music over the Shirahama waves at the cold open — ambient only for the first 20 seconds.'],
+['Motifs','Cut a headcount into each act. The final count in the hotel lobby on D6, just before the coach leaves — "…31, 32. Everyone." — is the last sound before black.'],
+['Colour','Two grades: Kore-eda for people, Hokusai Vista for Fuji, coast and momiji. Full breakdown above.'],
+['Silence','Cut to black at the Disney show. Hold 3+ seconds. Title card: "Tokyo, 8 December. Some things we only watched." Hold 2 sec. Cut to the next morning.'],
+['What to cut','If you’re watching a shot thinking "this proves we were there" — cut it. If you’re thinking "this is what it felt like" — keep it.']],
+'<strong>GiftLee’s edit rule</strong>If a slightly blurry moment of grandma laughing with a great-grandchild is in your footage, it belongs in the film. The perfect posed version does not.');
+SEC.th.edit=ED('ปรัชญาการตัดต่อ — วิถี GiftLee + D’Avella','<strong>ปล่อยให้ช็อตหายใจ เชื่อความเงียบ และตัดก่อนคนดูพร้อม</strong> พื้นที่ว่างคือที่ที่อารมณ์อาศัยอยู่',[
+['กรอบภาพ','แนวตั้ง 9:16 ตลอดเรื่อง วางภาพหมู่เก่าให้เห็นครบทั้งภาพโดยเว้นพื้นที่บนล่าง อย่าครอปจนคนในครอบครัวหาย วิดีโอใหม่ใช้การจัดเฟรมตามภาพร่างแนวตั้ง'],
+['โครงสร้าง','บทนำ (ทริปครอบครัวครั้งก่อน + เสียงคุณยาย) → ฉากเปิด (ชิราฮามะ) → "สองวันก่อนหน้า…" → องก์ 1 (D0–D1) → องก์ 2 (D2–D3 พีคที่ชิราฮามะ) → องก์ 3 (D4–D6) → เอนด์เครดิต (ภาพครอบครัวย่อย ภาพหมู่ข้ามปี “แล้วพบกันทริปหน้า”) ไตเติลการ์ดในเนื้อหนังมีใบเดียว: ตอนตัดดำที่ดิสนีย์'],
+['เสียงพูด','ไม่พูดใส่กล้อง — ยกเว้นหนึ่งอย่าง เสียงคุณยาย 20–30 วินาที (และหนึ่งเสียงจากรุ่นคุณพ่อ) ใช้เป็นเสียงอย่างเดียว: ทับภาพเก่าในบทนำ และอีกครั้งทับภาพหมู่ที่ชิราฮามะ ไม่ต้องโชว์ภาพตอนสัมภาษณ์'],
+['ซีรีส์','นี่คือหนึ่งตอนของทริปครอบครัว ใช้สไตล์ไตเติลเดิม การจัดแถวภาพหมู่เดิม และพอร์เทรตเด็กแบบเดิมทุกครั้ง เพื่อให้หนังต่อกันได้เมื่อดูเรียงกัน'],
+['จังหวะ','ความยาวช็อตเฉลี่ย 8–12 วินาที ตัดเร็วเฉพาะพลังของรถบัส/ถนน องก์ 3 ช้าลงเป็น 12–15 วินาที'],
+['ดนตรี','บรรเลง เรียบง่าย — เปียโนหรือเครื่องสายดีดคล้ายโคโตะ แบบไม่ติดลิขสิทธิ์ ไม่มีดนตรีทับเสียงคลื่นชิราฮามะในฉากเปิด — 20 วินาทีแรกใช้เสียงบรรยากาศอย่างเดียว'],
+['โมทีฟ','แทรกการนับหัวทุกองก์ การนับครั้งสุดท้ายที่ล็อบบี้โรงแรมใน D6 ก่อนรถบัสออก — "…31, 32 ครบ" — คือเสียงสุดท้ายก่อนจอดำ'],
+['สี','สองเกรด: Kore-eda สำหรับคน Hokusai Vista สำหรับฟูจิ ชายฝั่ง และใบไม้แดง รายละเอียดอยู่ด้านบน'],
+['ความเงียบ','ตัดดำตอนโชว์ดิสนีย์ ค้าง 3+ วินาที ไตเติลการ์ด: "โตเกียว 8 ธันวาคม บางอย่างเราแค่ดู" ค้าง 2 วินาที ตัดไปเช้าวันถัดไป'],
+['สิ่งที่ตัดทิ้ง','ถ้าดูช็อตแล้วคิดว่า "อันนี้พิสูจน์ว่าเรามาถึง" — ตัดทิ้ง ถ้าคิดว่า "นี่แหละความรู้สึกตอนนั้น" — เก็บไว้']],
+'<strong>กฎตัดต่อของ GiftLee</strong>ถ้ามีช็อตเบลอนิดๆ ของคุณยายหัวเราะกับเหลนอยู่ในฟุตเทจ มันควรอยู่ในหนัง เวอร์ชันจัดท่าที่สมบูรณ์แบบไม่ควร');
+
+/* ───────── Rendering ───────── */
+const TYPE={
+ establish:{c:'type-establish',en:'Establish',th:'เปิดฉาก',f:'WIDE'},broll:{c:'type-broll',en:'B-roll',th:'บีโรล',f:'BROLL'},
+ detail:{c:'type-detail',en:'Detail',th:'รายละเอียด',f:'DETAIL'},movement:{c:'type-movement',en:'Movement',th:'เคลื่อนกล้อง',f:'MOVE'},
+ reaction:{c:'type-reaction',en:'Reaction',th:'ปฏิกิริยา',f:'REACT'},hero:{c:'type-hero',en:'Hero',th:'ฮีโร่',f:'HERO'},
+ audio:{c:'type-audio',en:'Ambient',th:'เสียงบรรยากาศ',f:'AUDIO'},present:{c:'type-present',en:'🌿 Present',th:'🌿 อยู่กับปัจจุบัน',f:'LIVE'},
+ nocam:{c:'type-nocam',en:'🚫 No Camera',th:'🚫 ห้ามกล้อง',f:'OFF'}};
+const ROWCLS={hero:'hero-row',present:'present-row',nocam:'no-cam'};
+let lang='th';
+
+function gearLabel(g){const t=g.join(' ').toLowerCase();
+ return t.includes('35mm')?'35mm':t.includes('90mm')?'90mm':t.includes('noctilux')?'50mm':t.includes('dji')?'DRONE':t.includes('osmo')?'OP3':t.includes('insta')?'360°':t.includes('mic')?'MIC':t.includes('phone')?'PHONE':'';}
+
+// Native portrait sheets; the landscape version is preserved in assets/storyboard/.
+const THUMB_GRIDS=[[4,2],[7,2],[6,3],[4,3],[3,2],[3,2],[3,2]];
+const SHEET_SIZES=[[1330, 1182], [1759, 894], [1330, 1182], [1086, 1448], [1152, 1366], [1152, 1366], [1151, 1366]];
+const CORRECTION_SHEET={file:'vertical-corrections-v6.png',grid:[3,2],size:[1151,1367]};
+const DETAIL_SHEET={file:'vertical-details-v6.png',grid:[2,1],size:[1330,1182]};
+const COL_EDGES={3:[0,302/1086,543/1086,785/1086,1],4:[0,393/1152,758/1152,1]};
+const THUMB_CELLS=DAYS.map(d=>d.s.map((_,i)=>i));
+THUMB_CELLS[0][0]='fix:0';THUMB_CELLS[0][1]='fix:1';THUMB_CELLS[0][3]='fix:2';
+// D1–D3 rerouted 26 Oct 2026: reuse cells that still fit; 'day:D:N' borrows another day's cell, 'pending' needs a new sketch.
+THUMB_CELLS[1]=[0,1,2,3,4,5,'pending',7,'pending','day:3:1','day:3:2','day:3:3','detail:0',11,12,13];
+THUMB_CELLS[2]=['pending',10,'pending','pending','pending','pending','pending','pending','pending','pending','pending','pending','pending',14,15,16,17];
+THUMB_CELLS[3]=[0,'day:1:9','day:1:8','fix:3',4,'pending','pending','pending','day:2:13','pending',9,10];
+function art(di,si){
+ let ref=THUMB_CELLS[di][si];
+ if(ref==='pending')return `<span class="shot-art shot-pending" aria-hidden="true"><span>${lang==='th'?'รอภาพร่างใหม่':'New sketch pending'}</span></span>`;
+ if(typeof ref==='string'&&ref.startsWith('day:')){const p=ref.split(':');di=Number(p[1]);ref=Number(p[2]);}
+ const updated=typeof ref==='string';
+ const cell=updated?Number(ref.split(':')[1]):ref;
+ const sheet=updated?(ref.startsWith('detail:')?DETAIL_SHEET:CORRECTION_SHEET):
+  {file:di===6?'day-6-vertical-v7.png':`day-${di}-vertical-v6.png`,grid:THUMB_GRIDS[di],size:SHEET_SIZES[di]};
+ const [cols,rows]=sheet.grid,[w,h]=sheet.size;
+ const edges=updated?(sheet===CORRECTION_SHEET?[0,390/1151,762/1151,1]:null):COL_EDGES[di];
+ const col=cell%cols,row=Math.floor(cell/cols);
+ const left=edges?edges[col]:col/cols,right=edges?edges[col+1]:(col+1)/cols;
+ const rowEdges=sheet===CORRECTION_SHEET?[0,665/1367,1]:(!updated&&di===4?[0,689/1366,1]:null);
+ const top=rowEdges?rowEdges[row]:row/rows,bottom=rowEdges?rowEdges[row+1]:(row+1)/rows;
+ const panelW=right-left,panelH=bottom-top;
+ // Preserve the complete panel even where generated dividers are slightly uneven.
+ const ratio=(w*panelW)/(h*panelH),viewportRatio=9/16;
+ const width=Math.min(1,ratio/viewportRatio)*100,height=Math.min(1,viewportRatio/ratio)*100;
+ const x=panelW===1?0:left*100/(1-panelW),y=panelH===1?0:top*100/(1-panelH);
+ return `<span class="shot-art" aria-hidden="true"><span class="shot-panel" style="width:${width}%;height:${height}%;background-image:url('assets/storyboard/${sheet.file}');background-size:${100/panelW}% ${100/panelH}%;background-position:${x}% ${y}%"></span></span>`;
+}
+function frame(comp,type,gear,tc,di,si){
+ const off=type==='nocam'||type==='present';
+ const ov=off?`<div class="vf-status ${type==='present'?'status-live':'status-off'}">${type==='present'?'🌿 LIVE':'🚫 OFF'}</div>`
+  :`<div class="vf-gear">${gear[0]?gearLabel(gear[0]):TYPE[type].f}</div>`;
+ return `<button type="button" class="shot-frame" onclick="previewShot(${di},${si})" aria-label="${lang==='th'?'ขยายภาพอ้างอิง':'Enlarge shot reference'}">${art(di,si)}<div class="viewfinder-overlay">${ov}</div></button>`;
+}
+function previewShot(di,si){
+ let dialog=document.getElementById('shot-preview');
+ if(!dialog){dialog=document.createElement('dialog');dialog.id='shot-preview';dialog.className='preview-dialog';document.body.appendChild(dialog);dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});}
+ dialog.innerHTML=`<button class="preview-close" onclick="this.closest('dialog').close()">${lang==='th'?'ปิด':'Close'} ×</button><p>${lang==='th'?'ภาพร่างสตอรีบอร์ดแนวตั้ง 9:16 · สร้างด้วย AI':'Vertical 9:16 storyboard sketch · AI-generated'}</p><div class="preview-image">${art(di,si)}</div><p class="preview-caption"></p>`;
+ dialog.querySelector('.preview-caption').textContent=DAYS[di].s[si][lang==='th'?4:2];
+ dialog.showModal();
+}
+
+function renderHeroes(){
+ document.getElementById('hero-card').innerHTML=`<h2>${STR[lang]['heroes.title']}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:18px;">${STR[lang]['heroes.intro']}</p>`+
+ HEROES.map(h=>{const x=h[lang];return `<div class="hero-shot"><div class="hero-num">Hero ${h.n}</div><div class="hero-title">${x.t}</div><div class="hero-desc" style="font-size:12px;color:var(--blue);font-weight:600">${x.s}</div><div class="hero-desc">${x.d}</div><div class="shot-gear" style="margin-bottom:8px">${h.gear.map(g=>`<span class="gear-badge ${g[0]}">${g[1]}</span>`).join('')}</div><div class="hero-why">${x.w}</div></div>`}).join('');
+}
+
+function renderDays(){
+ const open=[...document.querySelectorAll('.day-block-header')].map(h=>h.classList.contains('open'));
+ let sec=0;const pad=n=>String(n).padStart(2,'0');
+ document.getElementById('day-list').innerHTML=DAYS.map((d,di)=>{const x=d[lang];
+  const rows=d.s.map(([type,comp,et,en,tt,tn,gear,hn],si)=>{sec+=8;const tc=`00:${pad(Math.floor(sec/60))}:${pad(sec%60)}:00`;
+   const framing=VERTICAL_NOTES[`${di}:${si}`]?.[lang];
+   const title=lang==='th'?tt:et,note=lang==='th'?tn:en,label=type==='hero'?`${TYPE.hero[lang]} ${hn}`:TYPE[type][lang];
+   return `<div class="shot-row ${ROWCLS[type]||''}" data-type="${type}">${frame(comp,type,gear,tc,di,si)}<div class="shot-body"><div class="shot-type ${TYPE[type].c}">${label}</div><div class="shot-title">${title}</div><div class="shot-note">${note}</div>${framing?`<div class="vertical-note"><strong>9:16</strong> · ${framing}</div>`:''}${gear.length?`<div class="shot-gear">${gear.map(g=>`<span class="gear-badge ${g[0]}">${g[1]}</span>`).join('')}</div>`:''}</div></div>`}).join('');
+  const strip=d.s.map(([type,comp,et,,tt],i)=>`<div class="filmstrip-cell" title="${(lang==='th'?tt:et).replace(/"/g,'&quot;')}" onclick="jumpShot(${di},${i})">${art(di,i)}<span class="fc-label">${TYPE[type].f}</span></div>`).join('');
+  const o=open[di]??(di===0);
+  return `<div class="day-block"><div class="day-block-header${o?' open':''}" style="background:linear-gradient(135deg,${d.c});" onclick="toggleDay(this)"><div><div class="day-label">${x.l}</div><div class="day-name">${x.n}</div></div><div class="day-date">${x.d}</div><div class="chevron">▶</div></div>
+  <div class="day-block-body${o?' open':''}"><div class="mindset-note"><strong>${STR[lang].mindset} · D${di}</strong>${x.m}</div><div class="vertical-guide">${VERTICAL_GUIDES[di][lang]}</div><p class="reference-note">${lang==='th'?'ภาพร่างแนวตั้ง 9:16 สร้างด้วย AI เพื่ออ้างอิงการจัดเฟรม · แตะภาพเพื่อขยาย':'Vertical 9:16 storyboard sketches · AI-generated framing references · Tap a shot to enlarge'}</p><div class="day-filmstrip">${strip}</div><div class="shot-list">${rows}</div></div></div>`}).join('');
+}
+
+function jumpShot(di,i){const b=document.querySelectorAll('.day-block-body')[di];if(!b.classList.contains('open'))toggleDay(b.previousElementSibling);
+ const r=b.querySelectorAll('.shot-row')[i];setTimeout(()=>{r.scrollIntoView({behavior:'smooth',block:'center'});r.style.outline='2px solid var(--teal)';r.style.outlineOffset='2px';setTimeout(()=>{r.style.outline='';r.style.outlineOffset='';},1600);},350);}
+function toggleDay(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open');}
+function navScroll(id,btn){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+
+function setLang(l){
+ lang=l;try{localStorage.setItem('izu_lang',l);}catch(e){}
+ document.documentElement.lang=l;
+ document.getElementById('lang-toggle').textContent=l==='en'?'ภาษาไทย':'English';
+ document.querySelectorAll('[data-k]').forEach(el=>{const v=STR[l][el.dataset.k];if(v!==undefined)el.textContent=v;});
+ document.querySelectorAll('[data-sec]').forEach(el=>{el.innerHTML=SEC[l][el.dataset.sec]||'';});
+ renderHeroes();renderDays();
+}
+function toggleLang(){setLang(lang==='en'?'th':'en');}
+let saved=null;try{saved=localStorage.getItem('izu_lang');}catch(e){}
+setLang(saved||'th');
+
+</script>
+</body>
+</html>

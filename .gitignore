@@ -1,0 +1,11 @@
+# Publish only the live storyboard and the sketches it loads.
+*
+!.gitignore
+!index.html
+!storyboard.html
+!assets/
+!assets/storyboard/
+!assets/storyboard/day-[0-5]-vertical-v6.png
+!assets/storyboard/day-6-vertical-v7.png
+!assets/storyboard/vertical-corrections-v6.png
+!assets/storyboard/vertical-details-v6.png
