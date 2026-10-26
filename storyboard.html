@@ -274,12 +274,12 @@
 .shot-pending{background:repeating-linear-gradient(135deg,#f1f5f9 0 8px,#e2e8f0 8px 16px);color:#64748b;font-size:10px;font-weight:600;text-align:center;line-height:1.3;padding:6px;}
     .reference-note{font-size:11px;color:#64748b;margin:0 0 12px;}
     .shot-frame:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
-    .preview-dialog{border:0;border-radius:14px;padding:16px;width:min(440px,94vw);max-height:94vh;overflow:auto;margin:auto;background:#0b1525;color:white;}
+    .preview-dialog{border:0;border-radius:14px;padding:16px;width:min(900px,94vw);max-height:94vh;overflow:auto;margin:auto;background:#0b1525;color:white;}
     .preview-dialog::backdrop{background:rgba(0,0,0,.78);}
-    .preview-image{position:relative;width:min(100%,640px);aspect-ratio:16/9;overflow:hidden;border-radius:8px;margin:12px auto;}
+    .preview-image{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:8px;margin:12px auto;}
     .preview-close{float:right;background:#26384f;color:white;border:0;border-radius:6px;padding:6px 12px;cursor:pointer;}
     .preview-caption{font-size:14px;}
-    @media(max-width:640px){.shot-row{grid-template-columns:1fr;}.shot-frame{width:min(100%,220px);justify-self:center;}}
+    @media(max-width:640px){.shot-row{grid-template-columns:1fr;}.shot-frame{width:100%;justify-self:center;}}
     .vertical-note{font-size:12px;color:#4338ca;background:#eef2ff;padding:8px 10px;border-radius:7px;margin-top:6px;}
     .vertical-guide{font-size:13px;line-height:1.6;color:#3730a3;background:#eef2ff;border-radius:8px;padding:12px 14px;margin-bottom:12px;}
     .route-svg-wrap{background:var(--gray-100);border-radius:12px;padding:12px;margin-bottom:14px;}
@@ -1117,35 +1117,19 @@ let lang='th';
 function gearLabel(g){const t=g.join(' ').toLowerCase();
  return t.includes('35mm')?'35mm':t.includes('90mm')?'90mm':t.includes('noctilux')?'50mm':t.includes('dji')?'DRONE':t.includes('osmo')?'OP3':t.includes('insta')?'360°':t.includes('mic')?'MIC':t.includes('phone')?'PHONE':'';}
 
-// Portrait sheets drawn for the earlier 9:16 plan; inside the 16:9 frame they mark the vertical-safe centre.
-const THUMB_GRIDS=[[4,2],[7,2],[6,3],[4,3],[3,2],[3,2],[3,2]];
-const SHEET_SIZES=[[1330, 1182], [1759, 894], [1330, 1182], [1086, 1448], [1152, 1366], [1152, 1366], [1151, 1366]];
-const CORRECTION_SHEET={file:'vertical-corrections-v6.png',grid:[3,2],size:[1151,1367]};
-const DETAIL_SHEET={file:'vertical-details-v6.png',grid:[2,1],size:[1330,1182]};
-const COL_EDGES={3:[0,302/1086,543/1086,785/1086,1],4:[0,393/1152,758/1152,1]};
-const THUMB_CELLS=DAYS.map(d=>d.s.map((_,i)=>i));
-THUMB_CELLS[0][0]='fix:0';THUMB_CELLS[0][1]='fix:1';THUMB_CELLS[0][3]='fix:2';
-// D1–D3 route updated 26 Oct 2026: retain matching cells and use new route sheets for 18 replacements.
-THUMB_CELLS[1]=[0,1,2,3,4,5,"route0:0",7,"route0:1","day:3:1","day:3:2","day:3:3","detail:0",11,12,13];
-THUMB_CELLS[2]=["route0:2",10,"route0:3","route0:4","route3:0","route1:0","route1:1","route1:2","route3:1","route1:4","route1:5","route2:0","route2:1",14,15,16,17];
-THUMB_CELLS[3]=[0,"day:1:9","day:1:8","fix:3",4,"route2:2","route2:3","route2:4","day:2:13","route2:5",9,10];
-const ROUTE_SHEETS=[{"file":"route-1-vertical-v8.png","grid":[3,2],"size":[1151,1366],"edges":[0,0.3336229365768897,0.6542137271937446,1]},{"file":"route-2-vertical-v8.png","grid":[3,2],"size":[1151,1366],"edges":[0,0.31364031277150306,0.6620330147697654,1]},{"file":"route-3-vertical-v8.png","grid":[3,2],"size":[1151,1366],"edges":[0,0.32754126846220677,0.6724587315377932,1]},{"file":"route-4-vertical-v8.png","grid":[2,1],"size":[1330,1182],"edges":[0,0.5,1]}];
+// Native landscape sketches, regenerated for the 16:9 film. Original portrait assets are archived.
+const LANDSCAPE_SHEETS=[{"file":"day-0-landscape-0-0-v9.png","grid":[2,2],"size":[1672,941]},{"file":"day-0-landscape-0-4-v9.png","grid":[2,2],"size":[1672,941]},{"file":"day-1-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"day-1-landscape-0-6-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"day-1-landscape-2-12-v9.png","grid":[2,2],"size":[1672,941]},{"file":"day-2-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1152]},{"file":"day-2-landscape-0-6-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"day-2-landscape-2-12-v9.png","grid":[2,3],"size":[1366,1151],"rowEdges":[0,0.3327541268462207,0.6559513466550826,1]},{"file":"day-3-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"day-3-landscape-0-6-v9.png","grid":[2,3],"size":[1367,1151],"rowEdges":[0,0.3640312771503041,0.6629018245004344,1]},{"file":"day-4-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"day-5-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1151],"rowEdges":[0,0.34057341442224154,0.6672458731537794,1]},{"file":"day-6-landscape-0-0-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"landscape-corrections-v9.png","grid":[2,3],"size":[1366,1151]},{"file":"landscape-evening-corrections-v9.png","grid":[1,2],"size":[1173,1341]}];
+const THUMB_CELLS=[["land:0:0","land:0:1","land:0:2","land:0:3","land:1:0","land:1:1","land:1:2","land:1:3"],["land:2:0","land:13:0","land:2:2","land:2:3","land:2:4","land:2:5","land:3:0","land:3:1","land:3:2","land:13:1","land:13:2","land:3:5","land:4:0","land:4:1","land:4:2","land:4:3"],["land:5:0","land:5:1","land:5:2","land:5:3","land:13:3","land:5:5","land:6:0","land:6:1","land:6:2","land:6:3","land:6:4","land:6:5","land:7:0","land:7:1","land:7:2","land:7:3","land:7:4"],["land:8:0","land:8:1","land:8:2","land:8:3","land:8:4","land:8:5","land:9:0","land:9:1","land:9:2","land:9:3","land:9:4","land:9:5"],["land:10:0","land:10:1","land:10:2","land:10:3","land:10:4","land:10:5"],["land:11:0","land:11:1","land:11:2","land:11:3","land:11:4","land:14:0"],["land:12:0","land:13:4","land:12:2","land:12:3","land:14:1"]];
 function art(di,si){
- let ref=THUMB_CELLS[di][si];
- if(ref==='pending')return `<span class="shot-art shot-pending" aria-hidden="true"><span>${lang==='th'?'รอภาพร่างใหม่':'New sketch pending'}</span></span>`;
- if(typeof ref==='string'&&ref.startsWith('day:')){const p=ref.split(':');di=Number(p[1]);ref=Number(p[2]);}
- const updated=typeof ref==='string';
- const cell=updated?Number(ref.split(':')[1]):ref;
- const sheet=updated?(ref.startsWith('route')?ROUTE_SHEETS[Number(ref.split(':')[0].slice(5))]:ref.startsWith('detail:')?DETAIL_SHEET:CORRECTION_SHEET):
-  {file:di===6?'day-6-vertical-v7.png':`day-${di}-vertical-v6.png`,grid:THUMB_GRIDS[di],size:SHEET_SIZES[di]};
+ const [,sheetIndex,cellIndex]=THUMB_CELLS[di][si].split(':').map(Number);
+ const sheet=LANDSCAPE_SHEETS[sheetIndex],cell=cellIndex;
  const [cols,rows]=sheet.grid,[w,h]=sheet.size;
- const edges=sheet.edges||(updated?(sheet===CORRECTION_SHEET?[0,390/1151,762/1151,1]:null):COL_EDGES[di]);
  const col=cell%cols,row=Math.floor(cell/cols);
- const left=edges?edges[col]:col/cols,right=edges?edges[col+1]:(col+1)/cols;
- const rowEdges=sheet===CORRECTION_SHEET?[0,665/1367,1]:(!updated&&di===4?[0,689/1366,1]:null);
- const top=rowEdges?rowEdges[row]:row/rows,bottom=rowEdges?rowEdges[row+1]:(row+1)/rows;
+ const left=col/cols,right=(col+1)/cols;
+ const top=sheet.rowEdges?sheet.rowEdges[row]:row/rows;
+ const bottom=sheet.rowEdges?sheet.rowEdges[row+1]:(row+1)/rows;
  const panelW=right-left,panelH=bottom-top;
- // Preserve the complete panel even where generated dividers are slightly uneven.
+ // Keep each complete landscape panel visible without stretching the artwork.
  const ratio=(w*panelW)/(h*panelH),viewportRatio=16/9;
  const width=Math.min(1,ratio/viewportRatio)*100,height=Math.min(1,viewportRatio/ratio)*100;
  const x=panelW===1?0:left*100/(1-panelW),y=panelH===1?0:top*100/(1-panelH);
@@ -1160,7 +1144,7 @@ function frame(comp,type,gear,tc,di,si){
 function previewShot(di,si){
  let dialog=document.getElementById('shot-preview');
  if(!dialog){dialog=document.createElement('dialog');dialog.id='shot-preview';dialog.className='preview-dialog';document.body.appendChild(dialog);dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});}
- dialog.innerHTML=`<button class="preview-close" onclick="this.closest('dialog').close()">${lang==='th'?'ปิด':'Close'} ×</button><p>${lang==='th'?'เฟรม 16:9 · ภาพร่างตรงกลางคือโซนปลอดภัยสำหรับคลิปแนวตั้ง · สร้างด้วย AI':'16:9 frame · the centred sketch is the vertical-safe zone · AI-generated'}</p><div class="preview-image">${art(di,si)}</div><p class="preview-caption"></p>`;
+ dialog.innerHTML=`<button class="preview-close" onclick="this.closest('dialog').close()">${lang==='th'?'ปิด':'Close'} ×</button><p>${lang==='th'?'ภาพร่างสตอรีบอร์ดแนวนอน 16:9 · สร้างด้วย AI':'Landscape 16:9 storyboard sketch · AI-generated'}</p><div class="preview-image">${art(di,si)}</div><p class="preview-caption"></p>`;
  dialog.querySelector('.preview-caption').textContent=DAYS[di].s[si][lang==='th'?4:2];
  dialog.showModal();
 }
@@ -1181,7 +1165,7 @@ function renderDays(){
   const strip=d.s.map(([type,comp,et,,tt],i)=>`<div class="filmstrip-cell" title="${(lang==='th'?tt:et).replace(/"/g,'&quot;')}" onclick="jumpShot(${di},${i})">${art(di,i)}<span class="fc-label">${TYPE[type].f}</span></div>`).join('');
   const o=open[di]??(di===0);
   return `<div class="day-block"><div class="day-block-header${o?' open':''}" style="background:linear-gradient(135deg,${d.c});" onclick="toggleDay(this)"><div><div class="day-label">${x.l}</div><div class="day-name">${x.n}</div></div><div class="day-date">${x.d}</div><div class="chevron">▶</div></div>
-  <div class="day-block-body${o?' open':''}"><div class="mindset-note"><strong>${STR[lang].mindset} · D${di}</strong>${x.m}</div><div class="vertical-guide">${VERTICAL_GUIDES[di][lang]}</div><p class="reference-note">${lang==='th'?'เฟรมหลัก 16:9 · ภาพร่างตรงกลางคือส่วนที่ต้องรอดเมื่อครอปเป็นแนวตั้ง · แตะภาพเพื่อขยาย':'16:9 main frame · the centred sketch is the part that must survive a vertical crop · Tap a shot to enlarge'}</p><div class="day-filmstrip">${strip}</div><div class="shot-list">${rows}</div></div></div>`}).join('');
+  <div class="day-block-body${o?' open':''}"><div class="mindset-note"><strong>${STR[lang].mindset} · D${di}</strong>${x.m}</div><div class="vertical-guide">${VERTICAL_GUIDES[di][lang]}</div><p class="reference-note">${lang==='th'?'ภาพร่างแนวนอน 16:9 สร้างด้วย AI เพื่ออ้างอิงการจัดเฟรม · แตะภาพเพื่อขยาย':'Landscape 16:9 sketches · AI-generated framing references · Tap a shot to enlarge'}</p><div class="day-filmstrip">${strip}</div><div class="shot-list">${rows}</div></div></div>`}).join('');
 }
 
 function jumpShot(di,i){const b=document.querySelectorAll('.day-block-body')[di];if(!b.classList.contains('open'))toggleDay(b.previousElementSibling);
