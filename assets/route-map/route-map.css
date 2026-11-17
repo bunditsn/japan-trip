@@ -1,0 +1,40 @@
+.route-explorer{margin:0 0 24px;border:1px solid #dbe5eb;border-radius:16px;overflow:hidden;background:#f8fafc;}
+.route-map-intro{font-size:13px;color:#526175;margin-bottom:16px;}
+.route-tabs{display:flex;gap:6px;padding:12px;overflow-x:auto;border-bottom:1px solid #dbe5eb;}
+.route-tabs button,.route-fit{font:inherit;font-size:12px;font-weight:650;cursor:pointer;border:1px solid #dbe5eb;border-radius:8px;background:#fff;color:#334155;padding:8px 12px;white-space:nowrap;}
+.route-tabs button[aria-pressed=true]{background:var(--route-color,#0b2545);border-color:var(--route-color,#0b2545);color:white;}
+.route-tabs button:focus-visible,.route-stop-button:focus-visible,.route-overview-button:focus-visible{outline:3px solid #38bdf8;outline-offset:2px;}
+.route-map-layout{display:grid;grid-template-columns:minmax(0,1fr) 245px;}
+.route-map-stage{position:relative;min-width:0;isolation:isolate;}
+.route-map-canvas{height:490px;background:#e9eff0;z-index:0;}
+.route-fit{position:absolute;right:10px;top:10px;z-index:500;box-shadow:0 2px 6px #0b254522;}
+.route-map-status{position:absolute;left:10px;bottom:28px;right:10px;z-index:500;background:#fffef5;padding:8px 10px;border-radius:7px;font-size:12px;box-shadow:0 2px 8px #0002;}
+.route-map-status[hidden]{display:none;}
+.route-map-panel{padding:17px 14px;background:white;border-left:1px solid #dbe5eb;max-height:490px;overflow-y:auto;}
+.route-map-panel h3{font-size:16px;line-height:1.4;color:#0b2545;margin:5px 0 8px;}
+.route-map-eyebrow{font-size:10px;letter-spacing:1px;font-weight:750;color:#64748b;text-transform:uppercase;}
+.route-map-description{font-size:12px;color:#64748b;line-height:1.6;margin:8px 0 12px;}
+.route-map-stops{list-style:none;padding:0;margin:12px 0;}
+.route-map-stops li{position:relative;padding:0 0 6px;}
+.route-map-stops li:not(:last-child):before{content:'';position:absolute;left:12px;top:27px;bottom:-1px;width:1px;background:#dbe5eb;}
+.route-stop-button{display:flex;align-items:flex-start;gap:9px;border:0;background:none;width:100%;padding:4px 0;text-align:left;cursor:pointer;color:#334155;font:inherit;font-size:12px;line-height:1.5;}
+.route-stop-button:hover{color:#0369a1;}
+.route-stop-num{display:inline-flex;align-items:center;justify-content:center;min-width:25px;height:25px;border-radius:50%;background:var(--route-color);color:#fff;font-size:11px;font-weight:750;}
+.route-stop-button small{display:block;font-size:10px;color:#64748b;margin-top:2px;}
+.route-map-panel .maps-btn{font-size:11px;margin:6px 0 0;}
+.route-overview-button{display:flex;align-items:center;gap:10px;width:100%;border:0;border-bottom:1px solid #edf1f5;background:#fff;padding:12px 0;text-align:left;cursor:pointer;font:inherit;color:#334155;}
+.route-overview-button strong{font-size:12px;display:block;}
+.route-overview-button small{font-size:11px;color:#64748b;}
+.route-overview-swatch{width:25px;height:4px;border-radius:3px;background:var(--route-color);flex-shrink:0;}
+.route-map-footer{padding:11px 14px;border-top:1px solid #dbe5eb;font-size:11px;color:#64748b;line-height:1.6;}
+.route-map-footer a{color:#475569;}
+.route-marker{border:0;background:transparent;}
+.route-marker span{display:flex;align-items:center;justify-content:center;height:29px;min-width:29px;padding:0 4px;border:2px solid white;border-radius:50%;background:var(--route-color);box-shadow:0 2px 5px #0b254555;color:white;font-size:11px;font-weight:800;font-family:system-ui;}
+.route-map-canvas .leaflet-popup-content{font-family:inherit;line-height:1.6;}
+.route-map-canvas .leaflet-popup-content a{color:#1b4f8a;}
+.route-map-canvas .leaflet-control-attribution{font-size:9px;}
+.route-map-canvas .leaflet-tooltip{font-family:inherit;font-size:11px;}
+.route-day[hidden]{display:none;}
+.route-focus-day{margin-left:auto;background:white;color:#1b4f8a;border:1px solid #cbd5e1;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;}
+@media(max-width:680px){.route-map-layout{grid-template-columns:1fr;}.route-map-canvas{height:380px;}.route-map-panel{max-height:none;border-left:0;border-top:1px solid #dbe5eb;}.route-tabs{padding:10px;}.route-tabs button{padding:8px 10px;}.route-map-panel h3{font-size:15px;}.route-overview-button{padding:9px 0;}.route-focus-day{margin-left:0;}}
+@media print{.route-map-canvas{height:380px;}.route-tabs,.route-fit,.route-focus-day{display:none;}.route-map-panel{max-height:none;overflow:visible;}.route-day[hidden]{display:block;}}

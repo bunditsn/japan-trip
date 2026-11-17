@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Izu — Four Generations, One Bus</title>
+  <link rel="stylesheet" href="assets/route-map/vendor/leaflet.css">
+  <link rel="stylesheet" href="assets/route-map/route-map.css">
   <style>
     :root {
       --navy:#0b2545;--blue:#1b4f8a;--sky:#2e86de;--teal:#00b4d8;
@@ -356,6 +358,9 @@
 </main>
 <footer data-k="footer"></footer>
 
+<script src="assets/route-map/vendor/leaflet.js"></script>
+<script src="assets/route-map/route-data.js"></script>
+<script src="assets/route-map/route-map.js"></script>
 <script>
 /* Thumbnail compositions — 142×80 storyboard frames */
 const GRID=`<g stroke="rgba(255,255,255,0.15)" stroke-width="0.5"><line x1="47" y1="0" x2="47" y2="80"/><line x1="95" y1="0" x2="95" y2="80"/><line x1="0" y1="26" x2="142" y2="26"/><line x1="0" y1="53" x2="142" y2="53"/></g>`;
@@ -739,39 +744,8 @@ SEC.th.away=AWAY('เมื่อไรควรเก็บกล้อง','�
 
 /* ───────── Toolkit ───────── */
 const TK=(h,intro,items)=>`<h2>🧰 ${h}</h2><p style="font-size:13px;color:var(--gray-700);margin-bottom:14px;">${intro}</p><div class="toolkit-grid">${items.map(([cls,t,li])=>`<div class="toolkit-item"><div class="tk-type ${cls}" style="display:inline-block;border-radius:6px;padding:2px 8px">${t}</div><ul class="tk-shots">${li.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>`;
-SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
-<p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">A schematic route (not to scale, but directions are real) plus the full stop list for every day — straight from the draft itinerary. Tap "Open in Google Maps" on any day for the real roads on your phone.</p>
-<div class="route-svg-wrap"><svg viewBox="0 0 820 440" xmlns="http://www.w3.org/2000/svg">
-<path d="M 300,130 l 30,-48 l 30,48 z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="330" y="146" text-anchor="middle" font-size="10" fill="#64748b">Mt Fuji</text>
-<polyline points="720,50 640,150 560,190 480,240 495,312 470,300" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
-<polyline points="470,300 462,350 455,385 440,405" fill="none" stroke="#075985" stroke-width="3" stroke-linecap="round"/>
-<polyline points="470,300 365,290 350,215 385,185 560,190 640,150" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
-<polyline points="640,150 690,120" fill="none" stroke="#9d174d" stroke-width="3" stroke-linecap="round"/>
-<path d="M 640,150 q 24,-16 0,-32 q -24,14 0,32" fill="none" stroke="#1e3a8a" stroke-width="2.5" stroke-dasharray="2 4"/>
-<polyline points="640,150 720,50" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
-<g font-size="12" fill="#0b2545">
-<circle cx="720" cy="50" r="6" fill="#991b1b"/><text x="720" y="36" text-anchor="middle">Narita (NRT / Nikko)</text>
-<circle cx="560" cy="190" r="4" fill="#991b1b"/><text x="560" y="210" text-anchor="middle" font-size="10">Ebina SA</text>
-<circle cx="480" cy="240" r="5.5" fill="#991b1b"/><text x="494" y="244" text-anchor="start">Atami Baien</text>
-<circle cx="495" cy="312" r="4.5" fill="#991b1b"/><text x="508" y="320" text-anchor="start" font-size="10">Mt Komuro</text>
-<circle cx="470" cy="300" r="6.5" fill="#075985"/><text x="484" y="297" text-anchor="start">KAI Anjin (Ito)</text>
-<circle cx="455" cy="385" r="5.5" fill="#075985"/><text x="469" y="389" text-anchor="start">Izu Shirahama</text>
-<circle cx="440" cy="405" r="4.5" fill="#075985"/><text x="426" y="420" text-anchor="end" font-size="10">Shimoda</text>
-<circle cx="365" cy="290" r="6" fill="#78350f"/><text x="351" y="294" text-anchor="end">Shuzenji</text>
-<circle cx="350" cy="215" r="4.5" fill="#78350f"/><text x="336" y="219" text-anchor="end" font-size="10">Kakitagawa</text>
-<circle cx="385" cy="185" r="5.5" fill="#78350f"/><text x="399" y="181" text-anchor="start" font-size="10">Mishima Skywalk</text>
-<circle cx="640" cy="150" r="6.5" fill="#78350f"/><text x="640" y="176" text-anchor="middle">Ginza / Tokyo</text>
-<circle cx="690" cy="120" r="5" fill="#9d174d"/><text x="704" y="112" text-anchor="start" font-size="10">Disneyland</text>
-</g>
-</svg></div>
-<div class="route-legend">
-<span><span class="sw" style="background:#991b1b"></span>D1 — to Ito</span>
-<span><span class="sw" style="background:#075985"></span>D2 — south coast</span>
-<span><span class="sw" style="background:#78350f"></span>D3 — to Ginza</span>
-<span><span class="sw" style="background:#9d174d"></span>D4 — Disneyland</span>
-<span><span class="sw" style="background:#1e3a8a"></span>D5 — free day</span>
-<span><span class="sw" style="background:#334155"></span>D6 — return</span>
-</div>
+SEC.en.route=`<h2>🗺️ Route Map — Explore Each Day</h2>
+${routeMapHTML('en')}
 <div class="route-day" style="border-left-color:#4338ca"><div class="route-day-head"><span class="route-day-pill" style="background:#4338ca">D0</span><strong>Departure — two households, two routes</strong></div>
 <ol class="route-stops">
 <li><b>Most of the family</b> — Bangkok → Narita, morning flight → overnight at Hotel Nikko Narita.</li>
@@ -789,8 +763,8 @@ SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
 <li><b>KAI Anjin</b> — drop-off 16:00, about 15 minutes from Mt Komuro. Check-in, dinner at KAI.</li>
 </ol>
 <div class="route-callout">This season Atami Baien has <b>no free group-coach parking</b> (roadworks near Sasajiri junction): coaches drop off at a designated point and use paid parking — tell the coach company. Mt Komuro lift hours differ by source (9:30–16:00 or 8:30–16:30); call 0557-45-1444.</div>
-<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Narita%20International%20Airport&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Narita%20International%20Airport&daddr=Ebina%20SA%2C%20Tomei%20Expressway+to:Atami%20Baien%2C%20Atami%2C%20Shizuoka+to:Komuroyama%20Park%2C%20Ito%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D1 route map"></iframe></div></div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Nikko%20Narita&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
+</div>
 <div class="route-day" style="border-left-color:#075985"><div class="route-day-head"><span class="route-day-pill" style="background:#075985">D2</span><strong>South Izu coast — Shirahama</strong></div>
 <ol class="route-stops">
 <li><b>KAI Anjin</b> — pick-up 09:30 (no luggage today), south on Route 135 along the east coast.</li>
@@ -802,8 +776,8 @@ SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
 <li><b>KAI Anjin</b> — drop-off 16:30; whole-family dinner at KAI, everyone in yukata.</li>
 </ol>
 <div class="route-callout">Kumomi dropped from the group plan (26 Oct) — big-coach access on the narrow west-coast roads is uncertain. Route 135 on the east coast is a regular tour-coach road. Sunday traffic heading back north can be slow; leave a buffer.</div>
-<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka%7CIzu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka+to:Izu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D2 route map"></iframe></div></div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Kadowaki%20Bridge%2C%20Ito%7CShirahama%20Shrine%2C%20Shimoda%7CPerry%20Road%2C%20Shimoda&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
+</div>
 <div class="route-day" style="border-left-color:#78350f"><div class="route-day-head"><span class="route-day-pill" style="background:#78350f">D3</span><strong>Ito → Shuzenji → Mishima → Ginza</strong></div>
 <ol class="route-stops">
 <li><b>KAI Anjin</b> — pick-up 09:00, check-out, luggage loaded.</li>
@@ -816,11 +790,11 @@ SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
 </ol>
 <div class="route-callout">Shuzenji temple’s special autumn garden opening ended on 2 Dec last year, so expect it closed on the 7th — the river and town are free to walk. Check coach parking at Kakitagawa (small car park) and the Skywalk. Coach drop-off point in Ginza still open.</div>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&waypoints=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka%7CKakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka%7CMishima%20Skywalk%2C%20Mishima%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka+to:Kakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka+to:Mishima%20Skywalk%2C%20Mishima%2C%20Shizuoka+to:Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D3 route map"></iframe></div></div>
+</div>
 <div class="route-day" style="border-left-color:#9d174d"><div class="route-day-head"><span class="route-day-pill" style="background:#9d174d">D4</span><strong>Tokyo Disneyland</strong></div>
 <ol class="route-stops"><li><b>Tokyo Disneyland</b> — full day, Christmas season.</li></ol>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Ginza%2C%20Tokyo&destination=Tokyo%20Disneyland&travelmode=transit">${ic('map-pin',16)} Open in Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Ginza%2C%20Tokyo&daddr=Tokyo%20Disneyland&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D4 route map"></iframe></div></div>
+</div>
 <div class="route-day" style="border-left-color:#1e3a8a"><div class="route-day-head"><span class="route-day-pill" style="background:#1e3a8a">D5</span><strong>Free day, Tokyo</strong></div>
 <ol class="route-stops"><li>No fixed stops — kept open on purpose.</li></ol></div>
 <div class="route-day" style="border-left-color:#334155"><div class="route-day-head"><span class="route-day-pill" style="background:#334155">D6</span><strong>Tokyo → Narita</strong></div>
@@ -831,7 +805,7 @@ SEC.en.route=`<h2>🗺️ Route Map — Where We Go, Each Day</h2>
 <li><b>Your household</b> — stays in Tokyo; evening taxi to Haneda T3 for TG661 at 00:20.</li>
 </ol>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&destination=Narita%20International%20Airport&travelmode=driving">${ic('map-pin',16)} Open in Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&daddr=Narita%20International%20Airport&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="D6 route map"></iframe></div></div>
+</div>
 <div class="route-extra"><h3>Spotted on enjoytokyo.jp — worth adding?</h3>
 <ul>
 <li><b>Hase-dera</b> — dropped with Kamakura (26 Oct). The red leaves now come from Atami Baien (D1) and Shuzenji (D3).</li>
@@ -850,38 +824,7 @@ SEC.en.toolkit=TK('Shot Toolkit — Every Location Needs These','Three shot type
 ['type-reaction','Reaction',['Faces — not posed','Old + young in one frame','Kids over adults for authenticity']],
 ['type-audio','Ambient Audio',['60 sec stationary at each location','Waves, river, station chimes','Nobody talks during this take']]]);
 SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่ละวันไปไหนบ้าง</h2>
-<p style="font-size:13px;color:var(--gray-700);margin-bottom:16px;">เส้นทางแบบย่อ (ไม่ได้สเกลตามจริง แต่ทิศทางถูกต้อง) พร้อมจุดแวะทั้งหมดของแต่ละวัน ยึดตามแผนเที่ยวร่างล่าสุด กดปุ่ม "เปิดใน Google Maps" ของวันไหนก็ได้ เพื่อดูถนนจริงบนมือถือ</p>
-<div class="route-svg-wrap"><svg viewBox="0 0 820 440" xmlns="http://www.w3.org/2000/svg">
-<path d="M 300,130 l 30,-48 l 30,48 z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/><text x="330" y="146" text-anchor="middle" font-size="10" fill="#64748b">Mt Fuji</text>
-<polyline points="720,50 640,150 560,190 480,240 495,312 470,300" fill="none" stroke="#991b1b" stroke-width="3" stroke-linecap="round"/>
-<polyline points="470,300 462,350 455,385 440,405" fill="none" stroke="#075985" stroke-width="3" stroke-linecap="round"/>
-<polyline points="470,300 365,290 350,215 385,185 560,190 640,150" fill="none" stroke="#78350f" stroke-width="3" stroke-linecap="round"/>
-<polyline points="640,150 690,120" fill="none" stroke="#9d174d" stroke-width="3" stroke-linecap="round"/>
-<path d="M 640,150 q 24,-16 0,-32 q -24,14 0,32" fill="none" stroke="#1e3a8a" stroke-width="2.5" stroke-dasharray="2 4"/>
-<polyline points="640,150 720,50" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-dasharray="7 5"/>
-<g font-size="12" fill="#0b2545">
-<circle cx="720" cy="50" r="6" fill="#991b1b"/><text x="720" y="36" text-anchor="middle">Narita (NRT / Nikko)</text>
-<circle cx="560" cy="190" r="4" fill="#991b1b"/><text x="560" y="210" text-anchor="middle" font-size="10">Ebina SA</text>
-<circle cx="480" cy="240" r="5.5" fill="#991b1b"/><text x="494" y="244" text-anchor="start">Atami Baien</text>
-<circle cx="495" cy="312" r="4.5" fill="#991b1b"/><text x="508" y="320" text-anchor="start" font-size="10">Mt Komuro</text>
-<circle cx="470" cy="300" r="6.5" fill="#075985"/><text x="484" y="297" text-anchor="start">KAI Anjin (Ito)</text>
-<circle cx="455" cy="385" r="5.5" fill="#075985"/><text x="469" y="389" text-anchor="start">Izu Shirahama</text>
-<circle cx="440" cy="405" r="4.5" fill="#075985"/><text x="426" y="420" text-anchor="end" font-size="10">Shimoda</text>
-<circle cx="365" cy="290" r="6" fill="#78350f"/><text x="351" y="294" text-anchor="end">Shuzenji</text>
-<circle cx="350" cy="215" r="4.5" fill="#78350f"/><text x="336" y="219" text-anchor="end" font-size="10">Kakitagawa</text>
-<circle cx="385" cy="185" r="5.5" fill="#78350f"/><text x="399" y="181" text-anchor="start" font-size="10">Mishima Skywalk</text>
-<circle cx="640" cy="150" r="6.5" fill="#78350f"/><text x="640" y="176" text-anchor="middle">Ginza / Tokyo</text>
-<circle cx="690" cy="120" r="5" fill="#9d174d"/><text x="704" y="112" text-anchor="start" font-size="10">Disneyland</text>
-</g>
-</svg></div>
-<div class="route-legend">
-<span><span class="sw" style="background:#991b1b"></span>D1 — ไปอิโต</span>
-<span><span class="sw" style="background:#075985"></span>D2 — ชายฝั่งใต้</span>
-<span><span class="sw" style="background:#78350f"></span>D3 — ไปกินซ่า</span>
-<span><span class="sw" style="background:#9d174d"></span>D4 — ดิสนีย์แลนด์</span>
-<span><span class="sw" style="background:#1e3a8a"></span>D5 — วันอิสระ</span>
-<span><span class="sw" style="background:#334155"></span>D6 — เดินทางกลับ</span>
-</div>
+${routeMapHTML('th')}
 <div class="route-day" style="border-left-color:#4338ca"><div class="route-day-head"><span class="route-day-pill" style="background:#4338ca">D0</span><strong>วันออกเดินทาง — สองบ้าน สองเส้นทาง</strong></div>
 <ol class="route-stops">
 <li><b>คนส่วนใหญ่ของครอบครัว</b> — กรุงเทพฯ → นาริตะ ไฟลต์เช้า → ค้างคืนที่ Hotel Nikko Narita</li>
@@ -899,8 +842,8 @@ SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่�
 <li><b>KAI Anjin</b> — ส่ง 16:00 ห่างเขาโคมุโระราว 15 นาที เช็กอิน ทานอาหารเย็นที่ KAI</li>
 </ol>
 <div class="route-callout">ปีนี้อาตามิไบเอ็น<b>ไม่มีที่จอดรถบัสกลุ่มฟรี</b> (มีงานก่อสร้างแถวสี่แยกซาซาจิริ) รถบัสต้องส่งคนตรงจุดที่กำหนดแล้วไปจอดที่จอดเสียเงิน — แจ้งบริษัทรถบัสด้วย เวลาเปิดกระเช้าเขาโคมุโระแต่ละแหล่งไม่ตรงกัน (9:30–16:00 หรือ 8:30–16:30) โทรเช็ก 0557-45-1444</div>
-<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Narita%20International%20Airport&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Narita%20International%20Airport&daddr=Ebina%20SA%2C%20Tomei%20Expressway+to:Atami%20Baien%2C%20Atami%2C%20Shizuoka+to:Komuroyama%20Park%2C%20Ito%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D1"></iframe></div></div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hotel%20Nikko%20Narita&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Ebina%20SA%2C%20Tomei%20Expressway%7CAtami%20Baien%2C%20Atami%2C%20Shizuoka%7CKomuroyama%20Park%2C%20Ito%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
+</div>
 <div class="route-day" style="border-left-color:#075985"><div class="route-day-head"><span class="route-day-pill" style="background:#075985">D2</span><strong>ชายฝั่งอิซุใต้ — ชิราฮามะ</strong></div>
 <ol class="route-stops">
 <li><b>KAI Anjin</b> — รับ 09:30 (วันนี้ไม่ต้องขนกระเป๋า) ลงใต้ตามถนน 135 เลียบชายฝั่งตะวันออก</li>
@@ -912,8 +855,8 @@ SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่�
 <li><b>KAI Anjin</b> — ส่ง 16:30 มื้อเย็นรวมญาติทั้งครอบครัวที่ KAI ใส่ยูกาตะ</li>
 </ol>
 <div class="route-callout">ตัดคุโมมิออกจากแผนของกลุ่มแล้ว (26 ต.ค.) — ไม่แน่ใจว่ารถบัสใหญ่วิ่งถนนแคบฝั่งตะวันตกได้ ถนน 135 ฝั่งตะวันออกเป็นเส้นทางที่รถบัสทัวร์ใช้ประจำ ขากลับวันอาทิตย์อาจรถติด เผื่อเวลาไว้</div>
-<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka%7CIzu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shimoda%20Port%2C%20Shimoda%2C%20Shizuoka+to:Izu%20Shirahama%20Beach%2C%20Shimoda%2C%20Shizuoka+to:Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D2"></iframe></div></div>
+<a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&waypoints=Kadowaki%20Bridge%2C%20Ito%7CShirahama%20Shrine%2C%20Shimoda%7CPerry%20Road%2C%20Shimoda&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
+</div>
 <div class="route-day" style="border-left-color:#78350f"><div class="route-day-head"><span class="route-day-pill" style="background:#78350f">D3</span><strong>อิโต → ชูเซ็นจิ → มิชิมะ → กินซ่า</strong></div>
 <ol class="route-stops">
 <li><b>KAI Anjin</b> — รับ 09:00 เช็กเอาต์ ขนกระเป๋าขึ้นรถ</li>
@@ -926,11 +869,11 @@ SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่�
 </ol>
 <div class="route-callout">สวนวัดชูเซ็นจิที่เปิดพิเศษช่วงใบไม้แดงปีที่แล้วปิด 2 ธ.ค. — วันที่ 7 น่าจะปิดแล้ว แต่ริมแม่น้ำและในเมืองเดินชมได้ฟรี เช็กที่จอดรถบัสที่คาคิตะกาวะ (ลานจอดเล็ก) และสกายวอล์ก จุดจอดรถบัสที่กินซ่ายังไม่สรุป</div>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&destination=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&waypoints=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka%7CKakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka%7CMishima%20Skywalk%2C%20Mishima%2C%20Shizuoka&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Hoshino%20Resorts%20KAI%20Anjin%2C%20Ito%2C%20Shizuoka&daddr=Shuzenji%20Temple%2C%20Izu%2C%20Shizuoka+to:Kakitagawa%20Park%2C%20Shimizu%2C%20Shizuoka+to:Mishima%20Skywalk%2C%20Mishima%2C%20Shizuoka+to:Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D3"></iframe></div></div>
+</div>
 <div class="route-day" style="border-left-color:#9d174d"><div class="route-day-head"><span class="route-day-pill" style="background:#9d174d">D4</span><strong>โตเกียวดิสนีย์แลนด์</strong></div>
 <ol class="route-stops"><li><b>โตเกียวดิสนีย์แลนด์</b> — เต็มวัน ช่วงคริสต์มาส</li></ol>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Ginza%2C%20Tokyo&destination=Tokyo%20Disneyland&travelmode=transit">${ic('map-pin',16)} เปิดใน Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Ginza%2C%20Tokyo&daddr=Tokyo%20Disneyland&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D4"></iframe></div></div>
+</div>
 <div class="route-day" style="border-left-color:#1e3a8a"><div class="route-day-head"><span class="route-day-pill" style="background:#1e3a8a">D5</span><strong>วันอิสระในโตเกียว</strong></div>
 <ol class="route-stops"><li>ไม่มีจุดตายตัว — ตั้งใจเว้นไว้ให้อิสระ</li></ol></div>
 <div class="route-day" style="border-left-color:#334155"><div class="route-day-head"><span class="route-day-pill" style="background:#334155">D6</span><strong>โตเกียว → นาริตะ</strong></div>
@@ -941,7 +884,7 @@ SEC.th.route=`<h2>🗺️ แผนที่เส้นทาง — แต่�
 <li><b>บ้านของเรา</b> — อยู่โตเกียวต่อ เย็นนั่งแท็กซี่ไปฮาเนดะ T3 ไฟลต์ TG661 เวลา 00:20</li>
 </ol>
 <a class="maps-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&destination=Narita%20International%20Airport&travelmode=driving">${ic('map-pin',16)} เปิดใน Google Maps</a>
-<div class="route-map-embed"><iframe src="https://maps.google.com/maps?saddr=Daiwa%20Roynet%20Hotel%20Ginza%20PREMIER&daddr=Narita%20International%20Airport&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="แผนที่เส้นทาง D6"></iframe></div></div>
+</div>
 <div class="route-extra"><h3>เจอใน enjoytokyo.jp — น่าเพิ่มไหม</h3>
 <ul>
 <li><b>วัดฮาเซะ</b> — ตัดออกพร้อมคามาคุระ (26 ต.ค.) ใบไม้แดงตอนนี้มาจากอาตามิไบเอ็น (D1) และชูเซ็นจิ (D3)</li>
@@ -1187,12 +1130,13 @@ function toggleDay(h){h.classList.toggle('open');h.nextElementSibling.classList.
 function navScroll(id,btn){document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
 
 function setLang(l){
+ disposeRouteMap();
  lang=l;try{localStorage.setItem('izu_lang',l);}catch(e){}
  document.documentElement.lang=l;
  document.getElementById('lang-toggle').textContent=l==='en'?'ภาษาไทย':'English';
  document.querySelectorAll('[data-k]').forEach(el=>{const v=STR[l][el.dataset.k];if(v!==undefined)el.textContent=v;});
  document.querySelectorAll('[data-sec]').forEach(el=>{el.innerHTML=SEC[l][el.dataset.sec]||'';});
- renderHeroes();renderDays();
+ renderHeroes();renderDays();mountRouteMap(l);
 }
 function toggleLang(){setLang(lang==='en'?'th':'en');}
 let saved=null;try{saved=localStorage.getItem('izu_lang');}catch(e){}
